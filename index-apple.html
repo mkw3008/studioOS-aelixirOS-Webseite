@@ -791,9 +791,9 @@
               Mitglieder-Community &amp; Social Features
               <span class="fn">Community-Feed, Challenges, Direktnachrichten</span>
             </td>
-            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
-            <td class="td-comp"><span class="no">—</span></td>
-            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
           </tr>
 
           <tr class="cat-row"><td colspan="4">Zahlungen</td></tr>
@@ -991,8 +991,8 @@
 <section class="cost-section" id="kosten">
   <div class="section-inner" style="padding-top:64px">
     <span class="sec-label">Kostenvergleich</span>
-    <h2 class="sec-h2">Was zahlen Sie wirklich?</h2>
-    <p class="sec-sub">Passen Sie Jahresumsatz, Zahlungsmix und Plattformgebühren an — und sehen Sie sofort, was der Vergleich für Ihr Studio bedeutet.</p>
+    <h2 class="sec-h2">Was zahlst du wirklich?</h2>
+    <p class="sec-sub">Passe Jahresumsatz, Zahlungsmix und Plattformgebühren an — und sieh sofort, was der Vergleich für dein Studio bedeutet.</p>
     <div class="kv-widget">
       <p class="kv-sub">Jährliche Gesamtkosten im Vergleich — Zahlungsgebühren plus Plattform-Abo. studioOS nutzt Stripe direkt ohne Aufschlag. Abo-Preise als Startannahmen — mit deinem Angebot anpassen.</p>
       <div class="kv-grid">
@@ -1046,6 +1046,8 @@
           </div>
           <div id="kvBars"></div>
           <div class="kv-legend">
+            <span class="leg-item"><span class="leg-sw" style="background:var(--stripe)"></span>Stripe</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--mollie)"></span>Mollie</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>studioOS</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--bsport)"></span>bsport</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--ever)"></span>Eversports</span>
@@ -1063,6 +1065,13 @@
                 <div class="rate-line"><label>SEPA %</label><input type="number" id="r_s_sp" value="0.8" step="0.05"></div>
                 <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_s_sf" value="0.30" step="0.01"></div>
                 <div class="rate-line"><label>Billing %</label><input type="number" id="r_s_bp" value="0.7" step="0.05"></div>
+              </div>
+              <div class="rate-col">
+                <h4><span class="dot-pre" style="background:var(--mollie)"></span>Mollie</h4>
+                <div class="rate-line"><label>Karte %</label><input type="number" id="r_m_cp" value="1.8" step="0.05"></div>
+                <div class="rate-line"><label>Karte fix €</label><input type="number" id="r_m_cf" value="0.25" step="0.01"></div>
+                <div class="rate-line"><label>SEPA %</label><input type="number" id="r_m_sp" value="0.5" step="0.05"></div>
+                <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_m_sf" value="0.25" step="0.01"></div>
               </div>
               <div class="rate-col">
                 <h4><span class="dot-pre" style="background:var(--bsport)"></span>bsport (blended)</h4>
@@ -1153,8 +1162,10 @@
   const studioMo=$('studioMo'),bsMo=$('bsMo'),evMo=$('evMo');
 
   const providers=[
-    {key:'studio',name:'studioOS',cat:'All-in-One Plattform',color:'var(--studio)'},
-    {key:'bsport', name:'bsport',  cat:'Plattform',color:'var(--bsport)'},
+    {key:'stripe', name:'Stripe',    cat:'Zahlungs-Rail',     color:'var(--stripe)',noWin:true},
+    {key:'mollie', name:'Mollie',    cat:'Zahlungs-Rail',     color:'var(--mollie)',noWin:true},
+    {key:'studio', name:'studioOS', cat:'All-in-One Plattform',color:'var(--studio)'},
+    {key:'bsport', name:'bsport',   cat:'Plattform',color:'var(--bsport)'},
     {key:'ever',   name:'Eversports',cat:'Plattform',color:'var(--ever)'},
   ];
 
@@ -1194,16 +1205,25 @@
     const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
 
     const S={cp:+$('r_s_cp').value,cf:+$('r_s_cf').value,sp:+$('r_s_sp').value,sf:+$('r_s_sf').value,bp:+$('r_s_bp').value};
+    const M={cp:+$('r_m_cp').value,cf:+$('r_m_cf').value,sp:+$('r_m_sp').value,sf:+$('r_m_sf').value};
     const B={tp:+$('r_b_tp').value,tf:+$('r_b_tf').value};
     const E={tp:+$('r_e_tp').value,tf:+$('r_e_tf').value};
 
     const sSepa=sepaVol*S.sp/100+sepaTx*S.sf+(billing.checked?sepaVol*S.bp/100:0);
     const sCard=cardVol*S.cp/100+cardTx*S.cf;
+    const mSepa=sepaVol*M.sp/100+sepaTx*M.sf;
+    const mCard=cardVol*M.cp/100+cardTx*M.cf;
     const bVar=R*B.tp/100+totalTx*B.tf, bFix=(+bsMo.value)*12;
     const eVar=R*E.tp/100+totalTx*E.tf, eFix=(+evMo.value)*12;
     const studioVar=sSepa+sCard, studioFix=(+studioMo.value)*12;
 
     const data={
+      stripe:{variable:sSepa+sCard,fix:0,
+        lines:[['Karte-Gebühren (Stripe)',sCard],['SEPA-Gebühren (Stripe)',sSepa]],
+        note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
+      mollie:{variable:mSepa+mCard,fix:0,
+        lines:[['Karte-Gebühren (Mollie)',mCard],['SEPA-Gebühren (Mollie)',mSepa]],
+        note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
       studio:{variable:studioVar,fix:studioFix,
         lines:[['Zahlungsgebühren (Stripe direkt)',studioVar],['Plattform-Abo / Jahr',studioFix]],
         note:'Stripe-Tarif direkt — kein Plattform-Aufschlag.'},
@@ -1226,9 +1246,10 @@
     $('evMoVal').textContent=eur0.format(+evMo.value);
 
     const maxT=Math.max(...providers.map(p=>data[p.key].total),1);
-    let minK=providers[0].key, minVal=Infinity, secondMin=Infinity;
-    providers.forEach(p=>{const t=data[p.key].total; if(t<minVal){minVal=t;minK=p.key;}});
-    providers.forEach(p=>{const t=data[p.key].total; if(t>minVal&&t<secondMin)secondMin=t;});
+    const platProv=providers.filter(p=>!p.noWin);
+    let minK=platProv[0].key, minVal=Infinity, secondMin=Infinity;
+    platProv.forEach(p=>{const t=data[p.key].total; if(t<minVal){minVal=t;minK=p.key;}});
+    platProv.forEach(p=>{const t=data[p.key].total; if(t>minVal&&t<secondMin)secondMin=t;});
 
     providers.forEach(p=>{
       const d=data[p.key];
@@ -1246,7 +1267,7 @@
       $('note_'+p.key).textContent=d.note;
     });
 
-    const winner=providers.find(p=>p.key===minK).name;
+    const winner=platProv.find(p=>p.key===minK).name;
     const gap=isFinite(secondMin)?secondMin-minVal:0;
     $('verdictMain').innerHTML=winner+' ist am günstigsten — <b>'+eur0.format(minVal)+'</b> / Jahr';
     $('verdictSub').textContent=isFinite(secondMin)
@@ -1256,7 +1277,7 @@
 
   [rev,sepa,avg,studioMo,bsMo,evMo].forEach(el=>{el.addEventListener('input',()=>{track(el);calc();});track(el);});
   billing.addEventListener('change',calc);
-  ['r_s_cp','r_s_cf','r_s_sp','r_s_sf','r_s_bp','r_b_tp','r_b_tf','r_e_tp','r_e_tf'].forEach(id=>$(id).addEventListener('input',calc));
+  ['r_s_cp','r_s_cf','r_s_sp','r_s_sf','r_s_bp','r_b_tp','r_b_tf','r_e_tp','r_e_tf','r_m_cp','r_m_cf','r_m_sp','r_m_sf'].forEach(id=>$(id).addEventListener('input',calc));
   calc();
 })();
 </script>
