@@ -3,86 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>studioOS — All-in-One Studio Management Software</title>
+  <title>aelixirOS — All-in-One Studio Management Software</title>
   <meta name="description" content="Die All-in-One Boutique Fitness Management Plattform. Buchung, Mitglieder, Zahlungen, App, Digital Signage und mehr — in einem System. Gebaut von Studio-Betreibern.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aelixirOS-sereno.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- NAV -->
-<header class="site-nav">
-  <div class="nav-inner">
-    <a class="logo" href="#">
-      <span class="logo-s">studio</span><span class="logo-os">OS</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#vergleich">Vergleich</a></li>
-      <li><a href="#kosten">Kosten</a></li>
-      <li><a href="#kontakt">Demo</a></li>
-    </ul>
-    <a class="nav-cta" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
-  </div>
+<header class="nav">
+  <div class="brand"><span class="brand__studio">aelixir</span><span class="brand__os">OS</span></div>
+  <nav class="nav__links">
+    <a href="#features">Plattform</a>
+    <a href="#vergleich">Vergleich</a>
+    <a href="#kosten">Kosten</a>
+    <a href="#kontakt">Demo</a>
+  </nav>
+  <a class="btn btn--ghost btn--sm" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">Introducing studioOS</span>
-    <h1>Du führst dein Studio.<br>Den Rest übernimmt <em>studioOS</em>.</h1>
-    <p class="hero-sub">Vierzehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
-      <a class="btn-ghost" href="#features">Entdecken ↓</a>
-    </div>
-    <div class="hero-badges">
-      <span class="badge">All-in-One</span>
-      <span class="badge">DSGVO-konform</span>
-      <span class="badge">Stripe direkt</span>
-      <span class="badge">AI-ready</span>
-      <span class="badge">Vom Betreiber · Für Betreiber</span>
-    </div>
+  <div class="eyebrow">Introducing aelixirOS</div>
+  <h1 class="hero__title">Du führst dein Studio. Den Rest übernimmt <span class="accent italic">aelixirOS</span>.</h1>
+  <p class="hero__lead">Vierzehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
+  <div class="hero__actions">
+    <a class="btn btn--primary" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
+    <a class="link-underline" href="#features">Die Plattform ansehen</a>
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div>
-      <span class="stat-num">14<span> Module</span></span>
-      <span class="stat-label">ein System</span>
-    </div>
-    <div>
-      <span class="stat-num">100<span> %</span></span>
-      <span class="stat-label">dein Branding</span>
-    </div>
-    <div>
-      <span class="stat-num"><span>AI</span></span>
-      <span class="stat-label">nativ integriert</span>
-    </div>
+<!-- SHOWCASE -->
+<div class="showcase">
+  <div class="showcase__frame">
+    <img class="showcase__img" src="Tops.png" alt="aelixirOS Dashboard">
   </div>
 </div>
 
-<!-- FOR WHOM -->
-<section class="for-section">
-  <div class="section-inner">
-    <span class="sec-label">Für wen</span>
-    <h2 class="sec-h2">Dein Studio ist einzigartig.<br>Deine Software sollte es auch sein.</h2>
-    <p class="sec-sub">Für alle, die mehr wollen als ein generisches Buchungssystem.</p>
-    <div class="studio-types">
-      <span class="st-chip hi">Boutique Fitness</span>
-      <span class="st-chip">Yoga &amp; Pilates</span>
-      <span class="st-chip">Kampfsport / Martial Arts</span>
-      <span class="st-chip">CrossFit &amp; Functional Training</span>
-      <span class="st-chip">Personal Training</span>
-      <span class="st-chip">Tanz &amp; Bewegung</span>
-      <span class="st-chip">Wellness &amp; Spa</span>
-      <span class="st-chip">Schwimmen &amp; Aqua</span>
-      <span class="st-chip">Klettern &amp; Outdoor</span>
-    </div>
+<!-- STATS -->
+<section class="stats stats--3">
+  <div class="stats__item">
+    <div class="stats__num">14</div>
+    <div class="stats__label">Bereiche · ein System</div>
+  </div>
+  <div class="stats__item">
+    <div class="stats__num">100%</div>
+    <div class="stats__label">dein Branding</div>
+  </div>
+  <div class="stats__item">
+    <div class="stats__num">AI</div>
+    <div class="stats__label">nativ integriert</div>
+  </div>
+</section>
+
+<!-- FÜR WEN -->
+<section class="section section--center">
+  <div class="eyebrow">Für wen</div>
+  <h2 class="section__title">Dein Studio ist einzigartig.<br>Deine Software sollte es auch sein.</h2>
+  <p class="section__lead">Für alle, die mehr wollen als ein generisches Buchungssystem.</p>
+  <div class="chips" style="margin-top:34px;">
+    <span class="chip chip--filled">Boutique Fitness</span>
+    <span class="chip">Yoga &amp; Pilates</span>
+    <span class="chip">Kampfsport</span>
+    <span class="chip">CrossFit &amp; Functional</span>
+    <span class="chip">Personal Training</span>
+    <span class="chip">Tanz &amp; Bewegung</span>
+    <span class="chip">Wellness &amp; Spa</span>
+    <span class="chip">Schwimmen &amp; Aqua</span>
+    <span class="chip">Klettern &amp; Outdoor</span>
   </div>
 </section>
 
@@ -135,13 +126,13 @@
           </div>
           <div class="pmod">
             <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
-            <div class="pmod-name">studioOS <span>Vision</span></div>
-            <p class="pmod-desc">Digital Signage System mit Hardwaremodul — Inhalte zentral aus studioOS steuern.</p>
+            <div class="pmod-name">aelixirOS <span>Vision</span></div>
+            <p class="pmod-desc">Digital Signage System mit Hardwaremodul — Inhalte zentral aus aelixirOS steuern.</p>
             <ul class="pmod-list">
               <li>Hardwaremodul direkt am TV</li>
               <li>Kursplan, Werbung &amp; Inhalte live</li>
               <li>Mehrere Bildschirme, eine Quelle</li>
-              <li>Content-Verwaltung in studioOS</li>
+              <li>Content-Verwaltung in aelixirOS</li>
             </ul>
           </div>
         </div>
@@ -156,7 +147,7 @@
           <div class="pmod">
             <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
             <div class="pmod-name">studio <span>Webseite</span></div>
-            <p class="pmod-desc">Deine persönliche Studio-Website mit integriertem CMS direkt aus studioOS — Buchung inklusive.</p>
+            <p class="pmod-desc">Deine persönliche Studio-Website mit integriertem CMS direkt aus aelixirOS — Buchung inklusive.</p>
             <ul class="pmod-list">
               <li>Eigene Website ohne Drittanbieter</li>
               <li>Buchungs-Widget nahtlos integriert</li>
@@ -167,7 +158,7 @@
           <div class="pmod">
             <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
             <div class="pmod-name">studio <span>Shop</span></div>
-            <p class="pmod-desc">Integrierter Onlineshop — direkt in studioOS und der App. Kein Kassensystem nötig.</p>
+            <p class="pmod-desc">Integrierter Onlineshop — direkt in aelixirOS und der App. Kein Kassensystem nötig.</p>
             <ul class="pmod-list">
               <li>Merchandise, Supplements, Pakete</li>
               <li>Kein Kassensystem nötig</li>
@@ -256,7 +247,7 @@
             <div class="pmod-name">studio <span>Reception</span></div>
             <p class="pmod-desc">CTI-gestützte, schichtbasierte Anrufsteuerung — wer Dienst hat, ist erreichbar. Automatisch, ohne manuelle Umleitung.</p>
             <ul class="pmod-list">
-              <li>CTI-Integration: Telefonie direkt in studioOS</li>
+              <li>CTI-Integration: Telefonie direkt in aelixirOS</li>
               <li>Dienstplan-gesteuerte Anrufweiterleitung</li>
               <li>Immer der richtige Ansprechpartner zur richtigen Zeit</li>
               <li>Kein verpasster Anruf im laufenden Betrieb</li>
@@ -283,16 +274,16 @@
 <!-- VISION SPOTLIGHT -->
 <section class="vision-section">
   <div class="section-inner" style="text-align:center">
-    <span class="sec-label">studioOS Vision</span>
-    <h2 class="sec-h2">Digital Signage aus deinem studioOS direkt auf deine Monitore und Tablets.</h2>
+    <span class="sec-label">aelixirOS Vision</span>
+    <h2 class="sec-h2">Digital Signage aus deinem aelixirOS direkt auf deine Monitore und Tablets.</h2>
     <p class="sec-sub">Kurspläne, Live-Inhalte und Werbung — zentral gesteuert. Kein Drittanbieter, kein separates System.</p>
     <div class="vision-imgs">
       <div class="vision-img-item product">
-        <img src="./StudioOSVision_Product.png" alt="studioOS Vision Hardwaremodul" loading="lazy">
-        <span class="vision-img-caption">studioOS Vision Hardwaremodul</span>
+        <img src="./StudioOSVision_Product.png" alt="aelixirOS Vision Hardwaremodul" loading="lazy">
+        <span class="vision-img-caption">aelixirOS Vision Hardwaremodul</span>
       </div>
       <div class="vision-img-item example">
-        <img src="./studioexample.png" alt="studioOS Vision – Inhalte auf dem Bildschirm" loading="lazy">
+        <img src="./studioexample.png" alt="aelixirOS Vision – Inhalte auf dem Bildschirm" loading="lazy">
         <span class="vision-img-caption">Inhalte auf dem Bildschirm</span>
       </div>
     </div>
@@ -313,7 +304,7 @@
           </svg>
         </div>
         <strong>Zentrale Steuerung</strong>
-        <p>Alle Bildschirme im Studio aus studioOS heraus verwalten.</p>
+        <p>Alle Bildschirme im Studio aus aelixirOS heraus verwalten.</p>
       </div>
       <div class="vision-pill">
         <div class="vision-pill-icon">
@@ -330,7 +321,7 @@
             <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
           </svg>
         </div>
-        <strong>Designed for studioOS</strong>
+        <strong>Designed for aelixirOS</strong>
         <p>Eigens entwickelte Hardware — vollständig integriert, kein Drittanbieter.</p>
       </div>
     </div>
@@ -341,7 +332,7 @@
 <section class="comparison-section" id="vergleich">
   <div class="section-inner">
     <span class="sec-label">Vergleich</span>
-    <h2 class="sec-h2">studioOS — die einzige All-in-one Lösung</h2>
+    <h2 class="sec-h2">aelixirOS — die einzige All-in-one Lösung</h2>
     <p class="sec-sub">Auf Basis öffentlich verfügbarer Produktinformationen (Stand 2026). Alle Anbieter entwickeln sich weiter.</p>
 
     <div class="table-wrap">
@@ -350,7 +341,7 @@
           <tr>
             <th class="th-feat">Feature</th>
             <th class="th-studio">
-              <span class="th-nm">studioOS</span>
+              <span class="th-nm">aelixirOS</span>
               <span class="th-tg">vom Betreiber · für Betreiber</span>
             </th>
             <th class="th-comp">bsport</th>
@@ -453,7 +444,7 @@
           <tr>
             <td>
               Studio-Website Builder
-              <span class="fn">Eigene Website direkt aus studioOS, Buchung integriert</span>
+              <span class="fn">Eigene Website direkt aus aelixirOS, Buchung integriert</span>
             </td>
             <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
             <td class="td-comp"><span class="no">—</span></td>
@@ -489,11 +480,11 @@
             <td class="td-comp"><span class="part">Begrenzt</span></td>
           </tr>
 
-          <tr class="cat-row"><td colspan="4">Einzigartiges in studioOS</td></tr>
+          <tr class="cat-row"><td colspan="4">Einzigartiges in aelixirOS</td></tr>
           <tr>
             <td>
-              Digital Signage (studioOS Vision)
-              <span class="fn">Hardwaremodul am TV — Inhalte aus studioOS steuern</span>
+              Digital Signage (aelixirOS Vision)
+              <span class="fn">Hardwaremodul am TV — Inhalte aus aelixirOS steuern</span>
             </td>
             <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
             <td class="td-comp"><span class="no">—</span></td>
@@ -588,7 +579,7 @@
         </tbody>
       </table>
     </div>
-    <p class="comp-disclaimer">★ Alleinstellungsmerkmale studioOS &nbsp;·&nbsp; Angaben für bsport und Eversports basieren auf öffentlich verfügbaren Produktseiten und Preisübersichten (Stand 2026). Alle Anbieter entwickeln sich weiter — keine Gewähr auf Vollständigkeit. Keine Kaufberatung.</p>
+    <p class="comp-disclaimer">★ Alleinstellungsmerkmale aelixirOS &nbsp;·&nbsp; Angaben für bsport und Eversports basieren auf öffentlich verfügbaren Produktseiten und Preisübersichten (Stand 2026). Alle Anbieter entwickeln sich weiter — keine Gewähr auf Vollständigkeit. Keine Kaufberatung.</p>
   </div>
 </section>
 
@@ -598,8 +589,8 @@
     <div class="mig-icon-wrap">🤖</div>
     <div>
       <div class="mig-label">KI-gestützter Wechsel</div>
-      <h3 class="mig-h3">Migration zu studioOS mit AI Assistent, Netz und doppeltem Boden — in Tagen, nicht in Wochen.</h3>
-      <p class="mig-text">Der studioOS AI-Migrationsassistent führt dich Schritt für Schritt durch den Wechsel. Mitglieder, Verträge, Kurspläne, Zahlungsdaten — alles strukturiert, geprüft und importiert. Kein Datenverlust, kein Chaos.</p>
+      <h3 class="mig-h3">Migration zu aelixirOS mit AI Assistent, Netz und doppeltem Boden — in Tagen, nicht in Wochen.</h3>
+      <p class="mig-text">Der aelixirOS AI-Migrationsassistent führt dich Schritt für Schritt durch den Wechsel. Mitglieder, Verträge, Kurspläne, Zahlungsdaten — alles strukturiert, geprüft und importiert. Kein Datenverlust, kein Chaos.</p>
       <div class="mig-chips">
         <span class="mig-chip">Von bsport</span>
         <span class="mig-chip">Von Eversports</span>
@@ -618,7 +609,7 @@
     <h2 class="sec-h2">Was zahlst du wirklich?</h2>
     <p class="sec-sub">Passe Jahresumsatz, Zahlungsmix und Plattformgebühren an — und sieh sofort, was der Vergleich für dein Studio bedeutet.</p>
     <div class="kv-widget">
-      <p class="kv-sub">Jährliche Gesamtkosten im Vergleich — Zahlungsgebühren plus Plattform-Abo. studioOS nutzt Stripe direkt ohne Aufschlag. Abo-Preise als Startannahmen — mit deinem Angebot anpassen.</p>
+      <p class="kv-sub">Jährliche Gesamtkosten im Vergleich — Zahlungsgebühren plus Plattform-Abo. aelixirOS nutzt Stripe direkt ohne Aufschlag. Abo-Preise als Startannahmen — mit deinem Angebot anpassen.</p>
       <div class="kv-grid">
 
         <section class="panel panel-pad" aria-label="Eingaben">
@@ -639,8 +630,8 @@
           </div>
           <div class="div-lbl">Plattform-Grundgebühren</div>
           <div class="field">
-            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>studioOS / Monat</span><span class="field-val" id="studioMoVal">89&nbsp;€</span></div>
-            <input type="range" id="studioMo" min="0" max="400" step="5" value="109" aria-label="studioOS Monatsgebühr">
+            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>aelixirOS / Monat</span><span class="field-val" id="studioMoVal">89&nbsp;€</span></div>
+            <input type="range" id="studioMo" min="0" max="400" step="5" value="109" aria-label="aelixirOS Monatsgebühr">
             <div class="field-sub">Startpreis ab 200 € / Monat — mit deinem Angebot anpassen</div>
           </div>
           <div class="field">
@@ -672,7 +663,7 @@
           <div class="kv-legend">
             <span class="leg-item"><span class="leg-sw" style="background:var(--stripe)"></span>Stripe</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--mollie)"></span>Mollie</span>
-            <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>studioOS</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>aelixirOS</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--bsport)"></span>bsport</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--ever)"></span>Eversports</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Abo / Grundgebühr</span>
@@ -690,7 +681,7 @@
                 <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_str_sf" value="0.25" step="0.01"></div>
               </div>
               <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--studio)"></span>studioOS (inkl. Aufschlag)</h4>
+                <h4><span class="dot-pre" style="background:var(--studio)"></span>aelixirOS (inkl. Aufschlag)</h4>
                 <div class="rate-line"><label>Karte %</label><input type="number" id="r_s_cp" value="2.1" step="0.05"></div>
                 <div class="rate-line"><label>Karte fix €</label><input type="number" id="r_s_cf" value="0.29" step="0.01"></div>
                 <div class="rate-line"><label>SEPA %</label><input type="number" id="r_s_sp" value="0.8" step="0.05"></div>
@@ -728,7 +719,7 @@
   <div class="section-inner">
     <span class="sec-label">Unsere Philosophie</span>
     <h2 class="sec-h2">Im eigenen Studio geboren.<br>Für deins gemacht.</h2>
-    <p class="sec-sub">Software, die nur Funktionen zählt, kennt kein Studio von innen. studioOS entstand aus dem Alltag — und löst die Probleme, die wir selbst erlebt haben.</p>
+    <p class="sec-sub">Software, die nur Funktionen zählt, kennt kein Studio von innen. aelixirOS entstand aus dem Alltag — und löst die Probleme, die wir selbst erlebt haben.</p>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-head">Radikal transparent</div>
@@ -776,7 +767,7 @@
       </nav>
     </div>
     <p class="footer-note">
-      studioOS ist ein Produkt der R2 Fitness Ventures UG. &nbsp;·&nbsp;
+      aelixirOS ist ein Produkt der R2 Fitness Ventures UG. &nbsp;·&nbsp;
       Feature-Vergleiche basieren auf öffentlich verfügbaren Informationen der genannten Anbieter (Stand 2026) und dienen der allgemeinen Orientierung. Kein Anspruch auf Vollständigkeit oder Aktualität. Alle Marken- und Produktnamen sind Eigentum ihrer jeweiligen Inhaber. Keine Kaufberatung.
     </p>
   </div>
@@ -795,7 +786,7 @@
   const providers=[
     {key:'stripe', name:'Stripe',    cat:'Zahlungs-Rail',     color:'var(--stripe)',noWin:true},
     {key:'mollie', name:'Mollie',    cat:'Zahlungs-Rail',     color:'var(--mollie)',noWin:true},
-    {key:'studio', name:'studioOS', cat:'All-in-One Plattform',color:'var(--studio)'},
+    {key:'studio', name:'aelixirOS', cat:'All-in-One Plattform',color:'var(--studio)'},
     {key:'bsport', name:'bsport',   cat:'Plattform',color:'var(--bsport)'},
     {key:'ever',   name:'Eversports',cat:'Plattform',color:'var(--ever)'},
   ];
@@ -869,7 +860,7 @@
         note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
       studio:{variable:studioVar,fix:studioFix,
         lines:[['Zahlungsgebühren (inkl. Aufschlag)',studioVar],['Plattform-Abo / Jahr',studioFix]],
-        note:'Stripe-Basis + studioOS-Aufschlag — Vollplattform inkl. Buchung, App & Verwaltung.'},
+        note:'Stripe-Basis + aelixirOS-Aufschlag — Vollplattform inkl. Buchung, App & Verwaltung.'},
       bsport:{variable:bVar,fix:bFix,
         lines:[['Transaktion (blended)',bVar],['Abo / Jahr',bFix]],
         note:'Transaktionssatz lt. Vertrag (Annahme). Inkl. Buchung, App, Mitgliederverwaltung.'},
