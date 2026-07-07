@@ -630,18 +630,18 @@
             </div>
           </div>
           <div class="field">
-            <div class="field-head"><span class="field-name">Jahresumsatz</span><span class="field-val" id="revVal">200.000&nbsp;€</span></div>
-            <input type="range" id="rev" min="10000" max="1000000" step="5000" value="200000" aria-label="Jahresumsatz">
+            <div class="field-head"><span class="field-name">Jahresumsatz</span><span class="field-val" id="revVal">80.000&nbsp;€</span></div>
+            <input type="range" id="rev" min="10000" max="1000000" step="5000" value="80000" aria-label="Jahresumsatz">
           </div>
           <div class="field">
-            <div class="field-head"><span class="field-name">Anteil SEPA-Lastschrift</span><span class="field-val" id="sepaVal">50 %</span></div>
-            <input type="range" id="sepa" min="0" max="100" step="5" value="50" aria-label="SEPA-Anteil">
-            <div class="field-sub" id="cardShare">Karte: 50 %</div>
+            <div class="field-head"><span class="field-name">Anteil SEPA-Lastschrift</span><span class="field-val" id="sepaVal">0 %</span></div>
+            <input type="range" id="sepa" min="0" max="100" step="5" value="0" aria-label="SEPA-Anteil">
+            <div class="field-sub" id="cardShare">Karte: 100 %</div>
           </div>
           <div class="field">
-            <div class="field-head"><span class="field-name">Ø Transaktionswert</span><span class="field-val" id="avgVal">70 €</span></div>
-            <input type="range" id="avg" min="20" max="200" step="5" value="70" aria-label="Transaktionswert">
-            <div class="field-sub" id="txCount">≈ 2.857 Transaktionen / Jahr</div>
+            <div class="field-head"><span class="field-name">Ø Transaktionswert</span><span class="field-val" id="avgVal">50 €</span></div>
+            <input type="range" id="avg" min="20" max="200" step="5" value="50" aria-label="Transaktionswert">
+            <div class="field-sub" id="txCount">≈ 1.600 Transaktionen / Jahr</div>
           </div>
           <div class="div-lbl">Plattform-Grundgebühren</div>
           <div class="field">
@@ -818,7 +818,7 @@
     b.innerHTML=`<div class="bar-label">
       <span class="brand-dot" style="background:${p.color}"></span>
       <span class="bar-name">${p.name}</span><span class="bar-cat">${p.cat}</span>
-      <span class="bar-tag" id="tag_${p.key}" hidden>✓ günstigste</span></div>
+      <span class="bar-tag" id="tag_${p.key}" hidden>✓ bestes Angebot</span></div>
       <div class="track-row"><div class="kv-track"><div class="barfill" id="bar_${p.key}">
       <div class="seg" id="segs_${p.key}" style="background:var(--stripe)"></div>
       <div class="seg" id="segv_${p.key}" style="background:${segvColor}"></div>
