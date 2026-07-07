@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
   <link rel="apple-touch-icon" href="icons/icon-512.png">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -26,7 +26,7 @@
       <li><a href="#kontakt">Demo</a></li>
     </ul>
     <div class="nav-right">
-      <a class="nav-login" href="https://os.aelixir.de/">Login</a>
+      <a class="nav-login" id="navLogin" href="https://os.aelixir.de/login/studioos">Login</a>
       <a class="nav-cta" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
     </div>
   </div>
@@ -427,9 +427,9 @@
               Stripe direkt — native Integration
               <span class="fn">Direkte Stripe-Anbindung ohne zusätzliche Middleware</span>
             </td>
-            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
-            <td class="td-comp"><span class="no">—</span></td>
-            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
           </tr>
           <tr>
             <td>
@@ -679,8 +679,6 @@
             <span class="leg-item"><span class="leg-sw" style="background:var(--bsport)"></span>bsport</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--ever)"></span>Eversports</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Transaktions-Aufschlag</span>
-            <span class="leg-item" style="color:var(--faint)">Grundgebühr = Anbieterfarbe</span>
-            <span class="leg-item" id="barLenNote" style="margin-left:auto;color:var(--faint)">Balkenlänge = Jahreskosten</span>
           </div>
           <div class="kv-cards" id="kvCards"></div>
           <details class="adv">
@@ -785,6 +783,32 @@
   </div>
 </footer>
 
+<!-- Login-Overlay (öffnet unter dem Header) -->
+<div class="login-overlay" id="loginOverlay" hidden>
+  <div class="login-box">
+    <div class="login-bar">
+      <span class="login-bar-title">studioOS Login</span>
+      <button class="login-close" id="loginClose" type="button" aria-label="Login schließen">✕</button>
+    </div>
+    <iframe class="login-frame" id="loginFrame" title="studioOS Login" data-src="https://os.aelixir.de/login/studioos" loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('navLogin'),
+      ov=document.getElementById('loginOverlay'),
+      closeBtn=document.getElementById('loginClose'),
+      frame=document.getElementById('loginFrame');
+  if(!btn||!ov) return;
+  function openLogin(){ if(frame && !frame.getAttribute('src')){ frame.src=frame.dataset.src; } ov.hidden=false; document.body.style.overflow='hidden'; }
+  function closeLogin(){ ov.hidden=true; document.body.style.overflow=''; }
+  btn.addEventListener('click', function(e){ e.preventDefault(); openLogin(); });
+  closeBtn.addEventListener('click', closeLogin);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeLogin(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !ov.hidden) closeLogin(); });
+})();
+</script>
 
 <script>
 (function(){
@@ -903,7 +927,6 @@
     // Zeitraum-Umschaltung: Werte skalieren, Balkenlängen bleiben proportional.
     const f=periodMonthly?1/12:1, fOther=periodMonthly?1:1/12;
     const per=periodMonthly?'/ Monat':'/ Jahr', perOther=periodMonthly?'/ Jahr':'/ Monat';
-    $('barLenNote').textContent='Balkenlänge = '+(periodMonthly?'Monatskosten':'Jahreskosten');
 
     const maxT=Math.max(...providers.map(p=>data[p.key].total),1);
     const platProv=providers.filter(p=>!p.noWin);
