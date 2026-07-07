@@ -773,7 +773,7 @@
       <button class="login-close" id="contactClose" type="button" aria-label="Schließen">✕</button>
     </div>
     <div class="contact-body">
-      <form id="contactForm" class="contact-form" novalidate>
+      <form id="contactForm" class="contact-form">
         <!-- Web3Forms: Access-Key hier eintragen (von web3forms.com mit studioos.support@gmail.com) -->
         <input type="hidden" name="access_key" value="2bb0277c-e28b-41fc-90fa-588cf72aefdf">
         <input type="hidden" name="subject" value="Neue Demo-/Kontaktanfrage über studioos.aelixir.de">
@@ -786,7 +786,7 @@
           <input type="email" name="email" required autocomplete="email">
         </label>
         <label class="cf-label">Studio / Unternehmen
-          <input type="text" name="studio" autocomplete="organization">
+          <input type="text" name="studio" required autocomplete="organization">
         </label>
         <label class="cf-label">Nachricht
           <textarea name="message" required></textarea>
@@ -814,7 +814,7 @@
       submitBtn=document.getElementById('cfSubmit'),
       errEl=document.getElementById('cfError');
   if(!ov||!form) return;
-  function openContact(){ form.hidden=false; thanks.hidden=true; errEl.hidden=true; ov.hidden=false; document.body.style.overflow='hidden'; }
+  function openContact(){ form.style.display=''; thanks.hidden=true; errEl.hidden=true; ov.hidden=false; document.body.style.overflow='hidden'; }
   function closeContact(){ ov.hidden=true; document.body.style.overflow=''; }
   document.querySelectorAll('[data-contact]').forEach(function(el){
     el.addEventListener('click', function(e){ e.preventDefault(); openContact(); });
@@ -829,7 +829,7 @@
     submitBtn.disabled=true; submitBtn.textContent='Senden …';
     fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) })
       .then(function(r){ return r.json(); })
-      .then(function(j){ if(j && j.success){ form.hidden=true; thanks.hidden=false; } else { throw new Error(); } })
+      .then(function(j){ if(j && j.success){ form.style.display='none'; thanks.hidden=false; } else { throw new Error(); } })
       .catch(function(){ errEl.textContent='Senden fehlgeschlagen. Bitte später erneut versuchen oder direkt an studioos.support@gmail.com schreiben.'; errEl.hidden=false; })
       .finally(function(){ submitBtn.disabled=false; submitBtn.textContent='Anfrage senden'; });
   });
