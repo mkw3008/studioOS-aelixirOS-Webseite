@@ -681,42 +681,6 @@
             <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Transaktions-Aufschlag</span>
           </div>
           <div class="kv-cards" id="kvCards"></div>
-          <details class="adv">
-            <summary>Tarife anpassen (Verhandlung, Vertrag, Preisänderung)</summary>
-            <div class="rates-grid">
-              <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--stripe)"></span>Stripe (Listenpreis)</h4>
-                <div class="rate-line"><label>Karte %</label><input type="number" id="r_str_cp" value="1.5" step="0.05"></div>
-                <div class="rate-line"><label>Karte fix €</label><input type="number" id="r_str_cf" value="0.25" step="0.01"></div>
-                <div class="rate-line"><label>SEPA %</label><input type="number" id="r_str_sp" value="0.8" step="0.05"></div>
-                <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_str_sf" value="0.25" step="0.01"></div>
-              </div>
-              <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--studio)"></span>studioOS (inkl. Aufschlag)</h4>
-                <div class="rate-line"><label>Karte %</label><input type="number" id="r_s_cp" value="2.1" step="0.05"></div>
-                <div class="rate-line"><label>Karte fix €</label><input type="number" id="r_s_cf" value="0.29" step="0.01"></div>
-                <div class="rate-line"><label>SEPA %</label><input type="number" id="r_s_sp" value="0.8" step="0.05"></div>
-                <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_s_sf" value="0.30" step="0.01"></div>
-              </div>
-              <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--mollie)"></span>Mollie</h4>
-                <div class="rate-line"><label>Karte %</label><input type="number" id="r_m_cp" value="1.8" step="0.05"></div>
-                <div class="rate-line"><label>Karte fix €</label><input type="number" id="r_m_cf" value="0.25" step="0.01"></div>
-                <div class="rate-line"><label>SEPA %</label><input type="number" id="r_m_sp" value="0.5" step="0.05"></div>
-                <div class="rate-line"><label>SEPA fix €</label><input type="number" id="r_m_sf" value="0.25" step="0.01"></div>
-              </div>
-              <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--bsport)"></span>bsport (blended)</h4>
-                <div class="rate-line"><label>Transaktion %</label><input type="number" id="r_b_tp" value="2.9" step="0.05"></div>
-                <div class="rate-line"><label>Transaktion fix €</label><input type="number" id="r_b_tf" value="0.30" step="0.01"></div>
-              </div>
-              <div class="rate-col">
-                <h4><span class="dot-pre" style="background:var(--ever)"></span>Eversports (blended)</h4>
-                <div class="rate-line"><label>Transaktion %</label><input type="number" id="r_e_tp" value="2.9" step="0.05"></div>
-                <div class="rate-line"><label>Transaktion fix €</label><input type="number" id="r_e_tf" value="0.45" step="0.01"></div>
-              </div>
-            </div>
-          </details>
         </section>
 
       </div><!-- /kv-grid -->
@@ -733,11 +697,11 @@
     <div class="why-grid">
       <div class="why-card">
         <div class="why-head">Radikal transparent</div>
-        <p class="why-text">Die Plattform verdient nicht an deinem Umsatz. Stripe direkt — ohne Aufschlag. Was du siehst, ist was du zahlst.</p>
+        <p class="why-text">Die Plattform mit Transparenz statt Tarif-Dschungel. Damit du siehst — und die Wahl hast — welchen Service du einkaufst.</p>
       </div>
       <div class="why-card">
         <div class="why-head">Designed for simplicity</div>
-        <p class="why-text">Buchung, Mitglieder, Zahlungen, Signage, Shop, PT — alles in einem. Kein Sync. Keine Doppelpflege. Alles denkt zusammen.</p>
+        <p class="why-text">Buchung, Mitglieder, Zahlungen, Signage, Shop, PT — alles in einem. Kein Sync. Keine Doppelpflege. Alles passt zusammen.</p>
       </div>
       <div class="why-card">
         <div class="why-head">Aus der Praxis</div>
@@ -877,11 +841,12 @@
     const sepaVol=R*s, cardVol=R-sepaVol;
     const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
 
-    const S={cp:+$('r_s_cp').value,cf:+$('r_s_cf').value,sp:+$('r_s_sp').value,sf:+$('r_s_sf').value};
-    const Str={cp:+$('r_str_cp').value,cf:+$('r_str_cf').value,sp:+$('r_str_sp').value,sf:+$('r_str_sf').value};
-    const M={cp:+$('r_m_cp').value,cf:+$('r_m_cf').value,sp:+$('r_m_sp').value,sf:+$('r_m_sf').value};
-    const B={tp:+$('r_b_tp').value,tf:+$('r_b_tf').value};
-    const E={tp:+$('r_e_tp').value,tf:+$('r_e_tf').value};
+    // Tarife (fest hinterlegt; frueher ueber das entfernte "Tarife anpassen"-Panel editierbar)
+    const S={cp:2.1,cf:0.29,sp:0.8,sf:0.30};
+    const Str={cp:1.5,cf:0.25,sp:0.8,sf:0.25};
+    const M={cp:1.8,cf:0.25,sp:0.5,sf:0.25};
+    const B={tp:2.9,tf:0.30};
+    const E={tp:2.9,tf:0.45};
 
     const sSepa=sepaVol*S.sp/100+sepaTx*S.sf;
     const sCard=cardVol*S.cp/100+cardTx*S.cf;
@@ -962,7 +927,6 @@
   }
 
   [rev,sepa,avg,studioMo,bsMo,evMo].forEach(el=>{el.addEventListener('input',()=>{track(el);calc();});track(el);});
-  ['r_s_cp','r_s_cf','r_s_sp','r_s_sf','r_str_cp','r_str_cf','r_str_sp','r_str_sf','r_b_tp','r_b_tf','r_e_tp','r_e_tf','r_m_cp','r_m_cf','r_m_sp','r_m_sf'].forEach(id=>$(id).addEventListener('input',calc));
   document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
       periodMonthly=btn.getAttribute('data-period')==='month';
