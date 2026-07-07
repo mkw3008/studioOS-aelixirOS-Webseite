@@ -94,6 +94,26 @@
     .login-close:hover { background: rgba(0,0,0,.12); }
     .login-frame { display: block; width: 100%; height: min(620px, calc(100vh - 150px)); border: 0; }
 
+    /* ── Kontakt-/Demo-Formular (nutzt .login-overlay/.login-box) ── */
+    .contact-body { padding: 20px; }
+    .contact-form { display: flex; flex-direction: column; gap: 13px; }
+    .cf-label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600;
+      letter-spacing: .01em; color: var(--ink); }
+    .cf-label input, .cf-label textarea { font: inherit; font-size: 14px; font-weight: 400; color: var(--ink);
+      background: var(--bg); border: 1px solid var(--hair); border-radius: 10px; padding: 11px 12px; width: 100%; }
+    .cf-label textarea { resize: vertical; min-height: 84px; }
+    .cf-label input:focus, .cf-label textarea:focus { outline: none; border-color: var(--accent); background: var(--card); }
+    .cf-submit { margin-top: 4px; background: var(--accent); color: var(--os); border: 0; border-radius: 10px;
+      padding: 13px 20px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; }
+    .cf-submit:hover { background: var(--accent-dark); color: #fff; }
+    .cf-submit:disabled { opacity: .6; cursor: default; }
+    .cf-error { color: #D92D20; font-size: 13px; margin: 0; }
+    .contact-thanks { padding: 40px 26px; text-align: center; }
+    .ct-check { width: 54px; height: 54px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-dark);
+      display: flex; align-items: center; justify-content: center; font-size: 27px; margin: 0 auto 16px; }
+    .contact-thanks h3 { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -.01em; }
+    .contact-thanks p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+
     /* ── HERO ── */
     .hero {
       background: var(--os); padding: 104px 24px 88px; text-align: center; position: relative; overflow: hidden;

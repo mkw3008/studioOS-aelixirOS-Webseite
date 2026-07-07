@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
   <link rel="apple-touch-icon" href="icons/icon-512.png">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -27,7 +27,7 @@
     </ul>
     <div class="nav-right">
       <a class="nav-login" id="navLogin" href="https://os.aelixir.de/login/studioos">Login</a>
-      <a class="nav-cta" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
+      <a class="nav-cta" href="mailto:studioos.support@gmail.com" data-contact>Demo anfragen</a>
     </div>
   </div>
 </header>
@@ -39,7 +39,7 @@
     <h1>Du führst dein Studio.<br>Den Rest übernimmt <em>studioOS</em>.</h1>
     <p class="hero-sub">Vierzehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
+      <a class="btn-primary" href="mailto:studioos.support@gmail.com" data-contact>Demo anfragen</a>
       <a class="btn-ghost" href="#features">Entdecken ↓</a>
     </div>
     <div class="hero-badges">
@@ -725,7 +725,7 @@
     <h2 class="sec-h2">Dein nächstes Kapitel<br>beginnt hier.</h2>
     <p class="sec-sub">Kein Setup-Chaos. Kein Lock-in. Ein System, das für dein Studio arbeitet — von Tag 1 an.</p>
     <div class="cta-actions">
-      <a class="btn-dark" href="mailto:studioos.support@gmail.com">Demo anfragen</a>
+      <a class="btn-dark" href="mailto:studioos.support@gmail.com" data-contact>Demo anfragen</a>
       <a class="btn-outline" href="#vergleich">Vergleich ansehen</a>
     </div>
   </div>
@@ -742,7 +742,7 @@
         <a href="#features">Features</a>
         <a href="#vergleich">Vergleich</a>
         <a href="#kosten">Kosten</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#kontakt" data-contact>Kontakt</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
       </nav>
@@ -764,6 +764,77 @@
     <iframe class="login-frame" id="loginFrame" title="studioOS Login" data-src="https://os.aelixir.de/login/studioos" loading="lazy"></iframe>
   </div>
 </div>
+
+<!-- Kontakt-/Demo-Overlay (öffnet unter dem Header) -->
+<div class="login-overlay" id="contactOverlay" hidden>
+  <div class="login-box">
+    <div class="login-bar">
+      <span class="login-bar-title">Demo &amp; Kontakt</span>
+      <button class="login-close" id="contactClose" type="button" aria-label="Schließen">✕</button>
+    </div>
+    <div class="contact-body">
+      <form id="contactForm" class="contact-form" novalidate>
+        <!-- Web3Forms: Access-Key hier eintragen (von web3forms.com mit studioos.support@gmail.com) -->
+        <input type="hidden" name="access_key" value="2bb0277c-e28b-41fc-90fa-588cf72aefdf">
+        <input type="hidden" name="subject" value="Neue Demo-/Kontaktanfrage über studioos.aelixir.de">
+        <input type="hidden" name="from_name" value="studioOS Webseite">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <label class="cf-label">Name
+          <input type="text" name="name" required autocomplete="name">
+        </label>
+        <label class="cf-label">E-Mail
+          <input type="email" name="email" required autocomplete="email">
+        </label>
+        <label class="cf-label">Studio / Unternehmen
+          <input type="text" name="studio" autocomplete="organization">
+        </label>
+        <label class="cf-label">Nachricht
+          <textarea name="message" required></textarea>
+        </label>
+        <button type="submit" class="cf-submit" id="cfSubmit">Anfrage senden</button>
+        <p class="cf-error" id="cfError" hidden></p>
+      </form>
+      <div class="contact-thanks" id="contactThanks" hidden>
+        <div class="ct-check">✓</div>
+        <h3>Vielen Dank für dein Interesse!</h3>
+        <p>Wir melden uns gerne bei dir.</p>
+        <button type="button" class="cf-submit" id="contactThanksClose">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ov=document.getElementById('contactOverlay'),
+      form=document.getElementById('contactForm'),
+      closeBtn=document.getElementById('contactClose'),
+      thanks=document.getElementById('contactThanks'),
+      thanksClose=document.getElementById('contactThanksClose'),
+      submitBtn=document.getElementById('cfSubmit'),
+      errEl=document.getElementById('cfError');
+  if(!ov||!form) return;
+  function openContact(){ form.hidden=false; thanks.hidden=true; errEl.hidden=true; ov.hidden=false; document.body.style.overflow='hidden'; }
+  function closeContact(){ ov.hidden=true; document.body.style.overflow=''; }
+  document.querySelectorAll('[data-contact]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openContact(); });
+  });
+  closeBtn.addEventListener('click', closeContact);
+  if(thanksClose) thanksClose.addEventListener('click', closeContact);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeContact(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !ov.hidden) closeContact(); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errEl.hidden=true;
+    submitBtn.disabled=true; submitBtn.textContent='Senden …';
+    fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.success){ form.hidden=true; thanks.hidden=false; } else { throw new Error(); } })
+      .catch(function(){ errEl.textContent='Senden fehlgeschlagen. Bitte später erneut versuchen oder direkt an studioos.support@gmail.com schreiben.'; errEl.hidden=false; })
+      .finally(function(){ submitBtn.disabled=false; submitBtn.textContent='Anfrage senden'; });
+  });
+})();
+</script>
 
 <script>
 (function(){
