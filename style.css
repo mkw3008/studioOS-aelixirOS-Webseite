@@ -57,6 +57,7 @@
       display: flex; align-items: center; justify-content: space-between; height: 60px;
     }
     .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
+    .logo-icon { width: 22px; height: 22px; border-radius: 6px; margin-right: 8px; align-self: center; display: block; flex: 0 0 auto; }
     .logo-s { color: #fff; font-size: 18px; font-weight: 400; letter-spacing: -.01em; }
     .logo-os { color: var(--accent); font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
     .nav-links { display: flex; gap: 26px; list-style: none; }
