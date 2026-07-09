@@ -1,11 +1,10 @@
 /* =========================================================================
    studioOS — Design "Sereno" (Quiet Luxury)
    Stylesheet / Developer Handoff
-   Fonts: Spectral (Display-Serif), Hanken Grotesk (Sans / Body)
+   Fonts: System-Serif (Display) + System-Sans (Body) — lokal, kein Google-CDN
    ========================================================================= */
 
-/* ---- Font import (oder via <link> im <head>) --------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+/* ---- Fonts: System-Stack (DSGVO: kein Google-Fonts-CDN, keine IP-Weitergabe) --- */
 
 /* ---- Design Tokens ----------------------------------------------------- */
 :root {
@@ -15,7 +14,7 @@
   --brass-light:  #C7A968;   /* helleres Messing — Akzent auf dunklem Grund */
   --cream:        #F2EEE6;   /* Haupt-Hintergrund */
   --cream-alt:    #EBE6DA;   /* Sektions-Hintergrund (Features, Kosten) */
-  --green-ok:     #5E7A5A;   /* "vorhanden"-Markierung in Tabellen */
+  --green-ok:     #1D4ED8;   /* "vorhanden"-Markierung in Tabellen (Blau, AA auf Creme) */
 
   /* Text */
   --text:         #1F2A24;
@@ -31,8 +30,8 @@
   --line-on-ink:  rgba(242,238,230,.16);
 
   /* Typografie */
-  --font-display: 'Spectral', Georgia, serif;
-  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-sans:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
   /* Radius & Schatten */
   --radius:       20px;

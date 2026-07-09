@@ -4,19 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zahlungskosten-Vergleich — studioOS · Stripe · Mollie · bsport · Eversports</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./Kosten-Vergleich_files/css2" rel="stylesheet">
 <style>
+  /* IBM Plex Mono — selbst gehostet (DSGVO: kein Google-Fonts-CDN, keine IP-Weitergabe).
+     Quelle: Google Fonts / IBM, Lizenz SIL OFL 1.1. Dateien in /fonts. */
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap;
+    src: url(fonts/ibm-plex-mono-400-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap;
+    src: url(fonts/ibm-plex-mono-400-latin-ext.woff2) format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap;
+    src: url(fonts/ibm-plex-mono-500-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap;
+    src: url(fonts/ibm-plex-mono-500-latin-ext.woff2) format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap;
+    src: url(fonts/ibm-plex-mono-600-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap;
+    src: url(fonts/ibm-plex-mono-600-latin-ext.woff2) format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
   :root{
     --canvas:#EAECEF; --card:#FFFFFF; --ink:#14161B; --muted:#646B78; --faint:#9AA1AD;
     --hair:#E0E3E8; --track:#EDEFF2; --fixseg:#C4C9D4;
-    --stripe:#635BFF; --mollie:#0B1F3A; --studio:#00C896; --bsport:#15B3A3; --ever:#FF5A36;
-    --win:#0E9D78; --win-bg:#E4F5EF; --warn-bg:#FBF4E9; --warn-bd:#EAD9B6; --warn-tx:#8A6320;
+    --stripe:#635BFF; --mollie:#0B1F3A; --studio:#2563EB; --bsport:#15B3A3; --ever:#FF5A36;
+    --win:#1D4ED8; --win-bg:#DBEAFE; --warn-bg:#FBF4E9; --warn-bd:#EAD9B6; --warn-tx:#8A6320;
     --radius:18px; --shadow:0 1px 2px rgba(20,22,27,.04),0 8px 24px rgba(20,22,27,.06);
   }
   *{box-sizing:border-box} html,body{margin:0}
-  body{background:var(--canvas);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;
+  body{background:var(--canvas);color:var(--ink);font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     line-height:1.45;-webkit-font-smoothing:antialiased;padding:32px 20px 56px;}
   .wrap{max-width:1180px;margin:0 auto}
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
@@ -57,10 +86,10 @@
   .switch input:checked + .slider-sw::before{transform:translateX(19px)}
   .switch input:focus-visible + .slider-sw{box-shadow:0 0 0 4px rgba(99,91,255,.22)}
 
-  .verdict{display:flex;align-items:center;gap:13px;padding:16px 20px;border-radius:14px;background:var(--win-bg);border:1px solid #BCE6D8;margin-bottom:16px}
+  .verdict{display:flex;align-items:center;gap:13px;padding:16px 20px;border-radius:14px;background:var(--win-bg);border:1px solid #C3D9FC;margin-bottom:16px}
   .verdict-dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--win)}
-  .verdict-main{font-size:16px;font-weight:600;color:#0a5c47} .verdict-main b{font-family:"IBM Plex Mono",monospace}
-  .verdict-sub{font-size:13px;color:#1d7a62;margin-top:2px}
+  .verdict-main{font-size:16px;font-weight:600;color:#0B3A82} .verdict-main b{font-family:"IBM Plex Mono",monospace}
+  .verdict-sub{font-size:13px;color:#1D4ED8;margin-top:2px}
 
   .caveat{display:flex;gap:11px;padding:13px 16px;border-radius:12px;background:var(--warn-bg);border:1px solid var(--warn-bd);margin-bottom:24px;font-size:13px;color:var(--warn-tx);line-height:1.5}
   .caveat b{font-weight:600}
@@ -71,7 +100,7 @@
   .brand-dot{width:10px;height:10px;border-radius:3px}
   .bar-name{font-size:13.5px;font-weight:600}
   .bar-cat{font-size:11.5px;color:var(--faint);margin-left:2px}
-  .bar-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--win);background:var(--win-bg);padding:2px 8px;border-radius:99px;border:1px solid #BCE6D8;margin-left:auto}
+  .bar-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--win);background:var(--win-bg);padding:2px 8px;border-radius:99px;border:1px solid #C3D9FC;margin-left:auto}
   .track-row{display:flex;align-items:center;gap:12px}
   .track{flex:1;height:34px;background:var(--track);border-radius:8px;overflow:hidden}
   .barfill{height:100%;display:flex;border-radius:8px;overflow:hidden;transition:width .35s cubic-bezier(.4,0,.2,1)}
@@ -97,7 +126,7 @@
   .line .k{color:var(--muted)} .line .v{font-family:"IBM Plex Mono",monospace;font-weight:500}
   .pcard .pnote{font-size:11px;color:var(--faint);margin-top:10px;line-height:1.45}
   .pcard.studio-card{border-color:var(--studio);border-width:2px}
-  .pcard.studio-card h3{color:#006e52}
+  .pcard.studio-card h3{color:#1D4ED8}
 
   details.adv{margin-top:20px;border-top:1px solid var(--hair);padding-top:16px}
   details.adv summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);list-style:none;display:flex;align-items:center;gap:7px}
