@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zahlungskosten-Vergleich — studioOS · Stripe · Mollie · bsport · Eversports</title>
+<title>Zahlungskosten-Vergleich — clublane.one · Stripe · Mollie · bsport · Eversports</title>
 <style>
   /* IBM Plex Mono — selbst gehostet (DSGVO: kein Google-Fonts-CDN, keine IP-Weitergabe).
      Quelle: Google Fonts / IBM, Lizenz SIL OFL 1.1. Dateien in /fonts. */
@@ -150,8 +150,8 @@
 <div class="wrap">
   <header>
     <div class="eyebrow">Zahlungskosten-Vergleich · 2026</div>
-    <h1>studioOS · Stripe · Mollie · bsport · Eversports</h1>
-    <p class="sub">Jährliche Gesamtkosten für deinen Zahlungs-Mix. studioOS nutzt Stripe direkt — kein Plattform-Aufschlag. Reine Zahlungs-Rails (Stripe/Mollie) ohne Grundgebühr; Plattformen zusätzlich monatliche Abo-Gebühr.</p>
+    <h1>clublane.one · Stripe · Mollie · bsport · Eversports</h1>
+    <p class="sub">Jährliche Gesamtkosten für deinen Zahlungs-Mix. clublane.one nutzt Stripe direkt — kein Plattform-Aufschlag. Reine Zahlungs-Rails (Stripe/Mollie) ohne Grundgebühr; Plattformen zusätzlich monatliche Abo-Gebühr.</p>
   </header>
 
   <div class="grid">
@@ -175,8 +175,8 @@
 
       <div class="div-lbl">Plattform-Grundgebühren</div>
       <div class="field">
-        <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>studioOS / Monat</span><span class="field-val" id="studioMoVal">89&nbsp;€</span></div>
-        <input type="range" id="studioMo" min="0" max="400" step="5" value="89" aria-label="studioOS Monatsgebühr">
+        <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>clublane.one / Monat</span><span class="field-val" id="studioMoVal">89&nbsp;€</span></div>
+        <input type="range" id="studioMo" min="0" max="400" step="5" value="89" aria-label="clublane.one Monatsgebühr">
         <div class="field-sub">Annahme — mit deinem Angebot überschreiben</div>
       </div>
       <div class="field">
@@ -212,13 +212,13 @@
 
       <div class="caveat">
         <span class="ic">!</span>
-        <div><b>Kein reiner Preisvergleich.</b> Stripe &amp; Mollie sind nur Zahlungs-Rails — Buchungs-, Mitglieder- und App-Plattform baust du selbst. bsport &amp; Eversports bündeln diese Plattform, daher höhere Gesamtgebühren. <b>studioOS</b> liefert die komplette Plattform und nutzt Stripe direkt — kein Aufschlag.</div>
+        <div><b>Kein reiner Preisvergleich.</b> Stripe &amp; Mollie sind nur Zahlungs-Rails — Buchungs-, Mitglieder- und App-Plattform baust du selbst. bsport &amp; Eversports bündeln diese Plattform, daher höhere Gesamtgebühren. <b>clublane.one</b> liefert die komplette Plattform und nutzt Stripe direkt — kein Aufschlag.</div>
       </div>
 
       <div id="bars"></div>
 
       <div class="legend">
-        <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>studioOS</span>
+        <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>clublane.one</span>
         <span class="leg-item"><span class="leg-sw" style="background:var(--stripe)"></span>Stripe</span>
         <span class="leg-item"><span class="leg-sw" style="background:var(--mollie)"></span>Mollie</span>
         <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Abo / Grundgebühr</span>
@@ -261,8 +261,8 @@
   </div>
 
   <footer>
-    <div>Listenpreise/Annahmen Stand 2026. studioOS-Preis = Platzhalter — mit deinem Angebot überschreiben. bsport-Satz lt. Vertrag (Annahme). Eversports: + 99 € Setup einmalig, + bis 25 % Marktplatz-Provision auf Neukunden (nicht enthalten). Keine Steuer-/Rechtsberatung.</div>
-    <div class="mono" style="margin-top:6px">Rails: Stripe 1,5 %+0,25 € / SEPA 0,8 %+0,30 € (+0,7 % Billing) · Mollie 1,8 %+0,25 € / SEPA 0,4 %+0,25 €  |  studioOS = Stripe-Tarif direkt + Abo  |  Plattform-Transaktion blended + Abo</div>
+    <div>Listenpreise/Annahmen Stand 2026. clublane.one-Preis = Platzhalter — mit deinem Angebot überschreiben. bsport-Satz lt. Vertrag (Annahme). Eversports: + 99 € Setup einmalig, + bis 25 % Marktplatz-Provision auf Neukunden (nicht enthalten). Keine Steuer-/Rechtsberatung.</div>
+    <div class="mono" style="margin-top:6px">Rails: Stripe 1,5 %+0,25 € / SEPA 0,8 %+0,30 € (+0,7 % Billing) · Mollie 1,8 %+0,25 € / SEPA 0,4 %+0,25 €  |  clublane.one = Stripe-Tarif direkt + Abo  |  Plattform-Transaktion blended + Abo</div>
   </footer>
 </div>
 
@@ -276,7 +276,7 @@
   const studioMo=$('studioMo'),bsMo=$('bsMo'),evMo=$('evMo');
 
   const providers=[
-    {key:'studio',name:'studioOS',cat:'Plattform',color:'var(--studio)'},
+    {key:'studio',name:'clublane.one',cat:'Plattform',color:'var(--studio)'},
     {key:'stripe',name:'Stripe',cat:'Zahlungs-Rail',color:'var(--stripe)'},
     {key:'mollie',name:'Mollie',cat:'Zahlungs-Rail',color:'var(--mollie)'},
     {key:'bsport',name:'bsport',cat:'Plattform',color:'var(--bsport)'},
@@ -330,7 +330,7 @@
     const bVar=R*B.tp/100+totalTx*B.tf, bFix=(+bsMo.value)*12;
     const eVar=R*E.tp/100+totalTx*E.tf, eFix=(+evMo.value)*12;
 
-    // studioOS: nutzt Stripe-Tarife direkt, kein Plattform-Aufschlag auf Transaktionen
+    // clublane.one: nutzt Stripe-Tarife direkt, kein Plattform-Aufschlag auf Transaktionen
     const studioVar=sSepa+sCard, studioFix=(+studioMo.value)*12;
 
     const data={
