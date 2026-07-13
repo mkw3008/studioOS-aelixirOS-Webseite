@@ -360,7 +360,7 @@ img { display: block; max-width: 100%; }
 .compare__cell  { padding: 16px 12px; text-align: center; }
 .compare__cell--label { text-align: left; padding-left: 24px; }
 .compare__cell--own   { color: var(--brass); font-weight: 700; }
-.compare__yes   { color: var(--green-ok); }
+.compare__yes   { color: var(--brass); }
 .compare__no    { color: #C7C1B1; }   /* leeres Ringerl ○ */
 .compare__part  { color: #AAA595; font-style: italic; font-family: var(--font-display); }
 
@@ -393,7 +393,7 @@ img { display: block; max-width: 100%; }
 
 .bar { height: 12px; background: #E1DBCD; border-radius: var(--radius-pill); overflow: hidden; }
 .bar__fill { height: 100%; border-radius: var(--radius-pill); }
-.bar__fill--own   { background: var(--ink); }
+.bar__fill--own   { background: var(--brass); }
 .bar__fill--rival { background: #BDB6A4; }
 
 .cost-note {
