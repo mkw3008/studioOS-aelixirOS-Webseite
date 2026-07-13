@@ -666,7 +666,7 @@
             <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>aelixirOS</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--bsport)"></span>bsport</span>
             <span class="leg-item"><span class="leg-sw" style="background:var(--ever)"></span>Eversports</span>
-            <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Abo / Grundgebühr</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Transaktions-Aufschlag</span>
             <span class="leg-item" style="margin-left:auto;color:var(--faint)">Balkenlänge = Jahreskosten</span>
           </div>
           <div class="kv-cards" id="kvCards"></div>
@@ -802,13 +802,18 @@
 
   providers.forEach(p=>{
     const b=document.createElement('div'); b.className='bar-block';
+    // Rails (Stripe/Mollie): ganze Kosten in Anbieterfarbe.
+    // Plattformen: Stripe-Basis blau, Transaktions-Aufschlag/Marge grau, Grundgebühr/Abo in Anbieterfarbe.
+    const segvColor=p.noWin?p.color:'var(--fixseg)';
+    const segfColor=p.color;
     b.innerHTML=`<div class="bar-label">
       <span class="brand-dot" style="background:${p.color}"></span>
       <span class="bar-name">${p.name}</span><span class="bar-cat">${p.cat}</span>
       <span class="bar-tag" id="tag_${p.key}" hidden>✓ günstigste</span></div>
       <div class="track-row"><div class="kv-track"><div class="barfill" id="bar_${p.key}">
-      <div class="seg" id="segv_${p.key}" style="background:${p.color}"></div>
-      <div class="seg" id="segf_${p.key}" style="background:var(--fixseg)"></div>
+      <div class="seg" id="segs_${p.key}" style="background:var(--stripe)"></div>
+      <div class="seg" id="segv_${p.key}" style="background:${segvColor}"></div>
+      <div class="seg" id="segf_${p.key}" style="background:${segfColor}"></div>
       </div></div><span class="bar-total" id="tot_${p.key}">–</span></div>`;
     barsEl.appendChild(b);
   });
@@ -851,21 +856,24 @@
     const eVar=R*E.tp/100+totalTx*E.tf, eFix=(+evMo.value)*12;
     const studioVar=sSepa+sCard, studioFix=(+studioMo.value)*12;
 
+    // Stripe-Basis der Zahlungsabwicklung — bei gleichem Umsatz/Mix für alle Plattformen identisch.
+    const stripeBase=strSepa+strCard;
+
     const data={
-      stripe:{variable:strSepa+strCard,fix:0,
+      stripe:{variable:strSepa+strCard,fix:0,stripeBase:0,
         lines:[['Karte-Gebühren (Stripe)',strCard],['SEPA-Gebühren (Stripe)',strSepa]],
         note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
-      mollie:{variable:mSepa+mCard,fix:0,
+      mollie:{variable:mSepa+mCard,fix:0,stripeBase:0,
         lines:[['Karte-Gebühren (Mollie)',mCard],['SEPA-Gebühren (Mollie)',mSepa]],
         note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
-      studio:{variable:studioVar,fix:studioFix,
-        lines:[['Zahlungsgebühren (inkl. Aufschlag)',studioVar],['Plattform-Abo / Jahr',studioFix]],
+      studio:{variable:studioVar,fix:studioFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['aelixirOS-Aufschlag',studioVar-stripeBase],['Plattform-Abo / Jahr',studioFix]],
         note:'Stripe-Basis + aelixirOS-Aufschlag — Vollplattform inkl. Buchung, App & Verwaltung.'},
-      bsport:{variable:bVar,fix:bFix,
-        lines:[['Transaktion (blended)',bVar],['Abo / Jahr',bFix]],
+      bsport:{variable:bVar,fix:bFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['bsport-Aufschlag',bVar-stripeBase],['Abo / Jahr',bFix]],
         note:'Transaktionssatz lt. Vertrag (Annahme). Inkl. Buchung, App, Mitgliederverwaltung.'},
-      ever:{variable:eVar,fix:eFix,
-        lines:[['Transaktion (blended)',eVar],['Abo / Jahr',eFix]],
+      ever:{variable:eVar,fix:eFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['Eversports-Aufschlag',eVar-stripeBase],['Abo / Jahr',eFix]],
         note:'Inkl. Buchung & App. Marktplatz-Provision auf Neukunden nicht enthalten.'},
     };
     Object.keys(data).forEach(k=>data[k].total=data[k].variable+data[k].fix);
@@ -888,9 +896,12 @@
     providers.forEach(p=>{
       const d=data[p.key];
       $('bar_'+p.key).style.width=(d.total/maxT*100)+'%';
-      const vPct=d.total>0?d.variable/d.total*100:100;
-      $('segv_'+p.key).style.flexBasis=vPct+'%';
-      $('segf_'+p.key).style.flexBasis=(100-vPct)+'%';
+      const denom=d.total>0?d.total:1;
+      const sb=Math.min(d.stripeBase||0,d.variable);        // identische Stripe-Basis (blau)
+      const surcharge=d.variable-sb;                          // Aufschlag/Marge der Plattform (grau)
+      $('segs_'+p.key).style.flexBasis=(sb/denom*100)+'%';
+      $('segv_'+p.key).style.flexBasis=(surcharge/denom*100)+'%';
+      $('segf_'+p.key).style.flexBasis=(d.fix/denom*100)+'%';
       $('tot_'+p.key).textContent=eur0.format(d.total);
       $('bar_'+p.key).classList.toggle('winner',p.key===minK);
       $('tag_'+p.key).hidden=(p.key!==minK);
