@@ -19,7 +19,7 @@
   --shadow:      0 14px 34px rgba(31,42,36,.08);
   --radius:      20px;
   --radius-sm:   7px;
-  --yes:         #5E7A5A;          /* = sereno --green-ok                    */
+  --yes:         #B08D4F;          /* = sereno --green-ok                    */
   --part:        #A06B00;
 }
 
@@ -188,7 +188,7 @@ thead th { font-weight: 600; background: var(--bg); font-size: 13px; }
 .kv-widget {
   --canvas:#EAECEF; --card:#FFFFFF; --ink:#14161B; --muted:#646B78; --faint:#9AA1AD;
   --hair:#E0E3E8; --track:#EDEFF2; --fixseg:#C4C9D4;
-  --stripe:#635BFF; --mollie:#0B1F3A; --studio:#00C896; --bsport:#15B3A3; --ever:#FF5A36;
+  --stripe:#635BFF; --mollie:#0B1F3A; --studio:#B08D4F; --bsport:#15B3A3; --ever:#FF5A36;
   --win:#0E9D78; --win-bg:#E4F5EF; --warn-bg:#FBF4E9; --warn-bd:#EAD9B6; --warn-tx:#8A6320;
   --radius:18px; --shadow:0 1px 2px rgba(20,22,27,.04),0 8px 24px rgba(20,22,27,.06);
   background:var(--canvas); border-radius:20px; padding:32px 28px 40px;
