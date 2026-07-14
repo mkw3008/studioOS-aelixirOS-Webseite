@@ -134,7 +134,7 @@
       color: #fff; margin-bottom: 24px; line-height: 1.02;
     }
     .hero-wordmark {
-      width: min(6.94em, 100%); height: auto; display: block; margin: 18px auto 0;
+      width: min(4.15em, 100%); height: auto; display: block; margin: 18px auto 0;
     }
     .hero-sub {
       font-size: clamp(17px, 2.2vw, 21px); color: rgba(255,255,255,.55);
