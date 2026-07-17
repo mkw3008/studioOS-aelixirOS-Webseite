@@ -766,12 +766,13 @@
               </div>
             </div>
 
-            <div class="ov-grp"><b>clublane.one — Zahlungssätze</b>
+            <div class="ov-grp"><b>clublane.one — Aufschlag/Provision (nur das, was clublane behält)</b>
+              <div class="ov-note" style="margin:0 0 8px">clublane behält <b>nur diesen Aufschlag</b> zusätzlich zur Stripe-Basis. Der Gesamt-Kartensatz des Studios = Stripe-Basis + Aufschlag (Standard: 1,5 % + 0,6 % = 2,1 %). Auf SEPA behält clublane standardmäßig 0 %.</div>
               <div class="ov-grid">
-                <label>Karte %<input type="number" id="ov_S_cp" data-def="2.1" value="2.1" step="0.1"></label>
-                <label>Karte Fix €<input type="number" id="ov_S_cf" data-def="0.29" value="0.29" step="0.01"></label>
-                <label>SEPA %<input type="number" id="ov_S_sp" data-def="0.8" value="0.8" step="0.1"></label>
-                <label>SEPA Fix €<input type="number" id="ov_S_sf" data-def="0.30" value="0.30" step="0.01"></label>
+                <label>Aufschlag Karte %<input type="number" id="ov_S_cp" data-def="0.6" value="0.6" step="0.1"></label>
+                <label>Aufschlag Karte Fix €<input type="number" id="ov_S_cf" data-def="0.04" value="0.04" step="0.01"></label>
+                <label>Aufschlag SEPA %<input type="number" id="ov_S_sp" data-def="0" value="0" step="0.1"></label>
+                <label>Aufschlag SEPA Fix €<input type="number" id="ov_S_sf" data-def="0.05" value="0.05" step="0.01"></label>
               </div>
             </div>
 
@@ -1063,8 +1064,11 @@
     const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
 
     // Tarife (fest hinterlegt; frueher ueber das entfernte "Tarife anpassen"-Panel editierbar)
-    const S={cp:ovNum('ov_S_cp',2.1),cf:ovNum('ov_S_cf',0.29),sp:ovNum('ov_S_sp',0.8),sf:ovNum('ov_S_sf',0.30)};
     const Str={cp:ovNum('ov_Str_cp',1.5),cf:ovNum('ov_Str_cf',0.25),sp:ovNum('ov_Str_sp',0.8),sf:ovNum('ov_Str_sf',0.25)};
+    // clublane-Feld = NUR der Aufschlag/Provision. Gesamtsatz = Stripe-Basis + Aufschlag.
+    // (Chart/Verteilung bleiben identisch: S entspricht weiterhin 2,1 %/0,8 % usw.)
+    const Prov={cp:ovNum('ov_S_cp',0.6),cf:ovNum('ov_S_cf',0.04),sp:ovNum('ov_S_sp',0),sf:ovNum('ov_S_sf',0.05)};
+    const S={cp:Str.cp+Prov.cp,cf:Str.cf+Prov.cf,sp:Str.sp+Prov.sp,sf:Str.sf+Prov.sf};
     const M={cp:ovNum('ov_M_cp',1.8),cf:ovNum('ov_M_cf',0.25),sp:ovNum('ov_M_sp',0.5),sf:ovNum('ov_M_sf',0.25)};
     const B={tp:ovNum('ov_B_tp',2.9),tf:ovNum('ov_B_tf',0.30)};
     const E={tp:ovNum('ov_E_tp',2.9),tf:ovNum('ov_E_tf',0.45)};
