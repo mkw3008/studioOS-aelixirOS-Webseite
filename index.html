@@ -717,9 +717,9 @@
           </div>
           <div class="div-lbl">Plattform-Grundgebühren</div>
           <div class="field">
-            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>clublane.one / Monat</span><span class="field-val" id="studioMoVal">89&nbsp;€</span></div>
-            <input type="range" id="studioMo" min="0" max="400" step="5" value="109" aria-label="clublane.one Monatsgebühr">
-            <div class="field-sub">Startpreis ab 200 € / Monat — mit deinem Angebot anpassen</div>
+            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>clublane.one / Monat</span><span class="field-val" id="studioMoVal">120&nbsp;€</span></div>
+            <input type="range" id="studioMo" min="0" max="400" step="5" value="120" aria-label="clublane.one Monatsgebühr">
+            <div class="field-sub">Startpreis ab 120 € / Monat — mit deinem Angebot anpassen</div>
           </div>
           <div class="field">
             <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--bsport)"></span>bsport / Monat</span><span class="field-val" id="bsMoVal">130&nbsp;€</span></div>
@@ -747,6 +747,9 @@
             .ov-grid input:focus{outline:2px solid rgba(37,99,235,.35);border-color:#2563EB}
             .ov-reset{font:inherit;font-size:12px;cursor:pointer;border:1px solid rgba(0,0,0,.22);background:#fff;border-radius:8px;padding:6px 13px;margin:0 0 14px}
             .ov-reset:hover{border-color:#888}
+            .pextra{margin-top:8px;font-size:12px;line-height:1.5}
+            .pextra .ex-warn{color:#D92D20;font-weight:600}
+            .pextra .ex-ok{color:#2f8f4e;font-weight:600}
           </style>
           <details class="ov">
             <summary>Alle Parameter anpassen (nur zur Laufzeit)</summary>
@@ -757,7 +760,7 @@
                 <label>Jahresumsatz €<input type="number" id="ov_rev" data-def="" placeholder="80000" min="0" step="1000"></label>
                 <label>SEPA-Anteil %<input type="number" id="ov_sepa" data-def="" placeholder="0" min="0" max="100" step="1"></label>
                 <label>Ø Transaktionswert €<input type="number" id="ov_avg" data-def="" placeholder="50" min="1" step="1"></label>
-                <label>clublane.one €/Monat<input type="number" id="ov_studioMo" data-def="" placeholder="109" min="0" step="1"></label>
+                <label>clublane.one €/Monat<input type="number" id="ov_studioMo" data-def="" placeholder="120" min="0" step="1"></label>
                 <label>bsport €/Monat<input type="number" id="ov_bsMo" data-def="" placeholder="130" min="0" step="1"></label>
                 <label>Eversports €/Monat<input type="number" id="ov_evMo" data-def="" placeholder="119" min="0" step="1"></label>
               </div>
@@ -1041,7 +1044,8 @@
       <div class="big" id="big_${p.key}">–</div>
       <div class="permo" id="mo_${p.key}">–</div>
       <div class="kv-lines" id="lines_${p.key}"></div>
-      <div class="pnote" id="note_${p.key}"></div>`;
+      <div class="pnote" id="note_${p.key}"></div>
+      <div class="pextra" id="extra_${p.key}"></div>`;
     cardsEl.appendChild(c);
   });
 
@@ -1087,13 +1091,16 @@
         note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
       studio:{variable:studioVar,fix:studioFix,stripeBase:stripeBase,
         lines:[['Stripe-Basis (Zahlungen)',stripeBase],['clublane.one-Transaktion',studioVar-stripeBase],['Plattform-Abo',studioFix]],
-        note:'Stripe-Basis + clublane.one-Aufschlag — Vollplattform inkl. Buchung, App &amp; Verwaltung.'},
+        note:'Stripe-Basis + clublane.one-Aufschlag — Vollplattform inkl. Buchung, App &amp; Verwaltung.',
+        extra:'<span class="ex-ok">✓ Keine Zusatzkosten — eigener, mitnehmbarer Stripe-Account, kein Lock-in.</span>'},
       bsport:{variable:bVar,fix:bFix,stripeBase:stripeBase,
         lines:[['Stripe-Basis (Zahlungen)',stripeBase],['bsport-Transaktion',bVar-stripeBase],['Abo',bFix]],
-        note:'Blended-Transaktionssatz lt. Vertrag (Annahme), inkl. Zahlungsabwicklung. Inkl. Buchung, App, Mitgliederverwaltung.'},
+        note:'Blended-Transaktionssatz lt. Vertrag (Annahme), inkl. Zahlungsabwicklung. Inkl. Buchung, App, Mitgliederverwaltung.',
+        extra:'<span class="ex-warn">Zusätzlich (nicht in der Summe): Plattform-Lock-in — kein eigener, mitnehmbarer Stripe-Account.</span>'},
       ever:{variable:eVar,fix:eFix,stripeBase:stripeBase,
         lines:[['Stripe-Basis (Zahlungen)',stripeBase],['Eversports-Transaktion',eVar-stripeBase],['Abo',eFix]],
-        note:'Blended-Transaktionssatz inkl. Zahlungsabwicklung. Inkl. Buchung &amp; App. <span style="color:#D92D20;font-weight:600">Marktplatz-Provision auf Neukunden nicht enthalten.</span>'},
+        note:'Blended-Transaktionssatz inkl. Zahlungsabwicklung. Inkl. Buchung &amp; App.',
+        extra:'<span class="ex-warn">Zusätzlich (nicht in der Summe): einmaliges Setup ~99 € · bis 25 % Marktplatz-Provision auf Neukunden · Plattform-Lock-in (kein eigener Stripe-Account).</span>'},
     };
     Object.keys(data).forEach(k=>data[k].total=data[k].variable+data[k].fix);
 
@@ -1134,6 +1141,7 @@
       $('eff_'+p.key).textContent='effektiv '+pct2(R>0?d.total/R*100:0)+' vom Umsatz';
       $('lines_'+p.key).innerHTML=d.lines.map(l=>`<div class="kv-line"><span class="k">${l[0]}</span><span class="v">${eur0.format(l[1]*f)}</span></div>`).join('');
       $('note_'+p.key).innerHTML=d.note;
+      $('extra_'+p.key).innerHTML=d.extra||'';
     });
 
     const winner=platProv.find(p=>p.key===minK).name;
