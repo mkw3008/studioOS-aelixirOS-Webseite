@@ -9,6 +9,47 @@
   <link rel="icon" type="image/png" href="icons/clublane-favicon-v2-64.png">
   <link rel="apple-touch-icon" href="icons/clublane-appicon-v2-blue-180.png">
   <link rel="stylesheet" href="style.css?v=7">
+  <style id="mod-circle-css">
+  /* Modul-Rad ("Für wen"): 13 Module als System um einen leuchtenden Datenkern */
+  .mc-wheel-wrap{display:flex;justify-content:center;margin:4px auto 44px}
+  .mod-circle{position:relative;width:min(540px,90vw);aspect-ratio:1;margin:0 auto;isolation:isolate}
+  .mc-glow{position:absolute;left:50%;top:50%;width:72%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:0;pointer-events:none;background:radial-gradient(circle, rgba(37,99,235,.20), rgba(34,211,238,.10) 46%, transparent 70%);filter:blur(8px)}
+  .mc-orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:82%;aspect-ratio:1;border-radius:50%;pointer-events:none;z-index:1}
+  .mc-orbit-1{border:1px solid rgba(37,99,235,.12)}
+  .mc-orbit-2{width:56%;border:1px dashed rgba(37,99,235,.22);animation:mcSpin 100s linear infinite}
+  @keyframes mcSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .mc-spokes{position:absolute;inset:0;width:100%;height:100%;z-index:1;animation:mcFade .9s ease both;animation-delay:.35s}
+  @keyframes mcFade{from{opacity:0}to{opacity:1}}
+  .mc-spokes line{stroke:url(#spokeGrad);stroke-width:.5;stroke-linecap:round}
+  .mc-core{position:absolute;left:50%;top:50%;width:27%;aspect-ratio:1;border-radius:50%;z-index:4;transform:translate(-50%,-50%);animation:mcCoreIn .65s cubic-bezier(.2,.8,.25,1.15) both}
+  @keyframes mcCoreIn{from{opacity:0;transform:translate(-50%,-50%) scale(.55)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  .mc-core-halo{position:absolute;inset:-16%;border-radius:50%;z-index:-1;background:radial-gradient(circle, rgba(59,130,246,.38), transparent 66%);animation:mcPulse 3.4s ease-in-out infinite}
+  @keyframes mcPulse{0%,100%{transform:scale(.9);opacity:.5}50%{transform:scale(1.12);opacity:.92}}
+  .mc-core-face{position:absolute;inset:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;background:#fffdf8;color:var(--ink);box-shadow:0 18px 44px rgba(20,80,190,.26), 0 0 0 1px rgba(37,99,235,.10), inset 0 2px 10px rgba(255,255,255,.9)}
+  .mc-core-app{width:40%;max-width:56px;height:auto;border-radius:24%;box-shadow:0 6px 16px rgba(20,40,90,.24)}
+  .mc-core-wm{font-size:clamp(13px,3.4vw,16px);font-weight:800;letter-spacing:-.01em;line-height:1}
+  .mod-circle .brand-lane{background:linear-gradient(90deg,#3B82F6,#22D3EE);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .mod-circle .mod{position:absolute;transform:translate(-50%,-50%);z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:92px;background:transparent;border:0;padding:0;box-shadow:none;opacity:0;animation:mcNodeIn .5s ease both;animation-delay:calc(.2s + var(--i,0)*.045s)}
+  @keyframes mcNodeIn{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  .mod-circle .mod .ic{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 7px 18px rgba(18,40,80,.13), 0 0 0 1px rgba(37,99,235,.10);transition:transform .18s ease, box-shadow .18s ease}
+  .mod-circle .mod .ic svg{width:22px;height:22px}
+  .mod-circle .mod:hover .ic{transform:translateY(-3px) scale(1.07);box-shadow:0 14px 26px rgba(18,40,80,.2), 0 0 0 1px rgba(37,99,235,.3)}
+  .mod-circle .mod .nm{font-size:12.5px;line-height:1.15;font-weight:700;color:var(--ink)}
+  .mod-circle .mod .nm .os{display:block}
+  .mod-circle .mod .ds{display:none}
+  @media (max-width:560px){
+    .mod-circle{width:94vw}
+    .mod-circle .mod{width:62px;gap:5px}
+    .mod-circle .mod .ic{width:38px;height:38px}
+    .mod-circle .mod .ic svg{width:18px;height:18px}
+    .mod-circle .mod .nm{font-size:10px}
+    .mc-core-app{max-width:42px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mc-orbit-2,.mc-core-halo{animation:none}
+    .mod-circle .mod,.mc-core,.mc-spokes{animation-duration:.001s}
+  }
+  </style>
 </head>
 <body>
 
@@ -36,7 +77,7 @@
   <div class="hero-inner">
     <span class="eyebrow">Introducing clublane.one</span>
     <h1>Du führst dein Studio.<br>Den Rest übernimmt <img class="hero-wordmark" src="icons/clublane-wordmark-transparent-weiss.png" alt="clublane.one" loading="lazy"></h1>
-    <p class="hero-sub">Vierzehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
+    <p class="hero-sub">Dreizehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
     <div class="hero-actions">
       <a class="btn-primary" href="mailto:info@clublane.one" data-contact>Demo anfragen</a>
       <a class="btn-ghost" href="#features">Entdecken ↓</a>
@@ -55,7 +96,7 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div>
-      <span class="stat-num">14<span> Module</span></span>
+      <span class="stat-num">13<span> Module</span></span>
       <span class="stat-label">ein System</span>
     </div>
     <div>
@@ -79,6 +120,28 @@
     <span class="sec-label">Für wen</span>
     <h2 class="sec-h2">Dein Studio ist einzigartig.<br>Deine Software sollte es auch sein.</h2>
     <p class="sec-sub">Für alle, die mehr wollen als ein generisches Buchungssystem.</p>
+    <div class="mc-wheel-wrap">
+      <div class="mod-circle" id="modCircle">
+        <div class="mc-glow"></div>
+        <div class="mc-orbit mc-orbit-1"></div>
+        <div class="mc-orbit mc-orbit-2"></div>
+        <svg class="mc-spokes" id="mcSpokes" viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="spokeGrad" cx="50" cy="50" r="41" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563EB" stop-opacity=".55"/><stop offset=".55" stop-color="#3B82F6" stop-opacity=".26"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></radialGradient></defs></svg>
+        <div class="mc-core"><div class="mc-core-halo"></div><div class="mc-core-face"><img class="mc-core-app" src="icons/clublane-appicon-v2-blue-180.png" alt="clublane.one" width="180" height="180"><span class="mc-core-wm"><span>club</span><span class="brand-lane">lane</span></span></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><div><div class="nm"><span class="os">verwaltung</span></div><div class="ds">Mitglieder, Verträge, Betriebs- &amp; Vertretungsplanung</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span><div><div class="nm"><span class="os">pay</span></div><div class="ds">Zahlungen via Stripe, SEPA &amp; Karte, Mahnwesen</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><div><div class="nm"><span class="os">app</span></div><div class="ds">White-Label Mitglieder-App für iOS &amp; Android</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><div><div class="nm"><span class="os">webseite</span></div><div class="ds">Eigene Website mit CMS &amp; Buchungs-Widget</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><div><div class="nm"><span class="os">collection</span></div><div class="ds">Integrierte Collection — kein Kassensystem nötig</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span><div><div class="nm"><span class="os">target</span></div><div class="ds">Marketing-Automatisierung, Reaktivierung, Loyalty</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg></span><div><div class="nm"><span class="os">marketplace</span></div><div class="ds">EGYM Wellpass, Hansefit, Qualitrain u.&nbsp;a.</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><div class="nm"><span class="os">community</span></div><div class="ds">Community-Feed, Challenges, Direktnachrichten</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span><div><div class="nm"><span class="os">vision</span></div><div class="ds">Digital Signage mit eigenem Hardwaremodul</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M18 4v16M6 12h12M2 7h4M18 7h4M2 17h4M18 17h4"/></svg></span><div><div class="nm"><span class="os">1:1</span></div><div class="ds">Personal Training mit Plänen &amp; Trainings-App</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg></span><div><div class="nm"><span class="os">ai</span></div><div class="ds">KI für Texte, Kursplanung &amp; Migration</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6s5-2 11-2 11 2 11 2"/><path d="M5 10s3-1 7-1 7 1 7 1"/><path d="M9 14s1.5-.5 3-.5 3 .5 3 .5"/><line x1="12" y1="18" x2="12" y2="22"/></svg></span><div><div class="nm"><span class="os">space</span></div><div class="ds">Geräte- &amp; Gebäude-Monitoring via MQTT</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="nm"><span class="os">reception</span></div><div class="ds">CTI-Anrufsteuerung nach Dienstplan</div></div></div>
+      </div>
+    </div>
     <div class="studio-types">
       <span class="st-chip hi">Boutique Fitness</span>
       <span class="st-chip">Yoga &amp; Pilates</span>
@@ -90,7 +153,6 @@
       <span class="st-chip">Schwimmen &amp; Aqua</span>
       <span class="st-chip">Klettern &amp; Outdoor</span>
       <span class="st-chip">Massage</span>
-      <span class="st-chip">Outdoor</span>
       <span class="st-chip">und vieles mehr …</span>
     </div>
   </div>
@@ -101,7 +163,7 @@
   <div class="section-inner">
     <span class="sec-label">Die Plattform</span>
     <h2 class="sec-h2">Alles, was du brauchst.<br>In einem System.</h2>
-    <p class="sec-sub">Kein Datenbruch. Kein manuelles Sync. Alle vierzehn Module teilen dieselbe Datenbasis, dieselben Mitgliederprofile, dieselbe Buchführung.</p>
+    <p class="sec-sub">Kein Datenbruch. Kein manuelles Sync. Alle dreizehn Module teilen dieselbe Datenbasis, dieselben Mitgliederprofile, dieselbe Buchführung.</p>
     <div class="platform-shell">
 
       <div class="platform-group">
@@ -1012,6 +1074,23 @@
     });
   });
   calc();
+})();
+</script>
+<script>
+/* Modul-Rad ("Für wen"): 13 Modul-Knoten kreisförmig anordnen + Speichen zum Datenkern zeichnen */
+(function(){
+  var c=document.getElementById('modCircle'); if(!c) return;
+  var nodes=[].slice.call(c.querySelectorAll('.mod'));
+  var sp=document.getElementById('mcSpokes');
+  var N=nodes.length, R=42, lines='';
+  nodes.forEach(function(el,i){
+    var a=(-90 + i*360/N)*Math.PI/180;
+    el.style.left=(50+R*Math.cos(a)).toFixed(2)+'%';
+    el.style.top=(50+R*Math.sin(a)).toFixed(2)+'%';
+    el.style.setProperty('--i',i);
+    lines+='<line x1="50" y1="50" x2="'+(50+R*Math.cos(a)).toFixed(2)+'" y2="'+(50+R*Math.sin(a)).toFixed(2)+'"/>';
+  });
+  if(sp) sp.insertAdjacentHTML('beforeend',lines);
 })();
 </script>
 </body>
