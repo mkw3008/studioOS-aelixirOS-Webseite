@@ -731,6 +731,81 @@
             <input type="range" id="evMo" min="0" max="400" step="5" value="119" aria-label="Eversports Monatsgebühr">
             <div class="field-sub">Paket Accelerate ≈ 119 €; je nach Volumen</div>
           </div>
+
+          <style>
+            .ov{margin-top:14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:rgba(0,0,0,.02);padding:0 14px}
+            .ov>summary{cursor:pointer;padding:12px 2px;font-weight:600;font-size:13.5px;list-style:none;color:var(--ink,#1d1d1b)}
+            .ov>summary::-webkit-details-marker{display:none}
+            .ov>summary::before{content:"▸";color:#8a8a8a;margin-right:7px;display:inline-block}
+            .ov[open]>summary::before{content:"▾"}
+            .ov-note{font-size:11.5px;color:#6a6a6a;line-height:1.5;margin:0 0 12px}
+            .ov-grp{margin:0 0 13px}
+            .ov-grp>b{font-size:12px;display:block;margin:4px 0 7px;color:var(--ink,#1d1d1b)}
+            .ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+            .ov-grid label{display:flex;flex-direction:column;font-size:11px;color:#5a5a5a;gap:3px}
+            .ov-grid input{font:inherit;font-size:13px;padding:6px 8px;border:1px solid rgba(0,0,0,.2);border-radius:7px;background:#fff;width:100%}
+            .ov-grid input:focus{outline:2px solid rgba(37,99,235,.35);border-color:#2563EB}
+            .ov-reset{font:inherit;font-size:12px;cursor:pointer;border:1px solid rgba(0,0,0,.22);background:#fff;border-radius:8px;padding:6px 13px;margin:0 0 14px}
+            .ov-reset:hover{border-color:#888}
+          </style>
+          <details class="ov">
+            <summary>Alle Parameter anpassen (nur zur Laufzeit)</summary>
+            <div class="ov-note">Werte hier überschreiben die Rechnung sofort — <b>nichts wird gespeichert</b> (nach Neuladen gelten wieder die Standardwerte). Bei den <b>Eingaben</b> bedeutet ein leeres Feld: der Slider oben gilt. Die <b>Sätze</b> sind mit den Standardwerten vorbelegt.</div>
+
+            <div class="ov-grp"><b>Eingaben (überschreiben die Slider oben)</b>
+              <div class="ov-grid">
+                <label>Jahresumsatz €<input type="number" id="ov_rev" data-def="" placeholder="80000" min="0" step="1000"></label>
+                <label>SEPA-Anteil %<input type="number" id="ov_sepa" data-def="" placeholder="0" min="0" max="100" step="1"></label>
+                <label>Ø Transaktionswert €<input type="number" id="ov_avg" data-def="" placeholder="50" min="1" step="1"></label>
+                <label>clublane.one €/Monat<input type="number" id="ov_studioMo" data-def="" placeholder="109" min="0" step="1"></label>
+                <label>bsport €/Monat<input type="number" id="ov_bsMo" data-def="" placeholder="130" min="0" step="1"></label>
+                <label>Eversports €/Monat<input type="number" id="ov_evMo" data-def="" placeholder="119" min="0" step="1"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>clublane.one — Zahlungssätze</b>
+              <div class="ov-grid">
+                <label>Karte %<input type="number" id="ov_S_cp" data-def="2.1" value="2.1" step="0.1"></label>
+                <label>Karte Fix €<input type="number" id="ov_S_cf" data-def="0.29" value="0.29" step="0.01"></label>
+                <label>SEPA %<input type="number" id="ov_S_sp" data-def="0.8" value="0.8" step="0.1"></label>
+                <label>SEPA Fix €<input type="number" id="ov_S_sf" data-def="0.30" value="0.30" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Stripe-Basis (Zahlungs-Rail)</b>
+              <div class="ov-grid">
+                <label>Karte %<input type="number" id="ov_Str_cp" data-def="1.5" value="1.5" step="0.1"></label>
+                <label>Karte Fix €<input type="number" id="ov_Str_cf" data-def="0.25" value="0.25" step="0.01"></label>
+                <label>SEPA %<input type="number" id="ov_Str_sp" data-def="0.8" value="0.8" step="0.1"></label>
+                <label>SEPA Fix €<input type="number" id="ov_Str_sf" data-def="0.25" value="0.25" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Mollie (Zahlungs-Rail)</b>
+              <div class="ov-grid">
+                <label>Karte %<input type="number" id="ov_M_cp" data-def="1.8" value="1.8" step="0.1"></label>
+                <label>Karte Fix €<input type="number" id="ov_M_cf" data-def="0.25" value="0.25" step="0.01"></label>
+                <label>SEPA %<input type="number" id="ov_M_sp" data-def="0.5" value="0.5" step="0.1"></label>
+                <label>SEPA Fix €<input type="number" id="ov_M_sf" data-def="0.25" value="0.25" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>bsport — Transaktion (blended)</b>
+              <div class="ov-grid">
+                <label>Satz %<input type="number" id="ov_B_tp" data-def="2.9" value="2.9" step="0.1"></label>
+                <label>Fix €<input type="number" id="ov_B_tf" data-def="0.30" value="0.30" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Eversports — Transaktion (blended)</b>
+              <div class="ov-grid">
+                <label>Satz %<input type="number" id="ov_E_tp" data-def="2.9" value="2.9" step="0.1"></label>
+                <label>Fix €<input type="number" id="ov_E_tf" data-def="0.45" value="0.45" step="0.01"></label>
+              </div>
+            </div>
+
+            <button type="button" class="ov-reset" id="ov_reset">Auf Standardwerte zurücksetzen</button>
+          </details>
         </section>
 
         <section class="panel panel-pad" aria-label="Ergebnis">
@@ -976,16 +1051,19 @@
   }
 
   function calc(){
-    const R=+rev.value, s=+sepa.value/100, A=+avg.value;
+    // Laufzeit-Override: liest den Wert aus einem ov_*-Feld; leer/ungültig -> Standard (Slider bzw. fester Satz).
+    const ovNum=(id,def)=>{const el=document.getElementById(id);if(!el)return def;const t=(el.value||'').trim().replace(',','.');if(t==='')return def;const v=parseFloat(t);return isFinite(v)?v:def;};
+    const R=ovNum('ov_rev',+rev.value), s=ovNum('ov_sepa',+sepa.value)/100, A=ovNum('ov_avg',+avg.value);
+    const moStudio=ovNum('ov_studioMo',+studioMo.value), moBs=ovNum('ov_bsMo',+bsMo.value), moEv=ovNum('ov_evMo',+evMo.value);
     const sepaVol=R*s, cardVol=R-sepaVol;
     const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
 
     // Tarife (fest hinterlegt; frueher ueber das entfernte "Tarife anpassen"-Panel editierbar)
-    const S={cp:2.1,cf:0.29,sp:0.8,sf:0.30};
-    const Str={cp:1.5,cf:0.25,sp:0.8,sf:0.25};
-    const M={cp:1.8,cf:0.25,sp:0.5,sf:0.25};
-    const B={tp:2.9,tf:0.30};
-    const E={tp:2.9,tf:0.45};
+    const S={cp:ovNum('ov_S_cp',2.1),cf:ovNum('ov_S_cf',0.29),sp:ovNum('ov_S_sp',0.8),sf:ovNum('ov_S_sf',0.30)};
+    const Str={cp:ovNum('ov_Str_cp',1.5),cf:ovNum('ov_Str_cf',0.25),sp:ovNum('ov_Str_sp',0.8),sf:ovNum('ov_Str_sf',0.25)};
+    const M={cp:ovNum('ov_M_cp',1.8),cf:ovNum('ov_M_cf',0.25),sp:ovNum('ov_M_sp',0.5),sf:ovNum('ov_M_sf',0.25)};
+    const B={tp:ovNum('ov_B_tp',2.9),tf:ovNum('ov_B_tf',0.30)};
+    const E={tp:ovNum('ov_E_tp',2.9),tf:ovNum('ov_E_tf',0.45)};
 
     const sSepa=sepaVol*S.sp/100+sepaTx*S.sf;
     const sCard=cardVol*S.cp/100+cardTx*S.cf;
@@ -993,9 +1071,9 @@
     const strCard=cardVol*Str.cp/100+cardTx*Str.cf;
     const mSepa=sepaVol*M.sp/100+sepaTx*M.sf;
     const mCard=cardVol*M.cp/100+cardTx*M.cf;
-    const bVar=R*B.tp/100+totalTx*B.tf, bFix=(+bsMo.value)*12;
-    const eVar=R*E.tp/100+totalTx*E.tf, eFix=(+evMo.value)*12;
-    const studioVar=sSepa+sCard, studioFix=(+studioMo.value)*12;
+    const bVar=R*B.tp/100+totalTx*B.tf, bFix=moBs*12;
+    const eVar=R*E.tp/100+totalTx*E.tf, eFix=moEv*12;
+    const studioVar=sSepa+sCard, studioFix=moStudio*12;
 
     // Stripe-Basis der Zahlungsabwicklung — bei gleichem Umsatz/Mix für alle Plattformen identisch.
     const stripeBase=strSepa+strCard;
@@ -1019,14 +1097,15 @@
     };
     Object.keys(data).forEach(k=>data[k].total=data[k].variable+data[k].fix);
 
+    const sPct=s*100, r1=x=>Number.isInteger(x)?x:Math.round(x*10)/10;
     $('revVal').textContent=eur0.format(R);
-    $('sepaVal').textContent=(+sepa.value)+' %';
-    $('cardShare').textContent='Karte: '+(100-+sepa.value)+' %';
-    $('avgVal').textContent=(+avg.value)+' €';
+    $('sepaVal').textContent=r1(sPct)+' %';
+    $('cardShare').textContent='Karte: '+r1(100-sPct)+' %';
+    $('avgVal').textContent=r1(A)+' €';
     $('txCount').textContent='≈ '+num0.format(Math.round(totalTx))+' Transaktionen / Jahr';
-    $('studioMoVal').textContent=eur0.format(+studioMo.value);
-    $('bsMoVal').textContent=eur0.format(+bsMo.value);
-    $('evMoVal').textContent=eur0.format(+evMo.value);
+    $('studioMoVal').textContent=eur0.format(moStudio);
+    $('bsMoVal').textContent=eur0.format(moBs);
+    $('evMoVal').textContent=eur0.format(moEv);
 
     // Zeitraum-Umschaltung: Werte skalieren, Balkenlängen bleiben proportional.
     const f=periodMonthly?1/12:1, fOther=periodMonthly?1:1/12;
@@ -1066,6 +1145,13 @@
   }
 
   [rev,sepa,avg,studioMo,bsMo,evMo].forEach(el=>{el.addEventListener('input',()=>{track(el);calc();});track(el);});
+  // Laufzeit-Override-Felder: bei Eingabe sofort neu rechnen; Reset stellt Standardwerte wieder her.
+  document.querySelectorAll('.ov input').forEach(el=>el.addEventListener('input',calc));
+  var ovReset=document.getElementById('ov_reset');
+  if(ovReset) ovReset.addEventListener('click',function(){
+    document.querySelectorAll('.ov input').forEach(function(el){ el.value = el.getAttribute('data-def')||''; });
+    calc();
+  });
   document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
       periodMonthly=btn.getAttribute('data-period')==='month';
