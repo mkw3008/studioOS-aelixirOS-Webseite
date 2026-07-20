@@ -898,17 +898,6 @@
   </div>
 </footer>
 
-<!-- Login-Overlay (öffnet unter dem Header) -->
-<div class="login-overlay" id="loginOverlay" hidden>
-  <div class="login-box">
-    <div class="login-bar">
-      <span class="login-bar-title">clublane.one Login</span>
-      <button class="login-close" id="loginClose" type="button" aria-label="Login schließen">✕</button>
-    </div>
-    <iframe class="login-frame" id="loginFrame" title="clublane.one Login" data-src="https://os.aelixir.de/login/clublane" loading="lazy"></iframe>
-  </div>
-</div>
-
 <!-- Kontakt-/Demo-Overlay (öffnet unter dem Header) -->
 <div class="login-overlay" id="contactOverlay" hidden>
   <div class="login-box">
@@ -980,52 +969,13 @@
 })();
 </script>
 
-<script>
-(function(){
-  var btn=document.getElementById('navLogin'),
-      ov=document.getElementById('loginOverlay'),
-      closeBtn=document.getElementById('loginClose'),
-      frame=document.getElementById('loginFrame');
-  if(!btn||!ov) return;
-
-  // --- Nach erfolgreichem Login raus aus dem Mini-Fenster --------------------
-  // URSACHE (liegt im Portal, aelixir-web): sobald die Session da ist, rendert
-  // RootApp.jsx neu und macht fuer /login/<slug> ein BLANKES
-  //   window.location.href = "/"
-  // OHNE iFrame-Ausbruch. Das feuert direkt nach signInWithPassword und damit VOR
-  // enterAppFullWindow() in BrandedLogin.jsx (das erst nach myStudios() +
-  // joinStudioBySlug() drankaeme und den Ausbruch koennte). Der iFrame navigiert
-  // also weg, bevor der vorhandene Ausbruch ueberhaupt laeuft -> die eingeloggte
-  // Oberflaeche erschien IM kleinen Loginfenster.
-  // (Geprueft und WIDERLEGT: der Browser blockiert den Ausbruch nicht — window.top
-  // laesst sich von os.aelixir.de aus problemlos navigieren, in Chromium wie WebKit.
-  // Es ist ein Wettlauf, kein Verbot.)
-  //
-  // Fix hier auf der Elternseite: sie darf ihr EIGENES Fenster immer navigieren, und
-  // die Loesung wirkt unabhaengig davon, WELCHER Portal-Pfad die Navigation ausloest.
-  // Signal fuer Login erfolgreich ist das ZWEITE load-Ereignis des iFrames: das erste
-  // ist die Login-Seite selbst; eine weitere Volldokument-Navigation gibt es unter
-  // /login/clublane ausschliesslich nach erfolgreicher Anmeldung. Falsches Passwort
-  // zeichnet nur die Fehlermeldung neu (React-State, KEINE Navigation) -> kein load,
-  // Overlay bleibt offen. Der Zaehler wird erst beim Klick scharf geschaltet, damit
-  // das load-Ereignis des leeren Start-Dokuments (about:blank) nicht mitzaehlt.
-  var armed=false, frameLoads=0;
-  if(frame){
-    frame.addEventListener('load', function(){
-      if(!armed) return;
-      frameLoads++;
-      if(frameLoads>1){ closeLogin(); window.location.href='https://os.aelixir.de/'; }
-    });
-  }
-
-  function openLogin(){ if(frame && !frame.getAttribute('src')){ armed=true; frameLoads=0; frame.src=frame.dataset.src; } ov.hidden=false; document.body.style.overflow='hidden'; }
-  function closeLogin(){ ov.hidden=true; document.body.style.overflow=''; }
-  btn.addEventListener('click', function(e){ e.preventDefault(); openLogin(); });
-  closeBtn.addEventListener('click', closeLogin);
-  ov.addEventListener('click', function(e){ if(e.target===ov) closeLogin(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !ov.hidden) closeLogin(); });
-})();
-</script>
+<!-- Login: Der Kopf-Link #navLogin navigiert das VOLLE Fenster direkt auf
+     https://os.aelixir.de/login/clublane (siehe <a class="nav-login"> im Header).
+     Kein Overlay, kein iFrame — bewusst: eine Anmeldung im iFrame entsteht im
+     Drittanbieter-Kontext, dessen Speicher (localStorage mit der Supabase-Sitzung)
+     der Browser vom Erstanbieter-Speicher derselben Herkunft trennt. Beim Sprung
+     ins Hauptfenster war die Sitzung deshalb nicht vorhanden. Der Login muss dort
+     entstehen, wo er auch gilt: im Hauptfenster. -->
 
 <script>
 (function(){
