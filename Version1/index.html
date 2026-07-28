@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clublane.one — All-in-One Studio Management Software</title>
+  <meta name="description" content="Die All-in-One Boutique Fitness Management Plattform. Buchung, Mitglieder, Zahlungen, App, Digital Signage und mehr — in einem System. Gebaut von Studio-Betreibern.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../icons/clublane-favicon-v2-64.png">
+  <link rel="apple-touch-icon" href="../icons/clublane-appicon-v2-blue-180.png">
+  <link rel="stylesheet" href="style.css?v=7">
+  <style id="mod-circle-css">
+  /* Modul-Rad ("Für wen"): 13 Module als System um einen leuchtenden Datenkern */
+  .mc-wheel-wrap{display:flex;justify-content:center;margin:4px auto 44px}
+  .mod-circle{position:relative;width:min(540px,90vw);aspect-ratio:1;margin:0 auto;isolation:isolate}
+  .mc-glow{position:absolute;left:50%;top:50%;width:72%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:0;pointer-events:none;background:radial-gradient(circle, rgba(37,99,235,.20), rgba(34,211,238,.10) 46%, transparent 70%);filter:blur(8px)}
+  .mc-orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:82%;aspect-ratio:1;border-radius:50%;pointer-events:none;z-index:1}
+  .mc-orbit-1{border:1px solid rgba(37,99,235,.12)}
+  .mc-orbit-2{width:56%;border:1px dashed rgba(37,99,235,.22);animation:mcSpin 100s linear infinite}
+  @keyframes mcSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .mc-spokes{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:0}
+  @keyframes mcFade{from{opacity:0}to{opacity:1}}
+  .mc-spokes line{stroke:url(#spokeGrad);stroke-width:.5;stroke-linecap:round}
+  .mc-core{position:absolute;left:50%;top:50%;width:27%;aspect-ratio:1;border-radius:50%;z-index:4;transform:translate(-50%,-50%);opacity:0}
+  @keyframes mcCoreIn{from{opacity:0;transform:translate(-50%,-50%) scale(.55)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  .mc-core-halo{position:absolute;inset:-16%;border-radius:50%;z-index:-1;background:radial-gradient(circle, rgba(59,130,246,.38), transparent 66%);animation:mcPulse 3.4s ease-in-out infinite}
+  @keyframes mcPulse{0%,100%{transform:scale(.9);opacity:.5}50%{transform:scale(1.12);opacity:.92}}
+  .mc-core-face{position:absolute;inset:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;background:#fffdf8;color:var(--ink);box-shadow:0 18px 44px rgba(20,80,190,.26), 0 0 0 1px rgba(37,99,235,.10), inset 0 2px 10px rgba(255,255,255,.9)}
+  .mc-core-app{width:40%;max-width:56px;height:auto;border-radius:24%;box-shadow:0 6px 16px rgba(20,40,90,.24)}
+  .mc-core-wm{font-size:clamp(13px,3.4vw,16px);font-weight:800;letter-spacing:-.01em;line-height:1}
+  .mod-circle .brand-lane{background:linear-gradient(90deg,#3B82F6,#22D3EE);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .mod-circle .mod{position:absolute;transform:translate(-50%,-50%);z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:92px;background:transparent;border:0;padding:0;box-shadow:none;opacity:0}
+  /* Reveal beim Sichtbarwerden (Scroll-Trigger setzt .reveal) */
+  .mod-circle.reveal .mc-core{animation:mcCoreIn .65s cubic-bezier(.2,.8,.25,1.15) both}
+  .mod-circle.reveal .mc-spokes{animation:mcFade .9s ease both;animation-delay:.35s}
+  .mod-circle.reveal .mod{animation:mcNodeIn .5s ease both;animation-delay:calc(.2s + var(--i,0)*.045s)}
+  @keyframes mcNodeIn{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  .mod-circle .mod .ic{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 7px 18px rgba(18,40,80,.13), 0 0 0 1px rgba(37,99,235,.10);transition:transform .18s ease, box-shadow .18s ease}
+  .mod-circle .mod .ic svg{width:22px;height:22px}
+  .mod-circle .mod:hover .ic{transform:translateY(-3px) scale(1.07);box-shadow:0 14px 26px rgba(18,40,80,.2), 0 0 0 1px rgba(37,99,235,.3)}
+  .mod-circle .mod .nm{font-size:12.5px;line-height:1.15;font-weight:700;color:var(--ink)}
+  .mod-circle .mod .nm .os{display:block}
+  .mod-circle .mod .ds{display:none}
+  @media (max-width:560px){
+    .mod-circle{width:94vw}
+    .mod-circle .mod{width:62px;gap:5px}
+    .mod-circle .mod .ic{width:38px;height:38px}
+    .mod-circle .mod .ic svg{width:18px;height:18px}
+    .mod-circle .mod .nm{font-size:10px}
+    .mc-core-app{max-width:42px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mc-orbit-2,.mc-core-halo{animation:none}
+    .mod-circle .mod,.mc-core,.mc-spokes{opacity:1 !important;animation:none !important}
+  }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <img class="logo-icon" src="../icons/clublane-appicon-v2-white-180.png" alt="" width="22" height="22">
+      <span class="logo-s">clublane</span><span class="logo-os">.one</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#vergleich">Vergleich</a></li>
+      <li><a href="#kosten">Kosten</a></li>
+      <li><a href="#kontakt">Demo</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-login" id="navLogin" href="https://os.aelixir.de/login/clublane">Login</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Introducing clublane.one</span>
+    <h1>Du führst dein Studio.<br>Den Rest übernimmt <img class="hero-wordmark" src="../icons/clublane-wordmark-transparent-weiss.png" alt="clublane.one" loading="lazy"></h1>
+    <p class="hero-sub">Dreizehn Module. Vollkommen integriert. Gebaut von Studio-Betreibern — für Studio-Betreiber.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="mailto:info@clublane.one" data-contact>Demo anfragen</a>
+      <a class="btn-ghost" href="#features">Entdecken ↓</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">All-in-One</span>
+      <span class="badge">DSGVO-konform</span>
+      <span class="badge">Stripe direkt</span>
+      <span class="badge">AI-ready</span>
+      <span class="badge">Vom Betreiber · Für Betreiber</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <span class="stat-num">13<span> Module</span></span>
+      <span class="stat-label">ein System</span>
+    </div>
+    <div>
+      <span class="stat-num">100<span> %</span></span>
+      <span class="stat-label">dein Branding</span>
+    </div>
+    <div>
+      <span class="stat-num"><span>AI</span></span>
+      <span class="stat-label">nativ integriert</span>
+    </div>
+    <div>
+      <span class="stat-num">Dein <span>Studio</span></span>
+      <span class="stat-label">nicht ein Marktplatz</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOR WHOM -->
+<section class="for-section">
+  <div class="section-inner">
+    <span class="sec-label">Für wen</span>
+    <h2 class="sec-h2">Dein Studio ist einzigartig.<br>Deine Software sollte es auch sein.</h2>
+    <p class="sec-sub">Für alle, die mehr wollen als ein generisches Buchungssystem.</p>
+    <div class="mc-wheel-wrap">
+      <div class="mod-circle" id="modCircle">
+        <div class="mc-glow"></div>
+        <div class="mc-orbit mc-orbit-1"></div>
+        <div class="mc-orbit mc-orbit-2"></div>
+        <svg class="mc-spokes" id="mcSpokes" viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="spokeGrad" cx="50" cy="50" r="41" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563EB" stop-opacity=".55"/><stop offset=".55" stop-color="#3B82F6" stop-opacity=".26"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></radialGradient></defs></svg>
+        <div class="mc-core"><div class="mc-core-halo"></div><div class="mc-core-face"><img class="mc-core-app" src="../icons/clublane-appicon-v2-blue-180.png" alt="clublane.one" width="180" height="180"><span class="mc-core-wm"><span>club</span><span class="brand-lane">lane</span></span></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><div><div class="nm"><span class="os">verwaltung</span></div><div class="ds">Mitglieder, Verträge, Betriebs- &amp; Vertretungsplanung</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span><div><div class="nm"><span class="os">pay</span></div><div class="ds">Zahlungen via Stripe, SEPA &amp; Karte, Mahnwesen</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><div><div class="nm"><span class="os">app</span></div><div class="ds">White-Label Mitglieder-App für iOS &amp; Android</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><div><div class="nm"><span class="os">webseite</span></div><div class="ds">Eigene Website mit CMS &amp; Buchungs-Widget</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><div><div class="nm"><span class="os">collection</span></div><div class="ds">Integrierte Collection — kein Kassensystem nötig</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span><div><div class="nm"><span class="os">target</span></div><div class="ds">Marketing-Automatisierung, Reaktivierung, Loyalty</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg></span><div><div class="nm"><span class="os">marketplace</span></div><div class="ds">EGYM Wellpass, Hansefit, Qualitrain u.&nbsp;a.</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><div class="nm"><span class="os">community</span></div><div class="ds">Community-Feed, Challenges, Direktnachrichten</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span><div><div class="nm"><span class="os">vision</span></div><div class="ds">Digital Signage mit eigenem Hardwaremodul</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M18 4v16M6 12h12M2 7h4M18 7h4M2 17h4M18 17h4"/></svg></span><div><div class="nm"><span class="os">1:1</span></div><div class="ds">Personal Training mit Plänen &amp; Trainings-App</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg></span><div><div class="nm"><span class="os">ai</span></div><div class="ds">KI für Texte, Kursplanung &amp; Migration</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6s5-2 11-2 11 2 11 2"/><path d="M5 10s3-1 7-1 7 1 7 1"/><path d="M9 14s1.5-.5 3-.5 3 .5 3 .5"/><line x1="12" y1="18" x2="12" y2="22"/></svg></span><div><div class="nm"><span class="os">space</span></div><div class="ds">Geräte- &amp; Gebäude-Monitoring via MQTT</div></div></div>
+        <div class="mod"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="nm"><span class="os">reception</span></div><div class="ds">CTI-Anrufsteuerung nach Dienstplan</div></div></div>
+      </div>
+    </div>
+    <div class="studio-types">
+      <span class="st-chip hi">Boutique Fitness</span>
+      <span class="st-chip">Yoga &amp; Pilates</span>
+      <span class="st-chip">Kampfsport / Martial Arts</span>
+      <span class="st-chip">CrossFit &amp; Functional Training</span>
+      <span class="st-chip">Personal Training</span>
+      <span class="st-chip">Tanz &amp; Bewegung</span>
+      <span class="st-chip">Wellness &amp; Spa</span>
+      <span class="st-chip">Schwimmen &amp; Aqua</span>
+      <span class="st-chip">Klettern &amp; Outdoor</span>
+      <span class="st-chip">Massage</span>
+      <span class="st-chip">und vieles mehr …</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-inner">
+    <span class="sec-label">Die Plattform</span>
+    <h2 class="sec-h2">Alles, was du brauchst.<br>In einem System.</h2>
+    <p class="sec-sub">Kein Datenbruch. Kein manuelles Sync. Alle dreizehn Module teilen dieselbe Datenbasis, dieselben Mitgliederprofile, dieselbe Buchführung.</p>
+    <div class="platform-shell">
+
+      <div class="platform-group">
+        <div class="group-divider">
+          <span class="group-tag">Das Besondere</span>
+          <span class="group-line"></span>
+        </div>
+        <div class="group-row">
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+            <div class="pmod-name">clublane<span>.ai</span></div>
+            <p class="pmod-desc">KI-Integration für deinen Betrieb — von Texten bis Kursplanoptimierung.</p>
+            <ul class="pmod-list">
+              <li>Kursplanoptimierung für höhere Auslastung</li>
+              <li>KI-gestützte Texterstellung</li>
+              <li>Support-Automatisierung</li>
+              <li>AI-Migrationsassistent (s. unten)</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M18 4v16M6 12h12M2 7h4M18 7h4M2 17h4M18 17h4"/></svg></div>
+            <div class="pmod-name">clublane<span>.1:1</span></div>
+            <p class="pmod-desc">1:1 Personal Training mit individuellen Trainingsplänen und eigener Trainings-App.</p>
+            <ul class="pmod-list">
+              <li>Individuelle Trainingspläne mit umfangreichem Übungskatalog</li>
+              <li>Eigene Trainings-App für die Durchführung</li>
+              <li>Fortschrittstracking &amp; Check-ins</li>
+              <li>Session-Planung &amp; Dokumentation</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+            <div class="pmod-name">clublane<span>.app</span></div>
+            <p class="pmod-desc">White-Label Mitglieder-App für iOS &amp; Android — mit deinem Branding.</p>
+            <ul class="pmod-list">
+              <li>Buchung, Check-in &amp; Kurspläne</li>
+              <li>Push-Notifications &amp; Chat</li>
+              <li>Community &amp; Challenges integriert</li>
+              <li>Personal Training Modul inklusive</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+            <div class="pmod-name">clublane<span>.vision</span></div>
+            <p class="pmod-desc">Digital Signage System mit Hardwaremodul — Inhalte zentral aus clublane.one steuern.</p>
+            <ul class="pmod-list">
+              <li>Hardwaremodul direkt am TV</li>
+              <li>Kursplan, Werbung &amp; Inhalte live</li>
+              <li>Mehrere Bildschirme, eine Quelle</li>
+              <li>Content-Verwaltung in clublane.one</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="platform-group">
+        <div class="group-divider">
+          <span class="group-tag">Sichtbarkeit &amp; Wachstum</span>
+          <span class="group-line"></span>
+        </div>
+        <div class="group-row">
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="pmod-name">clublane<span>.webseite</span></div>
+            <p class="pmod-desc">Deine persönliche Studio-Website mit integriertem CMS direkt aus clublane.one — Buchung inklusive.</p>
+            <ul class="pmod-list">
+              <li>Eigene Website ohne Drittanbieter</li>
+              <li>Buchungs-Widget nahtlos integriert</li>
+              <li>SEO-optimiert &amp; DSGVO-konform</li>
+              <li>Kein separates CMS nötig</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+            <div class="pmod-name">clublane<span>.shop</span></div>
+            <p class="pmod-desc">Integrierter Onlineshop — direkt in clublane.one und der App. Kein Kassensystem nötig.</p>
+            <ul class="pmod-list">
+              <li>Merchandise, Supplements, Pakete</li>
+              <li>Kein Kassensystem nötig</li>
+              <li>Zahlungsabwicklung über clublane.pay</li>
+              <li>Physische &amp; digitale Produkte</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <div class="pmod-name">clublane<span>.target</span></div>
+            <p class="pmod-desc">Marketing-Automatisierung, die deine Mitglieder zum richtigen Moment erreicht.</p>
+            <ul class="pmod-list">
+              <li>E-Mail Kampagnen &amp; Trigger-Flows</li>
+              <li>Reaktivierung inaktiver Mitglieder</li>
+              <li>Bewertungsmanagement</li>
+              <li>Self-Service-Leaderfassung</li>
+              <li>Loyalty- und Voucher-System</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="pmod-name">clublane<span>.marketplace</span></div>
+            <p class="pmod-desc">Anbindung an Fitness-Marktplätze — neue Umsatzkanäle, neue Mitglieder.</p>
+            <ul class="pmod-list">
+              <li>EGYM Wellpass, Hansefit, Qualitrain u.a.</li>
+              <li>Automatische Abrechnung &amp; Verwaltung</li>
+              <li>Mitglieder-Import &amp; Zugangskontrolle</li>
+              <li>Reporting für Unternehmenspartner</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="platform-group">
+        <div class="group-divider">
+          <span class="group-tag">Betrieb &amp; Integration</span>
+          <span class="group-line"></span>
+        </div>
+        <div class="group-row">
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+            <div class="pmod-name">clublane<span>.verwaltung</span></div>
+            <p class="pmod-desc">Vollständige Studioverwaltung — von Mitgliedern bis zum Betriebsplan.</p>
+            <ul class="pmod-list">
+              <li>Mitgliederprofil &amp; Vertragsmanagement</li>
+              <li>Automatisiertes Vertretungsmanagement</li>
+              <li>Betriebsplanung (Reinigung, Zuständigkeiten)</li>
+              <li>Ansprechpartner &amp; Studioleiter-Dashboard</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="pmod-name">clublane<span>.pay</span></div>
+            <p class="pmod-desc">Integrierte Zahlungsabwicklung via Stripe.</p>
+            <ul class="pmod-list">
+              <li>SEPA-Lastschrift &amp; Kreditkarte via Stripe</li>
+              <li>Stripe direkt integriert</li>
+              <li>Automatische Abrechnung &amp; Mahnwesen</li>
+              <li>Buchhaltungs-Anbindung (Lexoffice, DATEV)</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="pmod-name">clublane<span>.community</span></div>
+            <p class="pmod-desc">Digitale Mitglieder-Community für mehr Bindung und Motivation.</p>
+            <ul class="pmod-list">
+              <li>Community-Feed in der Studio App</li>
+              <li>Challenges &amp; Erfolge teilen</li>
+              <li>Direktnachrichten &amp; Gruppen</li>
+              <li>Stärke deine Studio-Identität</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6c0 0 5-2 11-2s11 2 11 2"/><path d="M5 10s3-1 7-1 7 1 7 1"/><path d="M9 14s1.5-.5 3-.5 3 .5 3 .5"/><line x1="12" y1="18" x2="12" y2="22"/></svg></div>
+            <div class="pmod-name">clublane<span>.space</span></div>
+            <p class="pmod-desc">Geräte- &amp; Gebäude-Monitoring via MQTT — dein Studio immer im Blick.</p>
+            <ul class="pmod-list">
+              <li>Echtzeit-Status von Trainingsgeräten</li>
+              <li>Wartungsalarme &amp; Protokolle</li>
+              <li>Raumtemperatur, Auslastung &amp; mehr</li>
+              <li>IoT-ready für Smart Gym</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="pmod-name">clublane<span>.reception</span></div>
+            <p class="pmod-desc">CTI-gestützte, schichtbasierte Anrufsteuerung — wer Dienst hat, ist erreichbar. Automatisch, ohne manuelle Umleitung.</p>
+            <ul class="pmod-list">
+              <li>CTI-Integration: Telefonie direkt in clublane.one</li>
+              <li>Dienstplan-gesteuerte Anrufweiterleitung</li>
+              <li>Immer der richtige Ansprechpartner zur richtigen Zeit</li>
+              <li>Kein verpasster Anruf im laufenden Betrieb</li>
+            </ul>
+          </div>
+          <div class="pmod">
+            <div class="pmod-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h6"/><path d="M15 3h4a2 2 0 0 1 2 2v4"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M3 15v4a2 2 0 0 0 2 2h4"/><path d="M15 21h4a2 2 0 0 0 2-2v-4"/><path d="M9 21h6"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="pmod-name">clublane<span>.labs</span></div>
+            <p class="pmod-desc">Neue Features zuerst — entwickelt aus der Praxis, getestet mit echten Studios. Wir werden besser, weil du es bist.</p>
+            <ul class="pmod-list">
+              <li>Frühzeitiger Zugang zu neuen Modulen</li>
+              <li>Dein Feedback formt das Produkt</li>
+              <li>Direkte Linie ins Entwicklungsteam</li>
+              <li>Wir wachsen mit dir — nicht an dir vorbei</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VISION SPOTLIGHT -->
+<section class="vision-section">
+  <div class="section-inner" style="text-align:center">
+    <span class="sec-label">clublane.vision</span>
+    <h2 class="sec-h2">Digital Signage aus deinem clublane.one direkt auf deine Monitore und Tablets.</h2>
+    <p class="sec-sub">Kurspläne, Live-Inhalte und Werbung — zentral gesteuert. Kein Drittanbieter, kein separates System.</p>
+    <div class="vision-imgs">
+      <div class="vision-img-item product">
+        <img src="../clublaneVision.png" alt="clublane.vision Hardwaremodul" loading="lazy">
+        <span class="vision-img-caption">clublane.vision Hardwaremodul</span>
+      </div>
+      <div class="vision-img-item example">
+        <img src="../studioexample.png" alt="clublane.vision – Inhalte auf dem Bildschirm" loading="lazy">
+        <span class="vision-img-caption">Inhalte auf dem Bildschirm</span>
+      </div>
+    </div>
+    <div class="vision-pills">
+      <div class="vision-pill">
+        <div class="vision-pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77-.04"/>
+          </svg>
+        </div>
+        <strong>Plug &amp; Play</strong>
+        <p>Modul direkt am TV anschließen — läuft sofort, ohne IT-Aufwand.</p>
+      </div>
+      <div class="vision-pill">
+        <div class="vision-pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>
+          </svg>
+        </div>
+        <strong>Zentrale Steuerung</strong>
+        <p>Alle Bildschirme im Studio aus clublane.one heraus verwalten.</p>
+      </div>
+      <div class="vision-pill">
+        <div class="vision-pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <strong>Live-Inhalte</strong>
+        <p>Kursplan, Belegung &amp; Werbung aktualisieren sich automatisch.</p>
+      </div>
+      <div class="vision-pill">
+        <div class="vision-pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <strong>Designed for clublane.one</strong>
+        <p>Eigens entwickelte Hardware — vollständig integriert, kein Drittanbieter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comparison-section" id="vergleich">
+  <div class="section-inner">
+    <span class="sec-label">Vergleich</span>
+    <h2 class="sec-h2">clublane.one — die einzige All-in-one Lösung</h2>
+    <p class="sec-sub">Auf Basis öffentlich verfügbarer Produktinformationen (Stand 2026). Alle Anbieter entwickeln sich weiter.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="th-feat">Feature</th>
+            <th class="th-studio">
+              <span class="th-nm">clublane.one</span>
+              <span class="th-tg">vom Betreiber · für Betreiber</span>
+            </th>
+            <th class="th-comp">bsport</th>
+            <th class="th-comp">Eversports</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="cat-row"><td colspan="4">Buchung &amp; Betrieb</td></tr>
+          <tr>
+            <td>Online-Buchung (24/7, mobil)</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Kursplan, Warteliste &amp; Auto-Nachrückung</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Mitarbeiter- &amp; Trainerplanung</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              Betriebsplanung (Reinigung, Zuständigkeiten)
+              <span class="fn">Reinigungspläne, Studioleiter, Ansprechpartner</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">Mitglieder &amp; Kommunikation</td></tr>
+          <tr>
+            <td>Mitgliederprofil &amp; Vertragsmanagement</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Automatische Benachrichtigungen (E-Mail, Push)</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+          </tr>
+          <tr>
+            <td>
+              Mitglieder-Community &amp; Social Features
+              <span class="fn">Community-Feed, Challenges, Direktnachrichten</span>
+            </td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">Zahlungen</td></tr>
+          <tr>
+            <td>SEPA-Lastschrift &amp; Kreditkarte</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              Stripe direkt — native Integration
+              <span class="fn">Direkte Stripe-Anbindung ohne zusätzliche Middleware</span>
+            </td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              Buchhaltungs-Anbindung (Lexoffice, DATEV)
+              <span class="fn">Steuerexport für Buchführungssoftware</span>
+            </td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">App &amp; Branding</td></tr>
+          <tr>
+            <td>White-Label App (iOS &amp; Android)</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Ab höherem Tarif</span></td>
+          </tr>
+          <tr>
+            <td>Vollständiges Branding (Logo, Farben)</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Eingeschränkt</span></td>
+          </tr>
+          <tr>
+            <td>
+              Studio-Website Builder
+              <span class="fn">Eigene Website direkt aus clublane.one, Buchung integriert</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">Marketing &amp; Analytics</td></tr>
+          <tr>
+            <td>E-Mail Marketing &amp; Automatisierungen</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+          </tr>
+          <tr>
+            <td>Umsatz- &amp; Belegungsdashboard</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Bewertungsmanagement</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              clublane.marketplace-Anbindung
+              <span class="fn">EGYM Wellpass, Hansefit, Qualitrain u.a.</span>
+            </td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">Einzigartiges in clublane.one</td></tr>
+          <tr>
+            <td>
+              Digital Signage (clublane.vision)
+              <span class="fn">Hardwaremodul am TV — Inhalte aus clublane.one steuern</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              Integrierter Onlineshop
+              <span class="fn">Merchandise, Supplements, digitale Produkte</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="part">Begrenzt</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              1:1 Personal Training
+              <span class="fn">individuelle Trainingspläne, Trainings-App, Fortschrittstracking</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              Smart Monitoring via MQTT
+              <span class="fn">Geräte, Räume, Smart Geräte — Echtzeit-Status</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              Szenen Steuerung für Trainer
+              <span class="fn">Smart Geräte — Licht, Ton, Duft — per Szene automatisch steuern</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              clublane.reception — CTI-Anrufsteuerung
+              <span class="fn">Schichtbasierte Weiterleitung via CTI-Integration — kein verpasster Anruf</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              AI-Integration &amp; Migrationsassistent
+              <span class="fn">KI-gestützter Wechsel von bsport, Eversports &amp; anderen</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+
+          <tr class="cat-row"><td colspan="4">Plattform</td></tr>
+          <tr>
+            <td>Multi-Standort</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>DSGVO-konform (EU-Hosting)</td>
+            <td class="td-studio"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+            <td class="td-comp"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              Von Studio-Betreibern entwickelt
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td>
+              Migrations-Assistent mit AI-Unterstützung
+              <span class="fn">KI-gestützter Wechsel von bsport, Eversports &amp; anderen — automatisiert &amp; begleitet</span>
+            </td>
+            <td class="td-studio"><span class="unique">★ Einzigartig</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+            <td class="td-comp"><span class="no">—</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <p class="comp-disclaimer">★ Alleinstellungsmerkmale clublane.one &nbsp;·&nbsp; Angaben für bsport und Eversports basieren auf öffentlich verfügbaren Produktseiten und Preisübersichten (Stand 2026). Alle Anbieter entwickeln sich weiter — keine Gewähr auf Vollständigkeit. Keine Kaufberatung.</p>
+  </div>
+</section>
+
+<!-- MIGRATION CALLOUT -->
+<div class="migration-section">
+  <div class="migration-callout">
+    <div class="mig-icon-wrap">🤖</div>
+    <div>
+      <div class="mig-label">KI-gestützter Wechsel</div>
+      <h3 class="mig-h3">Migration zu clublane.one mit AI Assistent, Netz und doppeltem Boden — in Tagen, nicht in Wochen.</h3>
+      <p class="mig-text">Der clublane.one AI-Migrationsassistent führt dich Schritt für Schritt durch den Wechsel. Mitglieder, Verträge, Kurspläne, Zahlungsdaten — alles strukturiert, geprüft und importiert. Kein Datenverlust, kein Chaos.</p>
+      <div class="mig-chips">
+        <span class="mig-chip">Von bsport</span>
+        <span class="mig-chip">Von Eversports</span>
+        <span class="mig-chip">Von Magicline</span>
+        <span class="mig-chip">Von anderen Systemen</span>
+      </div>
+      <a class="mig-cta" href="#kontakt">Migration besprechen →</a>
+    </div>
+  </div>
+</div>
+
+<!-- COST CALCULATOR -->
+<section class="cost-section" id="kosten">
+  <div class="section-inner" style="padding-top:64px">
+    <span class="sec-label">Kostenvergleich</span>
+    <h2 class="sec-h2">Was zahlst du wirklich?</h2>
+    <p class="sec-sub">Passe Jahresumsatz, Zahlungsmix und Plattformgebühren an — und sieh sofort, was der Vergleich für dein Studio bedeutet.</p>
+    <div class="kv-widget">
+      <p class="kv-sub">Jährliche Gesamtkosten im Vergleich — Zahlungsgebühren plus Plattform-Abo. Abo-Preise als Startannahmen — mit deinem Angebot anpassen.</p>
+      <div class="kv-grid">
+
+        <section class="panel panel-pad" aria-label="Eingaben">
+          <div class="panel-title-row">
+            <p class="panel-title">Eingaben</p>
+            <div class="unit-toggle" role="group" aria-label="Kostenanzeige: monatlich oder jährlich">
+              <button type="button" class="unit-btn" data-period="month">mtl.</button>
+              <button type="button" class="unit-btn is-active" data-period="year">jährl.</button>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-name">Jahresumsatz</span><span class="field-val" id="revVal">80.000&nbsp;€</span></div>
+            <input type="range" id="rev" min="10000" max="1000000" step="5000" value="80000" aria-label="Jahresumsatz">
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-name">Anteil SEPA-Lastschrift</span><span class="field-val" id="sepaVal">0 %</span></div>
+            <input type="range" id="sepa" min="0" max="100" step="5" value="0" aria-label="SEPA-Anteil">
+            <div class="field-sub" id="cardShare">Karte: 100 %</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-name">Ø Transaktionswert</span><span class="field-val" id="avgVal">50 €</span></div>
+            <input type="range" id="avg" min="20" max="200" step="5" value="50" aria-label="Transaktionswert">
+            <div class="field-sub" id="txCount">≈ 1.600 Transaktionen / Jahr</div>
+          </div>
+          <div class="div-lbl">Plattform-Grundgebühren</div>
+          <div class="field">
+            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--studio)"></span>clublane.one / Monat</span><span class="field-val" id="studioMoVal">120&nbsp;€</span></div>
+            <input type="range" id="studioMo" min="0" max="400" step="5" value="120" aria-label="clublane.one Monatsgebühr">
+            <div class="field-sub">Startpreis ab 120 € / Monat — mit deinem Angebot anpassen</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--bsport)"></span>bsport / Monat</span><span class="field-val" id="bsMoVal">130&nbsp;€</span></div>
+            <input type="range" id="bsMo" min="0" max="400" step="5" value="130" aria-label="bsport Monatsgebühr">
+            <div class="field-sub">Annahme — mit deinem Angebot überschreiben</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-name"><span class="dot-pre" style="background:var(--ever)"></span>Eversports / Monat</span><span class="field-val" id="evMoVal">120&nbsp;€</span></div>
+            <input type="range" id="evMo" min="0" max="400" step="5" value="119" aria-label="Eversports Monatsgebühr">
+            <div class="field-sub">Paket Accelerate ≈ 119 €; je nach Volumen</div>
+          </div>
+
+          <style>
+            .ov{margin-top:14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:rgba(0,0,0,.02);padding:0 14px}
+            .ov>summary{cursor:pointer;padding:12px 2px;font-weight:600;font-size:13.5px;list-style:none;color:var(--ink,#1d1d1b)}
+            .ov>summary::-webkit-details-marker{display:none}
+            .ov>summary::before{content:"▸";color:#8a8a8a;margin-right:7px;display:inline-block}
+            .ov[open]>summary::before{content:"▾"}
+            .ov-note{font-size:11.5px;color:#6a6a6a;line-height:1.5;margin:0 0 12px}
+            .ov-grp{margin:0 0 13px}
+            .ov-grp>b{font-size:12px;display:block;margin:4px 0 7px;color:var(--ink,#1d1d1b)}
+            .ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+            .ov-grid label{display:flex;flex-direction:column;font-size:11px;color:#5a5a5a;gap:3px}
+            .ov-grid input{font:inherit;font-size:13px;padding:6px 8px;border:1px solid rgba(0,0,0,.2);border-radius:7px;background:#fff;width:100%}
+            .ov-grid input:focus{outline:2px solid rgba(37,99,235,.35);border-color:#2563EB}
+            .ov-reset{font:inherit;font-size:12px;cursor:pointer;border:1px solid rgba(0,0,0,.22);background:#fff;border-radius:8px;padding:6px 13px;margin:0 0 14px}
+            .ov-reset:hover{border-color:#888}
+            .pextra{margin-top:8px;font-size:12px;line-height:1.5}
+            .pextra .ex-warn{color:#D92D20;font-weight:600}
+            .pextra .ex-ok{color:#2f8f4e;font-weight:600}
+          </style>
+          <details class="ov">
+            <summary>Parameter</summary>
+            <div class="ov-note">Werte hier überschreiben die Rechnung sofort — <b>nichts wird gespeichert</b> (nach Neuladen gelten wieder die Standardwerte). Bei den <b>Eingaben</b> bedeutet ein leeres Feld: der Slider oben gilt. Die <b>Sätze</b> sind mit den Standardwerten vorbelegt.</div>
+
+            <div class="ov-grp"><b>Eingaben (überschreiben die Slider oben)</b>
+              <div class="ov-grid">
+                <label>Jahresumsatz €<input type="number" id="ov_rev" data-def="" placeholder="80000" min="0" step="1000"></label>
+                <label>SEPA-Anteil %<input type="number" id="ov_sepa" data-def="" placeholder="0" min="0" max="100" step="1"></label>
+                <label>Ø Transaktionswert €<input type="number" id="ov_avg" data-def="" placeholder="50" min="1" step="1"></label>
+                <label>clublane.one €/Monat<input type="number" id="ov_studioMo" data-def="" placeholder="120" min="0" step="1"></label>
+                <label>bsport €/Monat<input type="number" id="ov_bsMo" data-def="" placeholder="130" min="0" step="1"></label>
+                <label>Eversports €/Monat<input type="number" id="ov_evMo" data-def="" placeholder="119" min="0" step="1"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>clublane.one — Aufschlag/Provision (nur das, was clublane behält)</b>
+              <div class="ov-note" style="margin:0 0 8px">clublane behält <b>nur diesen Aufschlag</b> zusätzlich zur Stripe-Basis. Der Gesamt-Kartensatz des Studios = Stripe-Basis + Aufschlag (Standard: 1,5 % + 0,6 % = 2,1 %). Auf SEPA behält clublane standardmäßig 0 %.</div>
+              <div class="ov-grid">
+                <label>Aufschlag Karte %<input type="number" id="ov_S_cp" data-def="0.6" value="0.6" step="0.1"></label>
+                <label>Aufschlag Karte Fix €<input type="number" id="ov_S_cf" data-def="0.04" value="0.04" step="0.01"></label>
+                <label>Aufschlag SEPA %<input type="number" id="ov_S_sp" data-def="0" value="0" step="0.1"></label>
+                <label>Aufschlag SEPA Fix €<input type="number" id="ov_S_sf" data-def="0.05" value="0.05" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Stripe-Basis (Zahlungs-Rail)</b>
+              <div class="ov-grid">
+                <label>Karte %<input type="number" id="ov_Str_cp" data-def="1.5" value="1.5" step="0.1"></label>
+                <label>Karte Fix €<input type="number" id="ov_Str_cf" data-def="0.25" value="0.25" step="0.01"></label>
+                <label>SEPA %<input type="number" id="ov_Str_sp" data-def="0.8" value="0.8" step="0.1"></label>
+                <label>SEPA Fix €<input type="number" id="ov_Str_sf" data-def="0.25" value="0.25" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Mollie (Zahlungs-Rail)</b>
+              <div class="ov-grid">
+                <label>Karte %<input type="number" id="ov_M_cp" data-def="1.8" value="1.8" step="0.1"></label>
+                <label>Karte Fix €<input type="number" id="ov_M_cf" data-def="0.25" value="0.25" step="0.01"></label>
+                <label>SEPA %<input type="number" id="ov_M_sp" data-def="0.5" value="0.5" step="0.1"></label>
+                <label>SEPA Fix €<input type="number" id="ov_M_sf" data-def="0.25" value="0.25" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>bsport — Transaktion (blended)</b>
+              <div class="ov-grid">
+                <label>Satz %<input type="number" id="ov_B_tp" data-def="2.9" value="2.9" step="0.1"></label>
+                <label>Fix €<input type="number" id="ov_B_tf" data-def="0.30" value="0.30" step="0.01"></label>
+              </div>
+            </div>
+
+            <div class="ov-grp"><b>Eversports — Transaktion (blended)</b>
+              <div class="ov-grid">
+                <label>Satz %<input type="number" id="ov_E_tp" data-def="2.9" value="2.9" step="0.1"></label>
+                <label>Fix €<input type="number" id="ov_E_tf" data-def="0.45" value="0.45" step="0.01"></label>
+              </div>
+            </div>
+
+            <button type="button" class="ov-reset" id="ov_reset">Auf Standardwerte zurücksetzen</button>
+          </details>
+        </section>
+
+        <section class="panel panel-pad" aria-label="Ergebnis">
+          <p class="panel-title">Ergebnis</p>
+          <div class="verdict" id="verdict">
+            <span class="verdict-dot"></span>
+            <div><div class="verdict-main" id="verdictMain">–</div><div class="verdict-sub" id="verdictSub">–</div></div>
+          </div>
+          <div id="kvBars"></div>
+          <div class="kv-legend">
+            <span class="leg-item"><span class="leg-sw" style="background:var(--stripe)"></span>Stripe</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--mollie)"></span>Mollie</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--studio)"></span>clublane.one</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--bsport)"></span>bsport</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--ever)"></span>Eversports</span>
+            <span class="leg-item"><span class="leg-sw" style="background:var(--fixseg)"></span>Transaktions-Aufschlag</span>
+          </div>
+          <div class="kv-cards" id="kvCards"></div>
+        </section>
+
+      </div><!-- /kv-grid -->
+    </div><!-- /kv-widget -->
+  </div>
+</section>
+
+<!-- BUILT BY -->
+<section class="builtby-section">
+  <div class="section-inner">
+    <span class="sec-label">Unsere Philosophie</span>
+    <h2 class="sec-h2">Im eigenen Studio geboren.<br>Für deins gemacht.</h2>
+    <p class="sec-sub">Software, die nur Funktionen zählt, kennt kein Studio von innen. clublane.one entstand aus dem Alltag — und löst die Probleme, die wir selbst erlebt haben.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-head">Radikal transparent</div>
+        <p class="why-text">Die Plattform mit Transparenz statt Tarif-Dschungel. Damit du siehst — und die Wahl hast — welchen Service du einkaufst.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-head">Designed for simplicity</div>
+        <p class="why-text">Buchung, Mitglieder, Zahlungen, Signage, Shop, PT — alles in einem. Kein Sync. Keine Doppelpflege. Alles passt zusammen.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-head">Aus der Praxis</div>
+        <p class="why-text">Jedes Feature entsteht in unserem eigenen Studio. Wenn wir nicht täglich damit arbeiten, kommt es nicht in die Plattform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="kontakt">
+  <div class="cta-inner">
+    <span class="sec-label">Anfangen</span>
+    <h2 class="sec-h2">Dein nächstes Kapitel<br>beginnt hier.</h2>
+    <p class="sec-sub">Kein Setup-Chaos. Kein Lock-in. Ein System, das für dein Studio arbeitet — von Tag 1 an.</p>
+    <div class="cta-actions">
+      <a class="btn-dark" href="mailto:info@clublane.one" data-contact>Demo anfragen</a>
+      <a class="btn-outline" href="#vergleich">Vergleich ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a class="logo" href="#" style="text-decoration:none">
+        <span class="logo-s">clublane</span><span class="logo-os">.one</span>
+      </a>
+      <nav class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#vergleich">Vergleich</a>
+        <a href="#kosten">Kosten</a>
+        <a href="#kontakt" data-contact>Kontakt</a>
+        <a href="../impressum.html">Impressum</a>
+        <a href="../datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+    <p class="footer-note">
+      clublane.one ist ein Produkt der Atvisory GmbH. &nbsp;·&nbsp;
+      Feature-Vergleiche basieren auf öffentlich verfügbaren Informationen der genannten Anbieter (Stand 2026) und dienen der allgemeinen Orientierung. Kein Anspruch auf Vollständigkeit oder Aktualität. Alle Marken- und Produktnamen sind Eigentum ihrer jeweiligen Inhaber. Keine Kaufberatung.
+    </p>
+  </div>
+</footer>
+
+<!-- Kontakt-/Demo-Overlay (öffnet unter dem Header) -->
+<div class="login-overlay" id="contactOverlay" hidden>
+  <div class="login-box">
+    <div class="login-bar">
+      <span class="login-bar-title">Demo &amp; Kontakt</span>
+      <button class="login-close" id="contactClose" type="button" aria-label="Schließen">✕</button>
+    </div>
+    <div class="contact-body">
+      <form id="contactForm" class="contact-form">
+        <!-- Web3Forms: Access-Key hier eintragen (von web3forms.com mit info@clublane.one) -->
+        <input type="hidden" name="access_key" value="2bb0277c-e28b-41fc-90fa-588cf72aefdf">
+        <input type="hidden" name="subject" value="Neue Demo-/Kontaktanfrage über clublane.one">
+        <input type="hidden" name="from_name" value="clublane.one Webseite">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <label class="cf-label">Name
+          <input type="text" name="name" required autocomplete="name">
+        </label>
+        <label class="cf-label">E-Mail
+          <input type="email" name="email" required autocomplete="email">
+        </label>
+        <label class="cf-label">Studio / Unternehmen
+          <input type="text" name="studio" required autocomplete="organization">
+        </label>
+        <label class="cf-label">Nachricht
+          <textarea name="message" required></textarea>
+        </label>
+        <button type="submit" class="cf-submit" id="cfSubmit">Anfrage senden</button>
+        <p class="cf-error" id="cfError" hidden></p>
+      </form>
+      <div class="contact-thanks" id="contactThanks" hidden>
+        <div class="ct-check">✓</div>
+        <h3>Vielen Dank für dein Interesse!</h3>
+        <p>Wir melden uns gerne bei dir.</p>
+        <button type="button" class="cf-submit" id="contactThanksClose">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ov=document.getElementById('contactOverlay'),
+      form=document.getElementById('contactForm'),
+      closeBtn=document.getElementById('contactClose'),
+      thanks=document.getElementById('contactThanks'),
+      thanksClose=document.getElementById('contactThanksClose'),
+      submitBtn=document.getElementById('cfSubmit'),
+      errEl=document.getElementById('cfError');
+  if(!ov||!form) return;
+  function openContact(){ form.style.display=''; thanks.hidden=true; errEl.hidden=true; ov.hidden=false; document.body.style.overflow='hidden'; }
+  function closeContact(){ ov.hidden=true; document.body.style.overflow=''; }
+  document.querySelectorAll('[data-contact]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openContact(); });
+  });
+  closeBtn.addEventListener('click', closeContact);
+  if(thanksClose) thanksClose.addEventListener('click', closeContact);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeContact(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !ov.hidden) closeContact(); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errEl.hidden=true;
+    submitBtn.disabled=true; submitBtn.textContent='Senden …';
+    fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.success){ form.style.display='none'; thanks.hidden=false; } else { throw new Error(); } })
+      .catch(function(){ errEl.textContent='Senden fehlgeschlagen. Bitte später erneut versuchen oder direkt an info@clublane.one schreiben.'; errEl.hidden=false; })
+      .finally(function(){ submitBtn.disabled=false; submitBtn.textContent='Anfrage senden'; });
+  });
+})();
+</script>
+
+<!-- Login: Der Kopf-Link #navLogin navigiert das VOLLE Fenster direkt auf
+     https://os.aelixir.de/login/clublane (siehe <a class="nav-login"> im Header).
+     Kein Overlay, kein iFrame — bewusst: eine Anmeldung im iFrame entsteht im
+     Drittanbieter-Kontext, dessen Speicher (localStorage mit der Supabase-Sitzung)
+     der Browser vom Erstanbieter-Speicher derselben Herkunft trennt. Beim Sprung
+     ins Hauptfenster war die Sitzung deshalb nicht vorhanden. Der Login muss dort
+     entstehen, wo er auch gilt: im Hauptfenster. -->
+
+<script>
+(function(){
+  const eur0=new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+  const num0=new Intl.NumberFormat('de-DE',{maximumFractionDigits:0});
+  const pct2=n=>n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';
+  const $=id=>document.getElementById(id);
+  const rev=$('rev'),sepa=$('sepa'),avg=$('avg');
+  const studioMo=$('studioMo'),bsMo=$('bsMo'),evMo=$('evMo');
+
+  const providers=[
+    {key:'mollie', name:'Mollie',    cat:'Zahlungs-Rail',     color:'var(--mollie)',noWin:true},
+    {key:'stripe', name:'Stripe',    cat:'Zahlungs-Rail',     color:'var(--stripe)',noWin:true},
+    {key:'studio', name:'clublane.one', cat:'All-in-One Plattform',color:'var(--studio)'},
+    {key:'bsport', name:'bsport',   cat:'Plattform',color:'var(--bsport)'},
+    {key:'ever',   name:'Eversports',cat:'Plattform',color:'var(--ever)'},
+  ];
+
+  const barsEl=$('kvBars'), cardsEl=$('kvCards');
+  let periodMonthly=false; // false = jährlich (Standard), true = monatlich
+  const cardProviders=[
+    providers.find(p=>p.key==='studio'),
+    providers.find(p=>p.key==='bsport'),
+    providers.find(p=>p.key==='ever'),
+    providers.find(p=>p.key==='stripe'),
+    providers.find(p=>p.key==='mollie'),
+  ];
+
+  providers.forEach(p=>{
+    const b=document.createElement('div'); b.className='bar-block';
+    // Rails (Stripe/Mollie): ganze Kosten in Anbieterfarbe.
+    // Plattformen: Transaktions-Aufschlag grau, Grundgebühr/Abo in Anbieterfarbe.
+    const segvColor=p.noWin?p.color:'var(--fixseg)';
+    const segfColor=p.color;
+    b.innerHTML=`<div class="bar-label">
+      <span class="brand-dot" style="background:${p.color}"></span>
+      <span class="bar-name">${p.name}</span><span class="bar-cat">${p.cat}</span>
+      <span class="bar-tag" id="tag_${p.key}" hidden>✓ bestes Angebot</span></div>
+      <div class="track-row"><div class="kv-track"><div class="barfill" id="bar_${p.key}">
+      <div class="seg" id="segs_${p.key}" style="background:var(--stripe)"></div>
+      <div class="seg" id="segv_${p.key}" style="background:${segvColor}"></div>
+      <div class="seg" id="segf_${p.key}" style="background:${segfColor}"></div>
+      </div></div><span class="bar-total" id="tot_${p.key}">–</span></div>`;
+    barsEl.appendChild(b);
+  });
+
+  cardProviders.forEach(p=>{
+    const c=document.createElement('div');
+    c.className='pcard'+(p.key==='studio'?' studio-card':'');
+    c.innerHTML=`<h3><span class="brand-dot" style="background:${p.color}"></span>${p.name}</h3>
+      <div class="eff" id="eff_${p.key}">–</div>
+      <div class="big" id="big_${p.key}">–</div>
+      <div class="permo" id="mo_${p.key}">–</div>
+      <div class="kv-lines" id="lines_${p.key}"></div>
+      <div class="pnote" id="note_${p.key}"></div>
+      <div class="pextra" id="extra_${p.key}"></div>`;
+    cardsEl.appendChild(c);
+  });
+
+  function track(el){
+    const p=((+el.value-+el.min)/(+el.max-+el.min))*100;
+    el.style.background=`linear-gradient(to right,var(--ink) 0%,var(--ink) ${p}%,var(--track) ${p}%,var(--track) 100%)`;
+  }
+
+  function calc(){
+    // Laufzeit-Override: liest den Wert aus einem ov_*-Feld; leer/ungültig -> Standard (Slider bzw. fester Satz).
+    const ovNum=(id,def)=>{const el=document.getElementById(id);if(!el)return def;const t=(el.value||'').trim().replace(',','.');if(t==='')return def;const v=parseFloat(t);return isFinite(v)?v:def;};
+    const R=ovNum('ov_rev',+rev.value), s=ovNum('ov_sepa',+sepa.value)/100, A=ovNum('ov_avg',+avg.value);
+    const moStudio=ovNum('ov_studioMo',+studioMo.value), moBs=ovNum('ov_bsMo',+bsMo.value), moEv=ovNum('ov_evMo',+evMo.value);
+    const sepaVol=R*s, cardVol=R-sepaVol;
+    const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
+
+    // Tarife (fest hinterlegt; frueher ueber das entfernte "Tarife anpassen"-Panel editierbar)
+    const Str={cp:ovNum('ov_Str_cp',1.5),cf:ovNum('ov_Str_cf',0.25),sp:ovNum('ov_Str_sp',0.8),sf:ovNum('ov_Str_sf',0.25)};
+    // clublane-Feld = NUR der Aufschlag/Provision. Gesamtsatz = Stripe-Basis + Aufschlag.
+    // (Chart/Verteilung bleiben identisch: S entspricht weiterhin 2,1 %/0,8 % usw.)
+    const Prov={cp:ovNum('ov_S_cp',0.6),cf:ovNum('ov_S_cf',0.04),sp:ovNum('ov_S_sp',0),sf:ovNum('ov_S_sf',0.05)};
+    const S={cp:Str.cp+Prov.cp,cf:Str.cf+Prov.cf,sp:Str.sp+Prov.sp,sf:Str.sf+Prov.sf};
+    const M={cp:ovNum('ov_M_cp',1.8),cf:ovNum('ov_M_cf',0.25),sp:ovNum('ov_M_sp',0.5),sf:ovNum('ov_M_sf',0.25)};
+    const B={tp:ovNum('ov_B_tp',2.9),tf:ovNum('ov_B_tf',0.30)};
+    const E={tp:ovNum('ov_E_tp',2.9),tf:ovNum('ov_E_tf',0.45)};
+
+    const sSepa=sepaVol*S.sp/100+sepaTx*S.sf;
+    const sCard=cardVol*S.cp/100+cardTx*S.cf;
+    const strSepa=sepaVol*Str.sp/100+sepaTx*Str.sf;
+    const strCard=cardVol*Str.cp/100+cardTx*Str.cf;
+    const mSepa=sepaVol*M.sp/100+sepaTx*M.sf;
+    const mCard=cardVol*M.cp/100+cardTx*M.cf;
+    const bVar=R*B.tp/100+totalTx*B.tf, bFix=moBs*12;
+    const eVar=R*E.tp/100+totalTx*E.tf, eFix=moEv*12;
+    const studioVar=sSepa+sCard, studioFix=moStudio*12;
+
+    // Stripe-Basis der Zahlungsabwicklung — bei gleichem Umsatz/Mix für alle Plattformen identisch.
+    const stripeBase=strSepa+strCard;
+
+    const data={
+      stripe:{variable:strSepa+strCard,fix:0,stripeBase:0,
+        lines:[['Karte-Gebühren (Stripe)',strCard],['SEPA-Gebühren (Stripe)',strSepa]],
+        note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
+      mollie:{variable:mSepa+mCard,fix:0,stripeBase:0,
+        lines:[['Karte-Gebühren (Mollie)',mCard],['SEPA-Gebühren (Mollie)',mSepa]],
+        note:'Nur Payment-Rail — kein Buchungssystem, keine App, keine Mitgliederverwaltung.'},
+      studio:{variable:studioVar,fix:studioFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['clublane.one-Transaktion',studioVar-stripeBase],['Plattform-Abo',studioFix]],
+        note:'Stripe-Basis + clublane.one-Aufschlag — Vollplattform inkl. Buchung, App &amp; Verwaltung.',
+        extra:'<span class="ex-ok">✓ Keine Zusatzkosten — eigener, mitnehmbarer Stripe-Account, kein Lock-in.</span>'},
+      bsport:{variable:bVar,fix:bFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['bsport-Transaktion',bVar-stripeBase],['Abo',bFix]],
+        note:'Blended-Transaktionssatz lt. Vertrag (Annahme), inkl. Zahlungsabwicklung. Inkl. Buchung, App, Mitgliederverwaltung.',
+        extra:'<span class="ex-warn">Zusätzlich (nicht in der Summe): Plattform-Lock-in — kein eigener, mitnehmbarer Stripe-Account.</span>'},
+      ever:{variable:eVar,fix:eFix,stripeBase:stripeBase,
+        lines:[['Stripe-Basis (Zahlungen)',stripeBase],['Eversports-Transaktion',eVar-stripeBase],['Abo',eFix]],
+        note:'Blended-Transaktionssatz inkl. Zahlungsabwicklung. Inkl. Buchung &amp; App.',
+        extra:'<span class="ex-warn">Zusätzlich (nicht in der Summe): einmaliges Setup ~99 € · bis 25 % Marktplatz-Provision auf Neukunden · Plattform-Lock-in (kein eigener Stripe-Account).</span>'},
+    };
+    Object.keys(data).forEach(k=>data[k].total=data[k].variable+data[k].fix);
+
+    const sPct=s*100, r1=x=>Number.isInteger(x)?x:Math.round(x*10)/10;
+    $('revVal').textContent=eur0.format(R);
+    $('sepaVal').textContent=r1(sPct)+' %';
+    $('cardShare').textContent='Karte: '+r1(100-sPct)+' %';
+    $('avgVal').textContent=r1(A)+' €';
+    $('txCount').textContent='≈ '+num0.format(Math.round(totalTx))+' Transaktionen / Jahr';
+    $('studioMoVal').textContent=eur0.format(moStudio);
+    $('bsMoVal').textContent=eur0.format(moBs);
+    $('evMoVal').textContent=eur0.format(moEv);
+
+    // Zeitraum-Umschaltung: Werte skalieren, Balkenlängen bleiben proportional.
+    const f=periodMonthly?1/12:1, fOther=periodMonthly?1:1/12;
+    const per=periodMonthly?'/ Monat':'/ Jahr', perOther=periodMonthly?'/ Jahr':'/ Monat';
+
+    const maxT=Math.max(...providers.map(p=>data[p.key].total),1);
+    const platProv=providers.filter(p=>!p.noWin);
+    let minK=platProv[0].key, minVal=Infinity, secondMin=Infinity;
+    platProv.forEach(p=>{const t=data[p.key].total; if(t<minVal){minVal=t;minK=p.key;}});
+    platProv.forEach(p=>{const t=data[p.key].total; if(t>minVal&&t<secondMin)secondMin=t;});
+
+    providers.forEach(p=>{
+      const d=data[p.key];
+      $('bar_'+p.key).style.width=(d.total/maxT*100)+'%';
+      const denom=d.total>0?d.total:1;
+      const sb=Math.min(d.stripeBase||0,d.variable);        // identische Stripe-Basis
+      const surcharge=d.variable-sb;                          // Aufschlag/Marge der Plattform
+      $('segs_'+p.key).style.flexBasis=(sb/denom*100)+'%';
+      $('segv_'+p.key).style.flexBasis=(surcharge/denom*100)+'%';
+      $('segf_'+p.key).style.flexBasis=(d.fix/denom*100)+'%';
+      $('tot_'+p.key).textContent=eur0.format(d.total*f);
+      $('bar_'+p.key).classList.toggle('winner',p.key===minK);
+      $('tag_'+p.key).hidden=(p.key!==minK);
+      $('big_'+p.key).textContent=eur0.format(d.total*f);
+      $('mo_'+p.key).textContent=eur0.format(d.total*fOther)+' '+perOther;
+      $('eff_'+p.key).textContent='effektiv '+pct2(R>0?d.total/R*100:0)+' vom Umsatz';
+      $('lines_'+p.key).innerHTML=d.lines.map(l=>`<div class="kv-line"><span class="k">${l[0]}</span><span class="v">${eur0.format(l[1]*f)}</span></div>`).join('');
+      $('note_'+p.key).innerHTML=d.note;
+      $('extra_'+p.key).innerHTML=d.extra||'';
+    });
+
+    const winner=platProv.find(p=>p.key===minK).name;
+    const gap=isFinite(secondMin)?secondMin-minVal:0;
+    $('verdictMain').innerHTML=winner+' ist am günstigsten — <b>'+eur0.format(minVal*f)+'</b> '+per;
+    $('verdictSub').textContent=isFinite(secondMin)
+      ? eur0.format(gap*f)+' günstiger als die nächstbeste Option  ·  '+eur0.format(minVal*fOther)+' '+perOther
+      : eur0.format(minVal*fOther)+' '+perOther;
+  }
+
+  [rev,sepa,avg,studioMo,bsMo,evMo].forEach(el=>{el.addEventListener('input',()=>{track(el);calc();});track(el);});
+  // Laufzeit-Override-Felder: bei Eingabe sofort neu rechnen; Reset stellt Standardwerte wieder her.
+  document.querySelectorAll('.ov input').forEach(el=>el.addEventListener('input',calc));
+  var ovReset=document.getElementById('ov_reset');
+  if(ovReset) ovReset.addEventListener('click',function(){
+    document.querySelectorAll('.ov input').forEach(function(el){ el.value = el.getAttribute('data-def')||''; });
+    calc();
+  });
+  document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      periodMonthly=btn.getAttribute('data-period')==='month';
+      document.querySelectorAll('.unit-toggle .unit-btn').forEach(b=>b.classList.toggle('is-active',b===btn));
+      calc();
+    });
+  });
+  calc();
+})();
+</script>
+<script>
+/* Modul-Rad ("Für wen"): 13 Modul-Knoten kreisförmig anordnen + Speichen zum Datenkern zeichnen */
+(function(){
+  var c=document.getElementById('modCircle'); if(!c) return;
+  var nodes=[].slice.call(c.querySelectorAll('.mod'));
+  var sp=document.getElementById('mcSpokes');
+  var N=nodes.length, R=42, lines='';
+  nodes.forEach(function(el,i){
+    var a=(-90 + i*360/N)*Math.PI/180;
+    el.style.left=(50+R*Math.cos(a)).toFixed(2)+'%';
+    el.style.top=(50+R*Math.sin(a)).toFixed(2)+'%';
+    el.style.setProperty('--i',i);
+    lines+='<line x1="50" y1="50" x2="'+(50+R*Math.cos(a)).toFixed(2)+'" y2="'+(50+R*Math.sin(a)).toFixed(2)+'"/>';
+  });
+  if(sp) sp.insertAdjacentHTML('beforeend',lines);
+  // Reveal-Animation erst starten, wenn das Rad in den sichtbaren Bereich scrollt.
+  var doReveal=function(){ c.classList.add('reveal'); };
+  var vh=function(){ return window.innerHeight||document.documentElement.clientHeight; };
+  var isVisible=function(){ var r=c.getBoundingClientRect(); return r.top < vh()*0.85 && r.bottom > 0; };
+  if(isVisible()){ doReveal(); }                       // schon beim Laden im Blick -> sofort
+  else if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ doReveal(); io.disconnect(); } }); }, {threshold:0.25});
+    io.observe(c);
+  } else { doReveal(); }
+})();
+</script>
+</body>
+</html>

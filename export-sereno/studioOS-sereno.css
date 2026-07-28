@@ -1,0 +1,476 @@
+/* =========================================================================
+   studioOS — Design "Sereno" (Quiet Luxury)
+   Stylesheet / Developer Handoff
+   Fonts: Spectral (Display-Serif), Hanken Grotesk (Sans / Body)
+   ========================================================================= */
+
+/* ---- Font import (oder via <link> im <head>) --------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ---- Design Tokens ----------------------------------------------------- */
+:root {
+  /* Farben */
+  --ink:          #1F2A24;   /* tiefes Salbei-Schwarzgrün — Text, dunkle Flächen */
+  --brass:        #B08D4F;   /* Messing — Akzent auf hellem Grund */
+  --brass-light:  #C7A968;   /* helleres Messing — Akzent auf dunklem Grund */
+  --cream:        #F2EEE6;   /* Haupt-Hintergrund */
+  --cream-alt:    #EBE6DA;   /* Sektions-Hintergrund (Features, Kosten) */
+  --green-ok:     #5E7A5A;   /* "vorhanden"-Markierung in Tabellen */
+
+  /* Text */
+  --text:         #1F2A24;
+  --text-muted:   #5B655E;
+  --text-soft:    #7C857E;
+  --text-faint:   #9A917F;
+  --on-ink:       #F2EEE6;            /* Text auf dunklem Grund */
+  --on-ink-muted: rgba(242,238,230,.62);
+
+  /* Linien */
+  --line:         rgba(31,42,36,.12);
+  --line-strong:  rgba(31,42,36,.22);
+  --line-on-ink:  rgba(242,238,230,.16);
+
+  /* Typografie */
+  --font-display: 'Spectral', Georgia, serif;
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+
+  /* Radius & Schatten */
+  --radius:       20px;
+  --radius-pill:  99px;
+  --radius-chip:  7px;
+  --shadow-soft:  0 14px 34px rgba(31,42,36,.08);
+  --shadow-img:   0 30px 70px rgba(31,42,36,.18);
+
+  /* Layout */
+  --pad-x:        56px;   /* horizontaler Sektions-Innenabstand (Desktop) */
+  --maxw:         1320px; /* Container-Breite */
+}
+
+/* ---- Base -------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -.015em;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.container { max-width: var(--maxw); margin: 0 auto; }
+
+/* Akzent-Helfer */
+.accent       { color: var(--brass); }
+.accent-light { color: var(--brass-light); }
+.italic       { font-style: italic; }
+
+/* Augenbraue / Kicker */
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* =========================================================================
+   Marke / Logo-Chip   ("studio" cremefarben + "OS" Messing auf dunklem Feld)
+   ========================================================================= */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  border-radius: var(--radius-chip);
+  padding: 7px 14px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.brand__studio { color: var(--cream); }
+.brand__os     { color: var(--brass); }
+
+.brand--sm { font-size: 20px; padding: 6px 12px; border-radius: 6px; }
+.brand--xs { font-size: 17px; padding: 5px 11px; border-radius: 6px; }
+
+/* Alternative: ruhige Inline-Variante ohne dunklen Block */
+.brand-inline {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+.brand-inline .brand__studio { color: var(--ink); }
+.brand-inline .brand__os     { color: var(--brass); }
+
+/* =========================================================================
+   Navigation
+   ========================================================================= */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px var(--pad-x);
+}
+.nav__links {
+  display: flex;
+  gap: 34px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* =========================================================================
+   Buttons
+   ========================================================================= */
+.btn {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  padding: 15px 34px;
+  font-size: 15.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn--primary { background: var(--ink); color: var(--on-ink); }
+.btn--ghost   { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.btn--on-ink  { background: var(--cream); color: var(--ink); }
+.btn--sm      { padding: 10px 22px; font-size: 13.5px; font-weight: 600; }
+
+/* Textlink mit Messing-Unterstrich */
+.link-underline {
+  font-weight: 500;
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: 3px;
+}
+
+/* =========================================================================
+   Hero
+   ========================================================================= */
+.hero {
+  padding: 84px var(--pad-x) 76px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.hero__title {
+  font-size: 74px;
+  line-height: 1.04;
+  max-width: 18ch;
+  margin: 0 auto;
+}
+.hero__lead {
+  font-size: 20px;
+  color: var(--text-muted);
+  max-width: 54ch;
+  margin: 30px auto 38px;
+}
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Bild-Showcase (Schnitt 16/8, zentriert) */
+.showcase {
+  padding: 0 var(--pad-x) 76px;
+}
+.showcase__frame {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-img);
+  position: relative;
+}
+.showcase__img {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  filter: saturate(.95);
+}
+
+/* =========================================================================
+   Stat-Band
+   ========================================================================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stats__item {
+  padding: 38px 30px;
+  border-right: 1px solid var(--line);
+}
+.stats__item:last-child { border-right: 0; }
+.stats__num {
+  font-family: var(--font-display);
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1;
+}
+.stats__num--accent { color: var(--brass); }
+.stats__label {
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--text-soft);
+  margin-top: 8px;
+}
+
+/* =========================================================================
+   Sektionen / Überschriften
+   ========================================================================= */
+.section        { padding: 80px var(--pad-x); }
+.section--alt   { background: var(--cream-alt); }
+.section--ink   { background: var(--ink); color: var(--on-ink); }
+.section--center { text-align: center; }
+
+.section__title { font-size: 46px; line-height: 1.06; }
+.section__lead  { font-size: 17px; color: var(--text-muted); max-width: 58ch; }
+.section--center .section__lead { margin-left: auto; margin-right: auto; }
+
+/* Untergruppen-Label im Feature-Block */
+.group-label {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 16px;
+}
+
+/* =========================================================================
+   Zielgruppen-Chips
+   ========================================================================= */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.chip {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  padding: 11px 22px;
+  font-size: 15px;
+  color: var(--text);
+}
+.chip--filled {
+  background: var(--ink);
+  color: var(--on-ink);
+  border-color: var(--ink);
+  font-weight: 500;
+}
+
+/* =========================================================================
+   Feature-Grid (Modul-Karten, Hairline-Raster)
+   ========================================================================= */
+.feature-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);          /* erzeugt Hairlines zwischen Karten */
+  border: 1px solid var(--line);
+}
+.feature-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.feature-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.feature-card {
+  background: var(--cream);
+  padding: 26px 22px;
+}
+.feature-card--ink { background: var(--ink); color: var(--on-ink); }
+.feature-card__name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.feature-card__desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+.feature-card--ink .feature-card__desc { color: var(--on-ink-muted); }
+
+/* =========================================================================
+   Vision (dunkle Split-Sektion)
+   ========================================================================= */
+.vision { background: var(--ink); color: var(--on-ink); padding: 84px var(--pad-x); }
+.vision__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.vision__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line-on-ink);
+}
+.vision__feature {
+  padding: 18px;
+  border-bottom: 1px solid var(--line-on-ink);
+}
+.vision__feature:nth-child(odd) { border-right: 1px solid var(--line-on-ink); }
+.vision__feature h4 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+.vision__feature p { font-size: 13px; color: var(--on-ink-muted); margin: 0; }
+
+/* =========================================================================
+   Vergleichstabelle
+   ========================================================================= */
+.compare {
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.compare__row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  font-size: 15px;
+  border-top: 1px solid var(--line);
+}
+.compare__row:first-child { border-top: 0; }
+.compare__head {
+  background: var(--cream-alt);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.compare__cell  { padding: 16px 12px; text-align: center; }
+.compare__cell--label { text-align: left; padding-left: 24px; }
+.compare__cell--own   { color: var(--brass); font-weight: 700; }
+.compare__yes   { color: var(--green-ok); }
+.compare__no    { color: #C7C1B1; }   /* leeres Ringerl ○ */
+.compare__part  { color: #AAA595; font-style: italic; font-family: var(--font-display); }
+
+/* =========================================================================
+   Kostenvergleich (Balken)
+   ========================================================================= */
+.cost-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 40px;
+  max-width: 840px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-soft);
+}
+.cost-row { margin-bottom: 24px; }
+.cost-row:last-of-type { margin-bottom: 0; }
+.cost-row__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  font-family: var(--font-display);
+}
+.cost-row__name  { font-size: 22px; }
+.cost-row__value { font-size: 26px; }
+.cost-row--own .cost-row__name,
+.cost-row--own .cost-row__value { color: var(--brass); }
+.cost-row--rival .cost-row__name,
+.cost-row--rival .cost-row__value { color: var(--text-soft); }
+
+.bar { height: 12px; background: #E1DBCD; border-radius: var(--radius-pill); overflow: hidden; }
+.bar__fill { height: 100%; border-radius: var(--radius-pill); }
+.bar__fill--own   { background: var(--ink); }
+.bar__fill--rival { background: #BDB6A4; }
+
+.cost-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 21px;
+  text-align: center;
+  color: var(--ink);
+  margin: 28px 0 0;
+}
+
+/* =========================================================================
+   CTA (dunkle Schluss-Sektion)
+   ========================================================================= */
+.cta {
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: 100px var(--pad-x);
+  text-align: center;
+}
+.cta__title { font-size: 64px; line-height: 1.02; margin: 0 0 18px; }
+.cta__title .accent { color: var(--brass-light); }
+.cta__lead { font-size: 18px; color: var(--on-ink-muted); max-width: 52ch; margin: 0 auto 36px; }
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+.footer { padding: 44px var(--pad-x); background: var(--cream); }
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 24px;
+  margin-bottom: 18px;
+}
+.footer__links {
+  display: flex;
+  gap: 26px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.footer__legal { font-size: 11.5px; color: var(--text-faint); line-height: 1.6; margin: 0; }
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+@media (max-width: 860px) {
+  :root { --pad-x: 22px; }
+
+  .nav__links,
+  .footer__links { display: none; }            /* -> Burger-Menü im Build */
+
+  .hero { padding: 40px var(--pad-x); }
+  .hero__title { font-size: 40px; }
+  .hero__lead  { font-size: 15px; margin: 18px 0 22px; }
+  .hero__actions { flex-direction: column; align-items: stretch; }
+
+  .section { padding: 36px var(--pad-x); }
+  .section__title { font-size: 28px; }
+  .cta__title { font-size: 32px; }
+
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats__item:nth-child(2) { border-right: 0; }
+  .stats__item:nth-child(1),
+  .stats__item:nth-child(2) { border-bottom: 1px solid var(--line); }
+  .stats__num { font-size: 36px; }
+
+  .feature-grid--4,
+  .feature-grid--3 { grid-template-columns: 1fr 1fr; }
+
+  .vision__grid,
+  .compare__row { grid-template-columns: 1fr; }
+  .vision__features { grid-template-columns: 1fr; }
+
+  .showcase__img { aspect-ratio: 5 / 4; object-position: 70% center; }
+  .cost-card { padding: 24px; }
+}
