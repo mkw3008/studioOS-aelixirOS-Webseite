@@ -228,10 +228,8 @@ section{ padding:96px 24px; position:relative; }
 .vision-card{ background:linear-gradient(165deg,var(--pastel-cream),var(--pastel-cream-2)); border-radius:var(--radius-lg); padding:48px; box-shadow:var(--shadow-card); }
 .vision-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
 @media(max-width:820px){ .vision-grid{ grid-template-columns:1fr; } .vision-card{ padding:28px; } }
-.vision-imgs{ display:grid; grid-template-columns:1fr; gap:14px; }
-.vision-imgs img{ border-radius:14px; width:100%; }
-.vision-imgs img + img{ width:58%; justify-self:center; }
-.vision-pills{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; }
+.vision-img{ border-radius:14px; width:100%; }
+.vision-pills{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .vision-pill{ background:rgba(255,255,255,.7); border:1px solid rgba(10,20,40,.06); border-radius:12px; padding:14px 16px; }
 .vision-pill strong{ font-size:13.5px; font-weight:700; display:block; margin-bottom:3px; }
 .vision-pill p{ font-size:12px; color:var(--muted); line-height:1.5; }
