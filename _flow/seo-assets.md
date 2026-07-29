@@ -30,10 +30,17 @@ CDN. Grosse Produktbilder liegen unkomprimiert im Root und werden direkt eingebu
   nicht-oeffentliche Design-Quelle ist. Bei der Uebernahme nach Root musste es entfernt werden
   (`3ea463d`/`20a4950`) — waere es mitgekommen, waere die Kundendomain aus dem Index geflogen.
   Umgekehrt beim naechsten Umzug wieder pruefen.
-- **`Version1/` ist oeffentlich UND ohne `noindex`** — nachweisbar: `curl` auf `/Version1/` liefert
-  200, `grep -c noindex Version1/index.html` liefert 0. Damit ist die komplette alte Seite als
-  Dublette indexierbar. **Offen, bewusst nicht eigenmaechtig geaendert** (Scope-Lock); Entscheidung
-  des Betreibers noetig: `noindex` ins Archiv, `robots.txt`, oder so lassen.
+- **Alle Fassungen ausser der Live-Seite gehoeren auf `noindex`.** Betreiber-Entscheidung vom
+  2026-07-29: die alte Seite darf nicht indexiert werden, die neue schon. `Version1/index.html`
+  hat seither ein `noindex, nofollow` im Kopf; `Version2/` hatte es bereits. Der Root bleibt
+  bewusst OHNE — er ist die Seite, die gefunden werden soll. Gegenprobe per Kommando unten.
+- **`robots.txt` waere hier das falsche Werkzeug** fuer bereits indexierte Seiten: ein `Disallow`
+  verhindert das erneute Crawlen und damit, dass Google das `noindex` ueberhaupt sieht. Darum
+  Meta-`noindex` statt Sperre.
+- **Weitere oeffentlich erreichbare Altstaende ausserhalb von `Version1/2`:** `export-sereno/`
+  antwortet mit 200 und traegt noch den alten Markennamen im Titel; `Kosten-Vergleich.html` ist
+  unverlinkt, aber erreichbar. Beide **ohne** `noindex` und bewusst nicht mitgeaendert
+  (Scope-Lock, nicht beauftragt) — offene Betreiber-Entscheidung. Liste per Kommando unten.
 - **Grosse Bilder nie mit `Read` oeffnen** — mehrere Dateien im MB-Bereich; sie sind in
   `.claude/settings.json` gesperrt. Groesse/Existenz per `find`/`ls` klaeren, Inhalt per Screenshot
   der Seite, nicht per Bildaufruf.
@@ -47,8 +54,8 @@ CDN. Grosse Produktbilder liegen unkomprimiert im Root und werden direkt eingebu
 - **Was steht im Kopf der Seite?** `sed -n '1,25p' index.html`
 - **Welche Favicon-Ebenen hat die ICO-Datei wirklich?**
   `python3 -c "from PIL import Image; print(Image.open('favicon.ico').ico.sizes())"`
-- **Welche Fassungen tragen `noindex`?**
-  `for f in index.html Version1/index.html Version2/index.html; do printf '%-24s %s\n' "$f" "$(grep -c noindex "$f")"; done`
+- **Welche HTML-Seite traegt `noindex` — und welche nicht?** (Root MUSS 0 sein, Archive 1)
+  `find . -name '*.html' -not -path './.git/*' | sort | while read -r f; do printf '%-34s %s\n' "$f" "$(grep -c 'name="robots"' "$f")"; done`
 - **Gibt es robots.txt/sitemap.xml?** `ls robots.txt sitemap.xml 2>/dev/null || echo keine`
 - **Externe Ressourcen (sollte nur bewusst Gewolltes zeigen):**
   `grep -oE '(src|href)="https?://[^"]+"' index.html | sort -u`
