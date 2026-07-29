@@ -42,9 +42,11 @@ CDN. Grosse Produktbilder liegen unkomprimiert im Root und werden direkt eingebu
   Sereno-Designexport (`export-sereno/` → `_export-sereno/`, Betreiber-Auftrag): die URL
   antwortet seither mit 404, die Dateien bleiben als Sicherung im Repo. Achtung: Pfade in
   `.claude/settings.json` (`permissions.deny`) muessen bei so einer Umbenennung mitgezogen werden.
-- **`Kosten-Vergleich.html` ist weiterhin erreichbar und ohne `noindex`** — unverlinkt, aber ueber
-  die Domain abrufbar. Bewusst nicht mitgeaendert (Scope-Lock, nicht beauftragt) — offene
-  Betreiber-Entscheidung. Liste per Kommando unten.
+- **Der Unterstrich wirkt auch bei einzelnen Dateien, nicht nur bei Ordnern.** Am 2026-07-29 so
+  mit der alten Vergleichsseite gemacht (`Kosten-Vergleich.html` → `_Kosten-Vergleich.html`,
+  Betreiber-Auftrag): sie war unverlinkt, aber ueber die Domain abrufbar und ohne `noindex`.
+  Begruendung des Betreibers: der gepflegte Kostenrechner steckt in der Startseite, die Altseite
+  braucht online niemand — in git bleibt sie. Gegenprobe per Kommando unten.
 - **Grosse Bilder nie mit `Read` oeffnen** — mehrere Dateien im MB-Bereich; sie sind in
   `.claude/settings.json` gesperrt. Groesse/Existenz per `find`/`ls` klaeren, Inhalt per Screenshot
   der Seite, nicht per Bildaufruf.
@@ -64,3 +66,5 @@ CDN. Grosse Produktbilder liegen unkomprimiert im Root und werden direkt eingebu
 - **Externe Ressourcen (sollte nur bewusst Gewolltes zeigen):**
   `grep -oE '(src|href)="https?://[^"]+"' index.html | sort -u`
 - **Grosse Dateien:** `find . -type f -size +500k -not -path "./.git/*" | sort`
+- **Was liefert die Domain wirklich aus?** (Unterstrich-Namen muessen 404 sein)
+  `for u in / /Version1/ /Version2/ /_Kosten-Vergleich.html /_export-sereno/ /_flow/ROUTER.md; do printf '%-28s %s\n' "$u" "$(curl -sL -o /dev/null -w '%{http_code}' "https://clublane.one$u")"; done`
