@@ -37,10 +37,14 @@ CDN. Grosse Produktbilder liegen unkomprimiert im Root und werden direkt eingebu
 - **`robots.txt` waere hier das falsche Werkzeug** fuer bereits indexierte Seiten: ein `Disallow`
   verhindert das erneute Crawlen und damit, dass Google das `noindex` ueberhaupt sieht. Darum
   Meta-`noindex` statt Sperre.
-- **Weitere oeffentlich erreichbare Altstaende ausserhalb von `Version1/2`:** `export-sereno/`
-  antwortet mit 200 und traegt noch den alten Markennamen im Titel; `Kosten-Vergleich.html` ist
-  unverlinkt, aber erreichbar. Beide **ohne** `noindex` und bewusst nicht mitgeaendert
-  (Scope-Lock, nicht beauftragt) — offene Betreiber-Entscheidung. Liste per Kommando unten.
+- **Aus der Auslieferung nehmen geht ohne Loeschen** — genau wie bei `_flow/`: ein fuehrender
+  Unterstrich genuegt, Jekyll ueberspringt den Ordner. So geschehen am 2026-07-29 mit dem alten
+  Sereno-Designexport (`export-sereno/` → `_export-sereno/`, Betreiber-Auftrag): die URL
+  antwortet seither mit 404, die Dateien bleiben als Sicherung im Repo. Achtung: Pfade in
+  `.claude/settings.json` (`permissions.deny`) muessen bei so einer Umbenennung mitgezogen werden.
+- **`Kosten-Vergleich.html` ist weiterhin erreichbar und ohne `noindex`** — unverlinkt, aber ueber
+  die Domain abrufbar. Bewusst nicht mitgeaendert (Scope-Lock, nicht beauftragt) — offene
+  Betreiber-Entscheidung. Liste per Kommando unten.
 - **Grosse Bilder nie mit `Read` oeffnen** — mehrere Dateien im MB-Bereich; sie sind in
   `.claude/settings.json` gesperrt. Groesse/Existenz per `find`/`ls` klaeren, Inhalt per Screenshot
   der Seite, nicht per Bildaufruf.

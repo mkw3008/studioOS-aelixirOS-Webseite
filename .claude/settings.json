@@ -3,9 +3,9 @@
     "deny": [
       "Read(clublaneVision.png)",
       "Read(studioexample.png)",
-      "Read(export-sereno/assets/StudioOSVision_Product.png)",
-      "Read(export-sereno/assets/Tops.png)",
-      "Read(export-sereno/assets/studioexample.png)"
+      "Read(_export-sereno/assets/StudioOSVision_Product.png)",
+      "Read(_export-sereno/assets/Tops.png)",
+      "Read(_export-sereno/assets/studioexample.png)"
     ]
   },
   "hooks": {
