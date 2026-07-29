@@ -37,8 +37,9 @@ es gibt keinerlei Automatik dazwischen.
   rutschte der dunkle Hero nach unten und hinter der schwebenden Leiste blitzte der helle
   Seitenhintergrund durch. Behoben in `3ea463d`: `position:fixed` plus Innenabstand oben am Hero.
   Wer am Hero-Padding dreht, muss die Leiste mitdenken.
-- **Das Modul-Rad wird per JS positioniert**, nicht per CSS: die 13 Knoten werden kreisfoermig
-  gesetzt und die Speichen als SVG erzeugt. Die Einblend-Animation startet erst beim Sichtbarwerden
+- **Das Modul-Rad wird per JS positioniert**, nicht per CSS: die Modul-Knoten werden kreisfoermig
+  gesetzt und die Speichen als SVG erzeugt — die Anzahl ergibt sich aus dem Markup (Kommando unten;
+  sie hat sich schon geaendert, `e10998c`: 14 → 13). Die Einblend-Animation startet erst beim Sichtbarwerden
   (`e4f9b5b`) — im Screenshot einer nicht gescrollten Seite sieht das Rad daher u. U. leer aus.
 - **Positionsauftraege aendern keine Groessen.** Beim Umbau der Vision-Karte wurde ein Foto beim
   Verschieben mitvergroessert und musste zurueckgesetzt werden (`a4ab07c`). Groesse nur auf
@@ -57,6 +58,7 @@ es gibt keinerlei Automatik dazwischen.
   `grep -o '<section[^>]*class="[^"]*"' index.html`
 - **Welche Sprungziele/Anker gibt es?** `grep -o 'id="[a-z-]*"' index.html | sort -u`
 - **Wo stehen die Inline-Skripte?** `grep -n '<script' index.html`
+- **Wie viele Modul-Knoten hat das Rad?** `grep -c 'class="mod"' index.html`
 - **Weichen Root und Version2 voneinander ab?**
   `diff <(sed 's|\.\./||g' Version2/index.html) index.html | head -40`
 - **Lokale Vorschau als Bild:**

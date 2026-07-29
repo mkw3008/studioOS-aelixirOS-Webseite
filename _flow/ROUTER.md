@@ -27,6 +27,10 @@ Flow-Blatt (bei Bedarf laden). **Kommando statt Kopf**: Blaetter halten keine vo
 
 Ein noch fehlendes Blatt = das Ziel ist bekannt, der Inhalt wird beim ersten Bedarf geschrieben.
 
+**Offene Nachzuege:** Der Stop-Hook notiert in `_flow/OFFEN.md`, wenn eine Datei geaendert wurde, die
+im `entrypoints:` eines Blatts steht, ohne dass das Blatt nachgezogen wurde. Stand:
+`cat _flow/OFFEN.md 2>/dev/null || echo "nichts offen"`
+
 ## Grosse Dateien — nie ganz lesen, nur per Kommando anfassen
 Bilder ueber ~500 KB sind in `.claude/settings.json` unter `permissions.deny` gesperrt (ein `Read`
 darauf verbrennt Kontext ohne Nutzen). Frische Liste:
