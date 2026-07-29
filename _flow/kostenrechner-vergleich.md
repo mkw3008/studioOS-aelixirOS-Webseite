@@ -49,6 +49,6 @@ Stand-Hinweis und dem Haftungs-Disclaimer.
   `grep -n "providers=\[" -A 8 index.html`
 - **Wo sitzt die Rechenkette?** `grep -n 'kvBars\|kvCards\|periodMonthly\|function calc' index.html`
 - **Steht der Disclaimer noch?** `grep -n -i 'Kaufberatung\|Gewaehr\|Stand 20' index.html`
-- **Ist `Kosten-Vergleich.html` weiterhin unverlinkt?**
-  `grep -rn "Kosten-Vergleich" --include=*.html . | grep -v '^./Kosten-Vergleich.html'`
+- **Ist `Kosten-Vergleich.html` weiterhin unverlinkt?** (Anfuehrungszeichen noetig — zsh)
+  `grep -rn "Kosten-Vergleich" --include='*.html' . | grep -v '^./Kosten-Vergleich.html'`
 - **Historie der Preisannahmen:** `git log --oneline -S"studioMo" -- index.html`
