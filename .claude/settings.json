@@ -34,5 +34,8 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "claude-seo@agricidaniel-claude-seo": true
   }
 }

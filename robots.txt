@@ -1,0 +1,39 @@
+# robots.txt — clublane.one
+# Version1/ und Version2/ sind aeltere Fassungen derselben Seite. Sie tragen bereits
+# <meta name="robots" content="noindex">. Sie werden hier bewusst NICHT per Disallow
+# gesperrt: ein gesperrter Pfad wird nicht gelesen, das noindex bliebe unbemerkt und
+# die Seiten koennten trotzdem im Index landen.
+
+User-agent: *
+Allow: /
+
+# KI-Suchmaschinen ausdruecklich zugelassen (Sichtbarkeit in AI Overviews,
+# ChatGPT Search, Perplexity, Claude).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://clublane.one/sitemap.xml
