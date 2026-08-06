@@ -44,6 +44,20 @@ es gibt keinerlei Automatik dazwischen.
 - **Positionsauftraege aendern keine Groessen.** Beim Umbau der Vision-Karte wurde ein Foto beim
   Verschieben mitvergroessert und musste zurueckgesetzt werden (`a4ab07c`). Groesse nur auf
   ausdruecklichen Auftrag.
+- **Der Rechtstext steht ZWEIMAL im Repo.** Impressum und Datenschutz gibt es als eigene Seite
+  (`impressum.html`, `datenschutz.html`) UND als Hover-Karte in `index.html` (`<template
+  id="legalTpl-impressum">` / `legalTpl-datenschutz` im Block `#legalCards`). Es gibt bewusst keine
+  Automatik: `fetch()` aus der Nachbardatei scheitert unter `file://`, und genau dort wird vor dem
+  Push geprueft. Wer eine Fassung aendert und die andere vergisst, liefert je nach aktivem
+  JavaScript zwei verschiedene Pflichtangaben aus. Gegenprobe:
+  `diff <(grep -o 'Parsdorfer Str. 17b' impressum.html) <(grep -o 'Parsdorfer Str. 17b' index.html)`
+- **Die Fusszeilen-Links behalten ihr `href`.** Der Klick wird per `preventDefault()` abgefangen und
+  oeffnet die Karte, aber `href="impressum.html"` bleibt stehen — ohne JavaScript und fuer den
+  Direktaufruf muessen die Angaben nach § 5 DDG / Art. 13 DSGVO erreichbar bleiben. Das `href`
+  darf nicht durch `href="#"` ersetzt werden.
+- **Die Karte braucht `z-index` ueber 200.** Die Nav-Pille liegt auf `z-index:200`
+  (`style.css`, `.nav-shell`); eine Karte darunter wird von der Leiste durchstossen. Deshalb liegt
+  `.legal-layer` auf 300 — dieselbe Ebene wie das Kontakt-Overlay.
 
 ## Entscheidungen
 - **Kein Framework, kein Build-Schritt** — die Seite muss per `file://` im Browser funktionieren.

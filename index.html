@@ -9,6 +9,45 @@
 <link rel="icon" type="image/png" sizes="96x96" href="icons/clublane-favicon-G4-96.png">
 <link rel="apple-touch-icon" href="icons/clublane-app-icon-G4-navy-180.png">
 <link rel="stylesheet" href="style.css?v=11">
+<style id="legal-card-css">
+.legal-layer{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:28px 20px;background:rgba(10,20,40,.34);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .18s ease}
+.legal-layer[hidden]{display:none}
+.legal-layer.is-open{opacity:1}
+.legal-layer:not(.is-pinned){pointer-events:none}
+.legal-layer:not(.is-pinned) .legal-card{pointer-events:auto}
+.legal-card{position:relative;width:100%;min-width:0;max-width:720px;max-height:min(80vh,720px);display:flex;flex-direction:column;background:var(--card);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.4);overflow:hidden;transform:translateY(8px) scale(.985);transition:transform .18s ease}
+.legal-layer.is-open .legal-card{transform:none}
+.legal-card-bar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--hair);background:var(--card)}
+.legal-card-title{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.legal-card-close{width:30px;height:30px;flex:0 0 auto;border:0;border-radius:50%;background:rgba(10,20,40,.06);color:var(--ink);font-size:14px;cursor:pointer;transition:background .15s}
+.legal-card-close:hover{background:rgba(10,20,40,.12)}
+.legal-card-body{flex:1 1 auto;min-width:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:22px 26px 26px}
+.legal-card-body h3{font-size:clamp(21px,3.4vw,27px);font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 6px}
+.legal-card-body h4{font-size:15.5px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:24px 0 8px}
+.legal-card-body p,.legal-card-body address,.legal-card-body li{font-size:14px;line-height:1.68;color:var(--muted);font-style:normal}
+.legal-card-body p{margin:0 0 11px}
+.legal-card-body address{margin:0 0 11px}
+.legal-card-body ul{margin:0 0 11px 18px}
+.legal-card-body li{margin-bottom:4px}
+.legal-card-body strong{color:var(--ink);font-weight:600}
+.legal-card-body a{color:var(--accent-dark)}
+.legal-card-stand{font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.55;color:var(--faint);margin:0 0 18px}
+.legal-card-tablewrap{overflow-x:auto;margin:0 0 14px}
+.legal-card-table{border-collapse:collapse;width:100%;min-width:420px;font-size:13px}
+.legal-card-table th,.legal-card-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);color:var(--muted);line-height:1.45;vertical-align:top}
+.legal-card-table th{color:var(--ink);font-weight:600;font-size:11.5px}
+.legal-card-foot{flex:0 0 auto;padding:11px 18px;border-top:1px solid var(--hair);background:var(--bg)}
+.legal-card-foot a{font-size:12.5px;color:var(--accent-dark);text-decoration:none;font-weight:600}
+.legal-card-foot a:hover{text-decoration:underline}
+@media (max-width:640px){
+  .legal-layer{padding:0}
+  .legal-card{max-width:none;max-height:100%;height:100%;border-radius:0}
+  .legal-card-body{padding:20px 20px 24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .legal-layer,.legal-card{transition:none}
+}
+</style>
 <style id="mod-circle-css">
 .mc-wheel-wrap{display:flex;justify-content:center;margin:4px auto 24px}
 .mod-circle{position:relative;width:min(540px,90vw);aspect-ratio:1;margin:0 auto;isolation:isolate}
@@ -581,8 +620,8 @@
       <div class="footer-col">
         <h4>Unternehmen</h4>
         <a href="#kontakt" data-contact>Kontakt</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+        <a href="impressum.html" data-legal="impressum">Impressum</a>
+        <a href="datenschutz.html" data-legal="datenschutz">Datenschutz</a>
       </div>
     </div>
     <p class="footer-note">
@@ -629,6 +668,426 @@
     </div>
   </div>
 </div>
+
+<!-- RECHTLICHES -->
+<div class="legal-layer" id="legalLayer" hidden>
+  <div class="legal-card" role="dialog" aria-labelledby="legalCardTitle">
+    <div class="legal-card-bar">
+      <span class="legal-card-title" id="legalCardTitle">Rechtliches</span>
+      <button class="legal-card-close" id="legalClose" type="button" aria-label="Schließen">✕</button>
+    </div>
+    <div class="legal-card-body" id="legalBody"></div>
+    <div class="legal-card-foot">
+      <a href="impressum.html" id="legalPageLink">Als eigene Seite öffnen ↗</a>
+    </div>
+  </div>
+</div>
+<div id="legalCards" hidden>
+
+  <template id="legalTpl-impressum">
+    <h3>Impressum</h3>
+    <p class="legal-card-stand">Stand: 6. August 2026</p>
+
+    <h4>Diensteanbieter</h4>
+    <address>
+      <strong>Atvisory GmbH</strong><br>
+      Parsdorfer Str. 17b<br>
+      85599 Hergolding<br>
+      Deutschland
+    </address>
+    <p>Marke „clublane“<br>Rechtsform: Gesellschaft mit beschränkter Haftung (GmbH)</p>
+
+    <h4>Vertreten durch</h4>
+    <p>Geschäftsführung: <strong>Markus Kant</strong></p>
+
+    <h4>Kontakt</h4>
+    <p>E-Mail: <span class="js-mail" data-u="info" data-d="atvisory.com">info&#160;[at]&#160;atvisory&#160;[dot]&#160;com</span></p>
+
+    <h4>Registereintrag</h4>
+    <p>
+      Eingetragen im Handelsregister<br>
+      Registergericht: <strong>Amtsgericht München</strong><br>
+      Registernummer: <strong>HRB 257229</strong>
+    </p>
+
+    <h4>Umsatzsteuer-Identifikationsnummer</h4>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: <strong>DE332038642</strong></p>
+
+    <h4>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h4>
+    <p>Markus Kant, Parsdorfer Str. 17b, 85599 Hergolding</p>
+
+    <h4>Verbraucherstreitbeilegung</h4>
+    <p>
+      Die Atvisory GmbH ist nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+      Verbraucherschlichtungsstelle teilzunehmen (§ 36 Verbraucherstreitbeilegungsgesetz – VSBG).
+    </p>
+
+    <h4>Haftung für Inhalte</h4>
+    <p>
+      Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
+      allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht
+      verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu
+      forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung
+      der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine
+      diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung
+      möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
+      entfernen.
+    </p>
+
+    <h4>Haftung für Links</h4>
+    <p>
+      Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+      Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+      verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die
+      verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft.
+      Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche
+      Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht
+      zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+    </p>
+
+    <h4>Urheberrecht</h4>
+    <p>
+      Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
+      Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+      Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+      Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+      Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte
+      Dritter beachtet. Sollten Sie dennoch auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um
+      einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte
+      umgehend entfernen.
+    </p>
+
+    <h4>Rechtsgrundlagen</h4>
+    <p>Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Abs. 2 Medienstaatsvertrag (MStV).</p>
+  </template>
+
+  <template id="legalTpl-datenschutz">
+    <h3>Datenschutzerklärung</h3>
+    <p class="legal-card-stand">
+      Für die Website clublane.one (Marketing- und Informationsseite sowie Kontakt-/Demo-Anfrage)<br>
+      Stand: 6. August 2026
+    </p>
+
+    <h4>1. Verantwortlicher</h4>
+    <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+    <address>
+      <strong>Atvisory GmbH</strong><br>
+      Parsdorfer Str. 17b<br>
+      85599 Hergolding<br>
+      Deutschland<br>
+      E-Mail: <span class="js-mail" data-u="info" data-d="atvisory.com">info&#160;[at]&#160;atvisory&#160;[dot]&#160;com</span>
+    </address>
+
+    <h4>2. Grundsätzliches und Umfang der Verarbeitung</h4>
+    <p>
+      Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Die Website dient der Information über die
+      clublane-Plattform sowie der Kontaktaufnahme. Sie können die Informationsseiten aufrufen, ohne von sich
+      aus personenbezogene Daten anzugeben; beim Aufruf werden jedoch technisch bedingt bestimmte Daten
+      (insbesondere Ihre IP-Adresse) verarbeitet, um die Seite auszuliefern und ihren sicheren Betrieb zu
+      gewährleisten (dazu Ziffer 3).
+    </p>
+
+    <h4>3. Hosting und Server-Logfiles</h4>
+    <p>
+      Die Website wird über <strong>GitHub Pages</strong> bereitgestellt und ausgeliefert, einen Dienst der
+      <strong>GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA</strong> (Unternehmen
+      der Microsoft-Gruppe). GitHub übernimmt Hosting und Auslieferung der Seite, die Funktion eines
+      Content-Delivery-Networks, den Schutz vor Überlastungs- und Missbrauchsangriffen sowie die
+      TLS-Verschlüsselung.
+    </p>
+    <p>
+      Beim Aufruf der Website verarbeitet der Hosting-Anbieter technisch notwendige Zugriffsdaten
+      (Server-Logfiles), die Ihr Browser automatisch übermittelt:
+    </p>
+    <ul>
+      <li>IP-Adresse des anfragenden Geräts,</li>
+      <li>Datum und Uhrzeit des Zugriffs,</li>
+      <li>aufgerufene Datei / URL,</li>
+      <li>übertragene Datenmenge,</li>
+      <li>Meldung über erfolgreichen Abruf,</li>
+      <li>Browsertyp und -version sowie Betriebssystem,</li>
+      <li>Referrer-URL (die zuvor besuchte Seite).</li>
+    </ul>
+    <p>
+      Rechtsgrundlage ist <strong>Art. 6 Abs. 1 lit. f DSGVO</strong>. Unser berechtigtes Interesse liegt in
+      der technisch fehlerfreien, sicheren und stabilen Bereitstellung der Website sowie in der Abwehr von
+      Angriffen. Da GitHub, Inc. ihren Sitz in den USA hat, kann eine Verarbeitung auf Servern außerhalb der
+      EU/des EWR stattfinden; hierzu Ziffer 9.
+    </p>
+
+    <h4>4. Kontakt- und Demo-Formular (Web3Forms)</h4>
+    <p>
+      Auf unserer Website bieten wir ein Kontakt- bzw. Demo-Formular an. Wenn Sie dieses ausfüllen und
+      absenden, verarbeiten wir die von Ihnen angegebenen Daten (Name, E-Mail-Adresse, Studio- bzw.
+      Unternehmensname und Ihre Nachricht), um Ihre Anfrage zu bearbeiten und Sie zu kontaktieren. Die Angabe
+      dieser Daten erfolgt freiwillig; ohne sie können wir Ihre Anfrage nicht bearbeiten.
+    </p>
+    <p>
+      Rechtsgrundlage ist <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Durchführung vorvertraglicher Maßnahmen
+      auf Ihre Anfrage hin) sowie – soweit Sie mit dem Absenden ausdrücklich einwilligen –
+      <strong>Art. 6 Abs. 1 lit. a DSGVO</strong>.
+    </p>
+    <p>
+      Für die technische Zustellung der Formularanfragen setzen wir den Dienst <strong>Web3Forms</strong> ein
+      (siehe <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">web3forms.com/privacy</a>).
+      Beim Absenden werden die eingegebenen Formulardaten an Web3Forms übermittelt und von dort per E-Mail an
+      uns weitergeleitet. Web3Forms verarbeitet die Daten in unserem Auftrag ausschließlich zum Zweck der
+      Weiterleitung und speichert die Inhalte nach der Zustellung nicht dauerhaft. Eine Verarbeitung in einem
+      Drittland (u. a. USA) kann nicht ausgeschlossen werden; hierzu Ziffer 9.
+    </p>
+    <p>
+      Ihre über das Formular übermittelten Daten werden gelöscht, sobald Ihre Anfrage abschließend bearbeitet
+      ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+    </p>
+
+    <h4>5. E-Mail-Kontakt und versandbezogene E-Mails</h4>
+    <p>
+      Wenn Sie uns unmittelbar per E-Mail kontaktieren (z. B. an
+      <span class="js-mail" data-u="info" data-d="atvisory.com">info&#160;[at]&#160;atvisory&#160;[dot]&#160;com</span>),
+      verarbeiten wir die mitgeteilten Daten (insbesondere E-Mail-Adresse, Name und Inhalt Ihrer Nachricht) zur
+      Bearbeitung und Beantwortung Ihrer Anfrage. Rechtsgrundlage ist <strong>Art. 6 Abs. 1 lit. b DSGVO</strong>
+      bzw. <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse an der Beantwortung).
+    </p>
+    <p>
+      Für den Versand versandbezogener (transaktionaler) E-Mails – etwa Bestätigungen oder Antworten auf Ihre
+      Anfrage – setzen wir <strong>Brevo</strong> ein, einen Dienst der <strong>Brevo GmbH, Köln</strong>.
+      Brevo verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die
+      Verarbeitung erfolgt auf Servern innerhalb der EU. Ein Newsletter- bzw. E-Mail-Marketingversand findet
+      über die Website derzeit nicht statt.
+    </p>
+    <p>
+      Ihre Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und keine gesetzlichen
+      Aufbewahrungspflichten entgegenstehen.
+    </p>
+
+    <h4>6. Selbst gehostete Schriftarten</h4>
+    <p>
+      Diese Website verwendet die Schriftart „IBM Plex Mono“. Die Schriftdateien sind <strong>lokal auf
+      unserem Hosting eingebunden</strong> und werden von dort geladen. Es findet keine Verbindung zu Servern
+      Dritter (z. B. Google Fonts) und keine Übermittlung Ihrer IP-Adresse an Dritte zum Zweck der
+      Schriftdarstellung statt.
+    </p>
+
+    <h4>7. SSL-/TLS-Verschlüsselung</h4>
+    <p>
+      Diese Website nutzt aus Sicherheitsgründen eine SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung
+      erkennen Sie an „https://“ in der Adresszeile Ihres Browsers.
+    </p>
+
+    <h4>8. Cookies (§ 25 TDDDG)</h4>
+    <p>
+      Die Website setzt <strong>keine Cookies</strong> und verwendet keine vergleichbaren Technologien zum
+      Speichern oder Auslesen von Informationen auf Ihrem Endgerät. Es werden insbesondere keine Analyse-,
+      Marketing- oder Social-Media-Dienste eingesetzt.
+    </p>
+    <p>Ein Einwilligungsbanner ist daher nicht erforderlich.</p>
+
+    <h4>9. Empfänger, Auftragsverarbeiter und Drittlandübermittlung</h4>
+    <p>Zur Bereitstellung der Website setzen wir folgende Dienstleister als Auftragsverarbeiter ein:</p>
+    <div class="legal-card-tablewrap">
+      <table class="legal-card-table">
+        <thead>
+          <tr><th>Anbieter</th><th>Zweck</th><th>Verarbeitungsort</th><th>Drittland/Garantie</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GitHub, Inc. (Microsoft-Gruppe)</td>
+            <td>Hosting (GitHub Pages), Auslieferung, TLS</td>
+            <td>USA / global</td>
+            <td>USA → DPF / SCC</td>
+          </tr>
+          <tr>
+            <td>Web3Forms</td>
+            <td>Zustellung der Formularanfragen</td>
+            <td>u. a. USA</td>
+            <td>USA → SCC</td>
+          </tr>
+          <tr>
+            <td>Brevo (GmbH/SAS)</td>
+            <td>transaktionaler E-Mail-Versand</td>
+            <td>EU</td>
+            <td>keine Drittlandübermittlung</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Soweit personenbezogene Daten in einem Drittland außerhalb der EU/des EWR (insbesondere den USA)
+      verarbeitet werden oder ein Zugriff von dort möglich ist, stützen wir die Übermittlung auf geeignete
+      Garantien: das <strong>EU-U.S. Data Privacy Framework (DPF)</strong>, soweit der Anbieter zertifiziert
+      ist (die Microsoft-/GitHub-Unternehmen sind DPF-zertifiziert), und/oder die
+      <strong>Standardvertragsklauseln der EU-Kommission (Art. 46 Abs. 2 lit. c DSGVO)</strong> nebst
+      ergänzenden Schutzmaßnahmen. Eine Kopie der Garantien stellen wir auf Anfrage über die Kontaktdaten in
+      Ziffer 1 bereit.
+    </p>
+
+    <h4>10. Speicherdauer</h4>
+    <p>
+      Wir verarbeiten personenbezogene Daten nur so lange, wie es für die jeweiligen Zwecke erforderlich ist.
+      Server-Logfiles werden nach einem kurzen, bei unserem Hosting-Dienstleister (GitHub) üblichen Zeitraum
+      gelöscht bzw. anonymisiert. Kontakt- und Demo-Anfragen löschen wir nach abschließender Bearbeitung,
+      sofern keine gesetzlichen Aufbewahrungspflichten (insbesondere handels- und steuerrechtliche Fristen von
+      6 bzw. 10 Jahren) entgegenstehen.
+    </p>
+
+    <h4>11. Ihre Rechte als betroffene Person</h4>
+    <p>Ihnen stehen nach der DSGVO folgende Rechte zu:</p>
+    <ul>
+      <li>Recht auf Auskunft (Art. 15 DSGVO),</li>
+      <li>Recht auf Berichtigung (Art. 16 DSGVO),</li>
+      <li>Recht auf Löschung (Art. 17 DSGVO),</li>
+      <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO),</li>
+      <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO),</li>
+      <li>Recht auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO),</li>
+      <li>Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
+    </ul>
+    <p>Zur Ausübung Ihrer Rechte genügt eine formlose Mitteilung an den in Ziffer 1 genannten Verantwortlichen.</p>
+
+    <h4>12. Widerspruchsrecht</h4>
+    <p>
+      Soweit wir personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)
+      verarbeiten, haben Sie das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit
+      gegen diese Verarbeitung Widerspruch einzulegen (Art. 21 DSGVO).
+    </p>
+
+    <h4>13. Beschwerderecht bei einer Aufsichtsbehörde</h4>
+    <p>
+      Unbeschadet anderweitiger Rechtsbehelfe haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde
+      zu beschweren. Die für uns zuständige Aufsichtsbehörde ist:
+    </p>
+    <address>
+      <strong>Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)</strong><br>
+      Promenade 27, 91522 Ansbach<br>
+      <a href="https://www.lda.bayern.de/" target="_blank" rel="noopener noreferrer">www.lda.bayern.de</a>
+    </address>
+
+    <h4>14. Aktualität und Änderung dieser Datenschutzerklärung</h4>
+    <p>
+      Diese Datenschutzerklärung ist aktuell gültig. Durch die Weiterentwicklung unserer Website oder aufgrund
+      geänderter gesetzlicher bzw. behördlicher Vorgaben kann es notwendig werden, diese Erklärung anzupassen.
+      Es gilt jeweils die auf dieser Seite abrufbare Fassung.
+    </p>
+  </template>
+
+</div>
+
+<script>
+(function(){
+  var layer=document.getElementById('legalLayer'),
+      card=layer?layer.querySelector('.legal-card'):null,
+      body=document.getElementById('legalBody'),
+      titleEl=document.getElementById('legalCardTitle'),
+      pageLink=document.getElementById('legalPageLink'),
+      closeBtn=document.getElementById('legalClose'),
+      triggers=document.querySelectorAll('[data-legal]');
+  if(!layer||!card||!body||!triggers.length) return;
+
+  var OPEN_DELAY=140, CLOSE_DELAY=260;
+  var openTimer=null, closeTimer=null, current=null, pinned=false, lastTrigger=null, restoringFocus=false;
+  var canHover = window.matchMedia ? window.matchMedia('(hover:hover) and (pointer:fine)').matches : false;
+
+  var META={
+    impressum:  {title:'Impressum',           page:'impressum.html'},
+    datenschutz:{title:'Datenschutzerklärung', page:'datenschutz.html'}
+  };
+
+  function clearTimers(){ clearTimeout(openTimer); clearTimeout(closeTimer); openTimer=closeTimer=null; }
+
+  function buildMail(scope){
+    scope.querySelectorAll('.js-mail').forEach(function(el){
+      var addr=el.getAttribute('data-u')+'@'+el.getAttribute('data-d');
+      var a=document.createElement('a');
+      a.href='mailto:'+addr; a.textContent=addr; a.rel='nofollow';
+      el.replaceWith(a);
+    });
+  }
+
+  function open(key, pin){
+    var tpl=document.getElementById('legalTpl-'+key), meta=META[key];
+    if(!tpl||!meta) return;
+    clearTimers();
+    if(current!==key){
+      body.innerHTML='';
+      body.appendChild(tpl.content.cloneNode(true));
+      buildMail(body);
+      titleEl.textContent=meta.title;
+      pageLink.setAttribute('href', meta.page);
+      current=key;
+    }
+    body.scrollTop=0;
+    if(layer.hidden){
+      layer.hidden=false;
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ layer.classList.add('is-open'); }); });
+    }
+    if(pin) pin_();
+  }
+
+  function pin_(){
+    if(pinned) return;
+    pinned=true;
+    clearTimers();
+    layer.classList.add('is-pinned');
+    card.setAttribute('aria-modal','true');
+    document.body.style.overflow='hidden';
+    closeBtn.focus({preventScroll:true});
+  }
+
+  function close(){
+    clearTimers();
+    if(layer.hidden) return;
+    layer.classList.remove('is-open');
+    layer.classList.remove('is-pinned');
+    layer.hidden=true;
+    card.removeAttribute('aria-modal');
+    document.body.style.overflow='';
+    current=null; pinned=false;
+    if(lastTrigger){
+      var el=lastTrigger; lastTrigger=null;
+      restoringFocus=true;
+      try{ el.focus({preventScroll:true}); }catch(e){}
+      restoringFocus=false;
+    }
+  }
+
+  function scheduleClose(){
+    if(pinned) return;
+    clearTimeout(closeTimer);
+    closeTimer=setTimeout(close, CLOSE_DELAY);
+  }
+
+  triggers.forEach(function(el){
+    var key=el.getAttribute('data-legal');
+
+    el.addEventListener('mouseenter', function(){
+      if(!canHover) return;
+      clearTimers();
+      openTimer=setTimeout(function(){ lastTrigger=el; open(key,false); }, OPEN_DELAY);
+    });
+    el.addEventListener('mouseleave', function(){
+      if(!canHover) return;
+      clearTimeout(openTimer); openTimer=null;
+      scheduleClose();
+    });
+
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      lastTrigger=el;
+      open(key,true);
+    });
+
+    el.addEventListener('focus', function(){ if(restoringFocus) return; lastTrigger=el; open(key,false); });
+    el.addEventListener('blur', scheduleClose);
+  });
+
+  card.addEventListener('mouseenter', clearTimers);
+  card.addEventListener('mouseleave', scheduleClose);
+  closeBtn.addEventListener('click', close);
+  layer.addEventListener('click', function(e){ if(e.target===layer) close(); });
+  card.addEventListener('mousedown', pin_);
+  card.addEventListener('touchstart', pin_, {passive:true});
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !layer.hidden) close(); });
+})();
+</script>
 
 <script>
 (function(){
