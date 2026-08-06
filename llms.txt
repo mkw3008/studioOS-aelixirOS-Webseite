@@ -1,0 +1,32 @@
+# clublane
+
+> Die All-in-One Boutique Fitness Management Plattform. Buchung, Mitglieder, Zahlungen,
+> App, Digital Signage und mehr — in einem System. Gebaut von Studio-Betreibern.
+
+Dreizehn Module. Vollkommen integriert. Alle Module teilen dieselbe Datenbasis,
+dieselben Mitgliederprofile, dieselbe Buchführung.
+
+## Module
+
+clublane.verwaltung, clublane.pay, clublane.app, clublane.webseite, clublane.shop,
+clublane.target, clublane.marketplace, clublane.community, clublane.vision,
+clublane.1:1, clublane.ai, clublane.space, clublane.reception
+
+## Seiten
+
+- [Startseite](https://clublane.one/): Modulübersicht, Feature-Vergleich, Kostenrechner
+- [Impressum](https://clublane.one/impressum.html)
+- [Datenschutzerklärung](https://clublane.one/datenschutz.html)
+
+## Anbieter
+
+Atvisory GmbH, Parsdorfer Str. 17b, 85599 Hergolding, Deutschland.
+Geschäftsführung: Markus Kant.
+Handelsregister: Amtsgericht München, HRB 257229.
+Umsatzsteuer-Identifikationsnummer: DE332038642.
+Marke: clublane.
+
+## Kontakt
+
+- Demo- und Kontaktanfrage: https://clublane.one/#kontakt
+- Kunden-Login: https://os.aelixir.de/login/clublane
