@@ -24,8 +24,12 @@ Flow-Blatt (bei Bedarf laden). **Kommando statt Kopf**: Blaetter halten keine vo
 | Kontakt-/Demo-Formular, Anfragen, wo Leads landen | `_flow/formulare-leads.md` |
 | Favicon, Google-Darstellung, Meta-Angaben, Schriften, Bilder, Indexierung | `_flow/seo-assets.md` |
 | Kostenrechner, Vergleichstabelle, Preisannahmen, Wettbewerbsangaben | `_flow/kostenrechner-vergleich.md` |
+| Was als Naechstes ansteht, Wettbewerbslage, SEO-Befunde, offene Betreiber-Fragen | `_flow/BACKLOG.md` |
 
 Ein noch fehlendes Blatt = das Ziel ist bekannt, der Inhalt wird beim ersten Bedarf geschrieben.
+
+**Der Backlog gilt nur fuer clublane.one.** Der zentrale `aelixir-web/docs/AUFTRAGS-BACKLOG.md`
+fuehrt nichts zu dieser Seite — nicht dort nachschlagen und nicht dorthin schreiben.
 
 **Offene Nachzuege:** Der Stop-Hook notiert in `_flow/OFFEN.md`, wenn eine Datei geaendert wurde, die
 im `entrypoints:` eines Blatts steht, ohne dass das Blatt nachgezogen wurde. Stand:
