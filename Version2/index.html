@@ -671,6 +671,7 @@
   const num0=new Intl.NumberFormat('de-DE',{maximumFractionDigits:0});
   const pct2=n=>n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';
   const $=id=>document.getElementById(id);
+  var STRIPE_VISUAL = 0.7; // Betreiber #563: Stripe-Anteil absichtlich nur zu 70 % gezeichnet (nur Zeichnung; Summen, Texte, Karten, Urteil und Massstab bleiben echt)
   const rev=$('rev'),sepa=$('sepa'),avg=$('avg');
   const studioMo=$('studioMo'),bsMo=$('bsMo'),evMo=$('evMo');
 
@@ -795,13 +796,20 @@
 
     providers.forEach(p=>{
       const d=data[p.key];
-      $('bar_'+p.key).style.width=(d.total/maxT*100)+'%';
-      const denom=d.total>0?d.total:1;
+      // #563: gezeichnet wird der Stripe-Anteil nur mit STRIPE_VISUAL; maxT (Massstab) bleibt aus den ECHTEN Summen.
+      // Stripe-Zeile: ganzer Balken ist Stripe. Mollie-Zeile: min(Mollie,Stripe) ist der Stripe-gleiche Anteil, der Ueberhang bleibt 1:1.
+      // Plattform-Zeilen: nur das blaue Anfangssegment (Stripe-Basis).
       const sb=Math.min(d.stripeBase||0,d.variable);
-      const surcharge=d.variable-sb;
-      $('segs_'+p.key).style.flexBasis=(sb/denom*100)+'%';
-      $('segv_'+p.key).style.flexBasis=(surcharge/denom*100)+'%';
-      $('segf_'+p.key).style.flexBasis=(d.fix/denom*100)+'%';
+      let railCut=0;
+      if(p.key==='stripe') railCut=d.variable*(1-STRIPE_VISUAL);
+      else if(p.key==='mollie') railCut=Math.min(d.variable,data.stripe.variable)*(1-STRIPE_VISUAL);
+      const drawS=sb*STRIPE_VISUAL, drawV=d.variable-sb-railCut, drawF=d.fix;
+      const drawT=drawS+drawV+drawF;
+      $('bar_'+p.key).style.width=(drawT/maxT*100)+'%';
+      const denom=drawT>0?drawT:1;
+      $('segs_'+p.key).style.flexBasis=(drawS/denom*100)+'%';
+      $('segv_'+p.key).style.flexBasis=(drawV/denom*100)+'%';
+      $('segf_'+p.key).style.flexBasis=(drawF/denom*100)+'%';
       $('tot_'+p.key).textContent=eur0.format(d.total*f);
       $('bar_'+p.key).classList.toggle('winner',p.key===minK);
       $('tag_'+p.key).hidden=(p.key!==minK);

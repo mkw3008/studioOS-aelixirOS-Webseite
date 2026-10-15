@@ -3,7 +3,9 @@ flow: kostenrechner-vergleich
 domaene: Kostenrechner und Wettbewerbsvergleich — Rechenlogik, Preisannahmen, Aussagenrisiko
 entrypoints:
   - index.html            # Rechner-Markup, Rechenskript und Vergleichstabelle
-  - Kosten-Vergleich.html # verwaiste Altseite, NICHT der Rechner (s. u.)
+  - _Kosten-Vergleich.html # nicht ausgelieferte Arbeitsdatei mit demselben Rechner (s. u.)
+  - Version1/index.html, Version2/index.html # oeffentliche Kopien der Startseite, gleicher Rechner
+  - aelixiros-site/index.html # Seite aelixirOS (eigenes Repo, Zweig aelixiros), gleicher Rechner
 anbieter: [clublane, bsport, Eversports, Stripe, Mollie]
 ---
 
@@ -31,10 +33,19 @@ Stand-Hinweis und dem Haftungs-Disclaimer.
   keine Kaufberatung, Marken gehoeren ihren Inhabern") gehoert zur Aussage dazu. Er ist **nicht**
   Dekoration und darf bei Umbauten nicht wegfallen. Wer Zahlen aktualisiert, zieht die Stand-Angabe
   mit.
-- **`Kosten-Vergleich.html` ist NICHT der Rechner.** Es ist eine verwaiste Altseite, die von keiner
-  Seite verlinkt ist (Gegenprobe per Kommando unten) — aber ueber die Domain erreichbar bleibt. Wer
-  „den Kostenvergleich" aendern soll, muss klaeren, welche der beiden Stellen gemeint ist; die
-  gepflegte ist der Abschnitt in `index.html`.
+- **Der Rechner steht in mehreren Dateien, die Vorlage ist `index.html`.** `_Kosten-Vergleich.html`
+  wird nicht ausgeliefert (die Domain antwortet mit 404),
+  ist von keiner Seite verlinkt (Gegenprobe per Kommando unten) und rechnet seit #563 wie die
+  Startseite. Dieselbe Rechnung tragen `Version1/` und `Version2/` (beide oeffentlich), `Version3/`
+  (liegt nur lokal, nicht im Repo) und die Seite aelixirOS. Wer den Rechner aendert, zieht alle
+  Kopien nach; `index.html` zuerst.
+- **Die 0,7-Kuerzung des Stripe-Balkens ist Absicht, kein Fehler** (Betreiber #563). Der Stripe-Anteil
+  eines Balkens wird nur zu 70 % gezeichnet (Konstante `STRIPE_VISUAL`): in der Stripe-Zeile der ganze
+  Balken, bei den Plattformen das blaue Anfangssegment, bei Mollie der Teil bis zur Hoehe von Stripe
+  (liegt Mollie darunter, der ganze Balken); der Mollie-Ueberhang ueber Stripe bleibt 1:1. Massstab
+  und alle anderen Segmente bleiben echt, deshalb endet der laengste Balken kuerzer als die volle
+  Breite und die Proportion zwischen Stripe und dem Rest stimmt absichtlich nicht. Nicht „reparieren".
+  Summen, Beschriftungen, Karten und Urteil rechnen mit den echten Werten.
 - **Beschriftungen wurden bewusst entschaerft** (`9fabab9`, `42a25a8`): kein „Tarife anpassen", kein
   Versprechen im Panel-Titel, nur „Parameter". Reine Textkosmetik hier hat Aussagewirkung.
 
@@ -49,6 +60,7 @@ Stand-Hinweis und dem Haftungs-Disclaimer.
   `grep -n "providers=\[" -A 8 index.html`
 - **Wo sitzt die Rechenkette?** `grep -n 'kvBars\|kvCards\|periodMonthly\|function calc' index.html`
 - **Steht der Disclaimer noch?** `grep -n -i 'Kaufberatung\|Gewaehr\|Stand 20' index.html`
-- **Ist `Kosten-Vergleich.html` weiterhin unverlinkt?** (Anfuehrungszeichen noetig — zsh)
-  `grep -rn "Kosten-Vergleich" --include='*.html' . | grep -v '^./Kosten-Vergleich.html'`
+- **Ist `_Kosten-Vergleich.html` weiterhin unverlinkt?** (Anfuehrungszeichen noetig — zsh)
+  `grep -rn "Kosten-Vergleich" --include='*.html' . | grep -v '^./_Kosten-Vergleich.html'`
+- **Steht die Kuerzung in allen Kopien?** `grep -c "STRIPE_VISUAL" index.html Version1/index.html Version2/index.html _Kosten-Vergleich.html`
 - **Historie der Preisannahmen:** `git log --oneline -S"studioMo" -- index.html`

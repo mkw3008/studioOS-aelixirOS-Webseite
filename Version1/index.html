@@ -984,6 +984,7 @@
   const num0=new Intl.NumberFormat('de-DE',{maximumFractionDigits:0});
   const pct2=n=>n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';
   const $=id=>document.getElementById(id);
+  var STRIPE_VISUAL = 0.7; // Betreiber #563: Stripe-Anteil absichtlich nur zu 70 % gezeichnet (nur Zeichnung; Summen, Texte, Karten, Urteil und Massstab bleiben echt)
   const rev=$('rev'),sepa=$('sepa'),avg=$('avg');
   const studioMo=$('studioMo'),bsMo=$('bsMo'),evMo=$('evMo');
 
@@ -996,7 +997,7 @@
   ];
 
   const barsEl=$('kvBars'), cardsEl=$('kvCards');
-  let periodMonthly=false; // false = jährlich (Standard), true = monatlich
+  let periodMonthly=false;
   const cardProviders=[
     providers.find(p=>p.key==='studio'),
     providers.find(p=>p.key==='bsport'),
@@ -1007,8 +1008,6 @@
 
   providers.forEach(p=>{
     const b=document.createElement('div'); b.className='bar-block';
-    // Rails (Stripe/Mollie): ganze Kosten in Anbieterfarbe.
-    // Plattformen: Transaktions-Aufschlag grau, Grundgebühr/Abo in Anbieterfarbe.
     const segvColor=p.noWin?p.color:'var(--fixseg)';
     const segfColor=p.color;
     b.innerHTML=`<div class="bar-label">
@@ -1042,17 +1041,13 @@
   }
 
   function calc(){
-    // Laufzeit-Override: liest den Wert aus einem ov_*-Feld; leer/ungültig -> Standard (Slider bzw. fester Satz).
     const ovNum=(id,def)=>{const el=document.getElementById(id);if(!el)return def;const t=(el.value||'').trim().replace(',','.');if(t==='')return def;const v=parseFloat(t);return isFinite(v)?v:def;};
     const R=ovNum('ov_rev',+rev.value), s=ovNum('ov_sepa',+sepa.value)/100, A=ovNum('ov_avg',+avg.value);
     const moStudio=ovNum('ov_studioMo',+studioMo.value), moBs=ovNum('ov_bsMo',+bsMo.value), moEv=ovNum('ov_evMo',+evMo.value);
     const sepaVol=R*s, cardVol=R-sepaVol;
     const totalTx=A>0?R/A:0, sepaTx=A>0?sepaVol/A:0, cardTx=A>0?cardVol/A:0;
 
-    // Tarife (fest hinterlegt; frueher ueber das entfernte "Tarife anpassen"-Panel editierbar)
     const Str={cp:ovNum('ov_Str_cp',1.5),cf:ovNum('ov_Str_cf',0.25),sp:ovNum('ov_Str_sp',0.8),sf:ovNum('ov_Str_sf',0.25)};
-    // clublane-Feld = NUR der Aufschlag/Provision. Gesamtsatz = Stripe-Basis + Aufschlag.
-    // (Chart/Verteilung bleiben identisch: S entspricht weiterhin 2,1 %/0,8 % usw.)
     const Prov={cp:ovNum('ov_S_cp',0.6),cf:ovNum('ov_S_cf',0.04),sp:ovNum('ov_S_sp',0),sf:ovNum('ov_S_sf',0.05)};
     const S={cp:Str.cp+Prov.cp,cf:Str.cf+Prov.cf,sp:Str.sp+Prov.sp,sf:Str.sf+Prov.sf};
     const M={cp:ovNum('ov_M_cp',1.8),cf:ovNum('ov_M_cf',0.25),sp:ovNum('ov_M_sp',0.5),sf:ovNum('ov_M_sf',0.25)};
@@ -1069,7 +1064,6 @@
     const eVar=R*E.tp/100+totalTx*E.tf, eFix=moEv*12;
     const studioVar=sSepa+sCard, studioFix=moStudio*12;
 
-    // Stripe-Basis der Zahlungsabwicklung — bei gleichem Umsatz/Mix für alle Plattformen identisch.
     const stripeBase=strSepa+strCard;
 
     const data={
@@ -1104,7 +1098,6 @@
     $('bsMoVal').textContent=eur0.format(moBs);
     $('evMoVal').textContent=eur0.format(moEv);
 
-    // Zeitraum-Umschaltung: Werte skalieren, Balkenlängen bleiben proportional.
     const f=periodMonthly?1/12:1, fOther=periodMonthly?1:1/12;
     const per=periodMonthly?'/ Monat':'/ Jahr', perOther=periodMonthly?'/ Jahr':'/ Monat';
 
@@ -1116,13 +1109,20 @@
 
     providers.forEach(p=>{
       const d=data[p.key];
-      $('bar_'+p.key).style.width=(d.total/maxT*100)+'%';
-      const denom=d.total>0?d.total:1;
-      const sb=Math.min(d.stripeBase||0,d.variable);        // identische Stripe-Basis
-      const surcharge=d.variable-sb;                          // Aufschlag/Marge der Plattform
-      $('segs_'+p.key).style.flexBasis=(sb/denom*100)+'%';
-      $('segv_'+p.key).style.flexBasis=(surcharge/denom*100)+'%';
-      $('segf_'+p.key).style.flexBasis=(d.fix/denom*100)+'%';
+      // #563: gezeichnet wird der Stripe-Anteil nur mit STRIPE_VISUAL; maxT (Massstab) bleibt aus den ECHTEN Summen.
+      // Stripe-Zeile: ganzer Balken ist Stripe. Mollie-Zeile: min(Mollie,Stripe) ist der Stripe-gleiche Anteil, der Ueberhang bleibt 1:1.
+      // Plattform-Zeilen: nur das blaue Anfangssegment (Stripe-Basis).
+      const sb=Math.min(d.stripeBase||0,d.variable);
+      let railCut=0;
+      if(p.key==='stripe') railCut=d.variable*(1-STRIPE_VISUAL);
+      else if(p.key==='mollie') railCut=Math.min(d.variable,data.stripe.variable)*(1-STRIPE_VISUAL);
+      const drawS=sb*STRIPE_VISUAL, drawV=d.variable-sb-railCut, drawF=d.fix;
+      const drawT=drawS+drawV+drawF;
+      $('bar_'+p.key).style.width=(drawT/maxT*100)+'%';
+      const denom=drawT>0?drawT:1;
+      $('segs_'+p.key).style.flexBasis=(drawS/denom*100)+'%';
+      $('segv_'+p.key).style.flexBasis=(drawV/denom*100)+'%';
+      $('segf_'+p.key).style.flexBasis=(drawF/denom*100)+'%';
       $('tot_'+p.key).textContent=eur0.format(d.total*f);
       $('bar_'+p.key).classList.toggle('winner',p.key===minK);
       $('tag_'+p.key).hidden=(p.key!==minK);
@@ -1143,7 +1143,6 @@
   }
 
   [rev,sepa,avg,studioMo,bsMo,evMo].forEach(el=>{el.addEventListener('input',()=>{track(el);calc();});track(el);});
-  // Laufzeit-Override-Felder: bei Eingabe sofort neu rechnen; Reset stellt Standardwerte wieder her.
   document.querySelectorAll('.ov input').forEach(el=>el.addEventListener('input',calc));
   var ovReset=document.getElementById('ov_reset');
   if(ovReset) ovReset.addEventListener('click',function(){
