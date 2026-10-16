@@ -4,8 +4,7 @@
    Fonts: Spectral (Display-Serif), Hanken Grotesk (Sans / Body)
    ========================================================================= */
 
-/* ---- Font import (oder via <link> im <head>) --------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+/* ---- Schriften: selbst gehostet, siehe fonts/fonts.css (im <head> eingebunden) ---- */
 
 /* ---- Design Tokens ----------------------------------------------------- */
 :root {
