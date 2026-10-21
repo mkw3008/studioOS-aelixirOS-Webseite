@@ -2,3 +2,8 @@
 - 2026-08-06 - formulare-leads - index.html geaendert, Blatt nicht nachgezogen
 - 2026-08-06 - kostenrechner-vergleich - index.html geaendert, Blatt nicht nachgezogen
 - 2026-08-06 - seo-assets - index.html geaendert, Blatt nicht nachgezogen
+- 2026-08-18 - deploy - index.html geaendert, Blatt nicht nachgezogen
+- 2026-08-18 - formulare-leads - index.html geaendert, Blatt nicht nachgezogen
+- 2026-08-18 - kostenrechner-vergleich - index.html geaendert, Blatt nicht nachgezogen
+- 2026-08-18 - seiten-inhalte - index.html geaendert, Blatt nicht nachgezogen
+- 2026-08-18 - seo-assets - index.html geaendert, Blatt nicht nachgezogen

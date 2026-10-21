@@ -89,6 +89,76 @@ den Branchenseiten.
 | **8** | **13 Modulseiten aus den ★-Merkmalen bauen.** Zwölf Alleinstellungsmerkmale stecken heute in Tabellenzellen und haben keine Seite, die sie erklärt. Macht aus 1 indexierbarer URL 14. **Braucht:** Modultexte bzw. Entwürfe zum Gegenlesen. | 🔲 offen |
 | **9** | **Kundenstimmen beschaffen und einbauen.** Eversports betreibt eine „Wall of Love" mit Namen und Studios (Yoga Mio Leipzig, Vienna Heels, Fame Boxing Wien). clublane hat **null** Vertrauenssignale — keine Referenz, keine Zahl, keine Stimme. Zugleich Voraussetzung für legitimes `aggregateRating`-Schema (ohne echte Bewertungen wäre das Schema-Betrug). **Braucht:** Kunden des Betreibers. | 🔲 offen |
 | **10** | **FAQ-Blöcke plus `FAQPage`-Schema auf den neuen Seiten.** Eversports trägt `FAQPage` nur auf Start- und Preisseite, nicht auf den Branchenseiten — offene Flanke. Belegte Kauffragen: „Was kostet die Software wirklich?", „Welche Software für Reformer?", „Wie aufwendig ist der Wechsel?", „Ist die Software DSGVO-konform?". ⚠️ Google zeigt seit Mai 2026 **keine** FAQ-Rich-Results mehr — der Nutzen liegt allein in der Extraktion durch ChatGPT, Perplexity und AI Overviews. **Braucht:** Textfreigabe. | 🔲 offen |
+| **11** | **Claim-Architektur „Boutique Fitness Platform" einziehen (Schritte 1–6).** Der heutige Claim „Die All-in-One Boutique Fitness Management Plattform" steht **10× im Repo** und muss geschlossen ersetzt werden, sonst widerspricht die Seite sich selbst: Hero-Pille `index.html:226` („Introducing clublane.one" → *The Boutique Fitness Platform*), Fusszeile `:720`, Meta/OG/Twitter-Description `:7,16,24`, JSON-LD-Beschreibungen `:72,81,98`, `llms.txt:3` — dazu neu `"slogan": "The Boutique Fitness Platform"` in den Knoten Organization und SoftwareApplication (haben heute **keinen** `slogan`). `Version2/index.html:7` und `:575` mitziehen, `Version1/` als Archiv nicht. **`<title>` bleibt unverändert** — „All-in-One Studio Management Software" ist der einzige Kategorie-Suchbegriff der Seite, der Claim ist Positionierung, kein Keyword. `og-image.png` geprüft: nur Wortmarke, kein Claim eingebrannt, kein Bild-Neubau nötig. **Braucht:** nur Freigabe, Texte liegen vor. | 🔲 offen |
+| **12** | **Thai-Seite `/th/` plus ไทย-Button in der Kopfleiste.** Zielgruppe Thai-Massage-Studios in Deutschland — überwiegend von Muttersprachlern geführt, „Massage" steht bereits im Hero-Laufband. Wäre zugleich die **zweite indexierbare URL** der Domain (heute: eine). ⚠️ **Der Button gehört in `.nav-right` neben den Login, NICHT in `.nav-links`** — `style.css:87` blendet die Linkliste unter 860 px komplett aus, in der Liste wäre er auf jedem Handy unsichtbar. Beschriftung `ไทย` (Sprache in der Sprache, keine Flagge — Flaggen bezeichnen Länder). Seite braucht: `lang="th"`, **indexierbar** (anders als `Version1/`+`Version2/`, die auf `noindex` stehen), `hreflang` de↔th beidseitig, eigenes `canonical`, Eintrag in `sitemap.xml`, eigene Thai-Titel/Description (nicht die deutschen übersetzt), Rückweg-Link auf die deutsche Seite. **Braucht Betreiber-Entscheidung:** gibt es thailändischsprachigen Kontakt? Wenn ja, Kontaktweg prominent (in der Zielgruppe läuft viel über **LINE**, nicht über E-Mail-Formulare); wenn nein, muss die Seite offen sagen, dass Beratung auf Deutsch/Englisch läuft — sonst verspricht die Sprachwahl etwas, das der erste Anruf einlöst. Offen zusätzlich: Kostenrechner mit auf die Seite oder nicht. | 🔲 offen |
+
+---
+
+## Claim-Vorrat (Betreiber-Vorgabe 17.08.2026)
+
+Positionierung: **Boutique Fitness Platform**. Alle vom Betreiber gelieferten Claims im Wortlaut —
+auch die nicht empfohlenen, damit nichts verloren geht. Gehört zu Auftrag #11.
+
+**Leitsatz:** Deutsch führt auf der Seite (Du-Form, deutsche Studio-Betreiber), Englisch führt die
+Marke (Pille, `slogan`, Social). Und: **Claim ≠ Keyword** — „Boutique Fitness" wird auf Deutsch
+praktisch nicht gesucht, gesucht wird „Fitnessstudio Software", „Yogastudio Software",
+„Kursbuchungssystem". Darum bleibt der `<title>` keyword-geführt.
+
+### Boutique Fitness
+
+| Claim | Urteil | Platz |
+|---|---|---|
+| The Boutique Fitness Platform | ★ **Leitclaim EN** — kürzester, bestimmter Artikel = Kategorie-Anspruch | Hero-Pille + JSON-LD `slogan` |
+| Die Plattform für erfolgreiche Boutique-Studios | ★ **Leitclaim DE** | Fusszeile, Meta/OG/Twitter, llms.txt, JSON-LD |
+| Built for Boutique Fitness | Reserve — ehrlich, trägt das Kategoriewort | Pille „Für wen"; **verworfen für jetzt:** dritte Nennung auf einer Seite, und „Für wen" ist Wegweiser, kein Claim-Platz |
+| Powering Boutique Fitness | Reserve — verbgetrieben, aber „Powering X" ist abgenutzt (Stripe u. a.) | Pille „Die Plattform"; gleiche Begründung wie oben |
+| The Platform Behind Great Studios | Reserve | Social-Bio / Partner-Deck, nicht auf die Seite |
+| Run Your Studio, Grow Your Community | **entfällt** | Die Hero-H1 *ist* dieser Claim bereits auf Deutsch („Du führst dein Studio. Den Rest übernimmt clublane") — doppelt schwächt beides |
+| Designed for Exceptional Studios | **nicht empfohlen** | Eigenlob über den Kunden; inhaltlich = „Built for…", nur unschärfer |
+| The Operating System for Modern Studios | **nicht empfohlen** | Holt die studioOS-Benennung zurück, von der die Marke weg ist (Domain = clublane.one). „OS" braucht selbst eine Erklärung. Intern/Pitch behalten |
+
+### Branchenneutral — nicht auf clublane.one
+
+Begründung: Das Hero-Laufband verspricht bereits 11 Branchen. Boutique-Fitness-Banner **plus**
+branchenneutralem Claim verwässert beides — der Studio-Betreiber liest „ist das für mich?", der
+Massage-Betrieb liest „ist das nicht nur Fitness?". Ebene: **Atvisory / Dachmarke**.
+
+| Claim | Urteil |
+|---|---|
+| From Booking to Business | stärkster Neutraler — beschreibt die Spannweite. Dach-Claim |
+| The Business Behind Every Booking | sagt „wir sind unsichtbare Infrastruktur"; der Studio-Betreiber will sichtbare Werkzeuge. Investoren-/Partner-Ebene |
+| One Platform, Endless Experiences | „Experiences" zeigt zur Endkundenseite (App/Marketplace), nicht zum Studio-Betrieb |
+| The Platform for Your Business / Die Plattform für dein Business / แพลตฟอร์มสำหรับธุรกิจของคุณ | trilinguale Dach-Klammer. Für die Thai-Zielgruppe **zu allgemein** → auf `/th/` (Auftrag #12) segmentgebunden formulieren |
+
+### Thai — geprüft 17.08.2026
+
+**แพลตฟอร์มสำหรับธุรกิจของคุณ ist sprachlich einwandfrei.** Zeichenweise gegen die Norm geprüft:
+แพลตฟอร์ม ist die standardkonforme Umschrift von „platform" (Thanthakhat korrekt auf dem ร, also
+stumm); สำหรับ „für", ธุรกิจ „Geschäft", ของคุณ „dein/Ihr" — kein Tippfehler, keine Fremdzeichen.
+คุณ ist das höfliche „Sie/du", für B2B genau richtig. **Kein Missverständnis möglich.** Einziger
+Einwand: klingt beschreibend wie ein Untertitel, nicht werbend.
+
+Griffigere Fassungen (ครบวงจร ist die natürliche thailändische Entsprechung von „All-in-One"):
+
+| Thai | Bedeutung |
+|---|---|
+| `แพลตฟอร์มเดียว จบทุกเรื่องธุรกิจ` | „eine Plattform, alles Geschäftliche erledigt" |
+| `ระบบจัดการธุรกิจครบวงจร` | „das Rundum-Managementsystem fürs Geschäft" |
+| `ระบบจัดการร้านนวดและสปา ครบวงจร` | „Rundum-Managementsystem für Massage- und Spa-Betriebe" — Segment |
+| `ระบบจัดการร้านนวดไทย` | „Managementsystem für Thai-Massage-Studios" — enger, unmissverständlich |
+
+**Technische Regeln für JEDEN Thai-Text auf dieser Seite** (sonst bricht die Darstellung):
+
+- **Nie in eine Pille.** `.eyebrow-pill`, `.m-chip`, `.group-tag` nutzen IBM Plex Mono +
+  `letter-spacing` + Uppercase. Letter-spacing zerreisst thailändische Zeichencluster optisch, und
+  die woff2-Dateien in `fonts/` sind **nur latin/latin-ext** — Thai fällt auf die Systemschrift
+  zurück (Thonburi / Leelawadee / Noto Sans Thai), also je Gerät ein anderes Bild.
+- `lang="th"` setzen; `line-height` mindestens 1.4 (Tonzeichen oben, Vokale unten werden sonst
+  abgeschnitten).
+- **Nicht umbrechen lassen** — Thai hat keine Wortabstände, der Browser trennt sonst mitten im Wort.
+- Eine *passende* Thai-Schrift hiesse: lokales woff2-Subset dazulegen (kein CDN, kein Build) —
+  eigene Entscheidung, kein Nebeneffekt.
+- Ausnahme unkritisch: `ไทย` (Button-Beschriftung, Auftrag #12) hat keine gestapelten Zeichen.
 
 ---
 
